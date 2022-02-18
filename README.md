@@ -1,2 +1,2 @@
-# Certified Tech Dev - Proyecto Integrador
+# Certified Tech Developer - Projeto Integrador
 
