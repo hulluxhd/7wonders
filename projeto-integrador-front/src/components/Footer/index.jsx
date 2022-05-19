@@ -8,15 +8,15 @@ import {
 
 function Footer() {
 
-    const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
 
   return (
     <Box
-    position="fixed"
-    width="100%"
-    left="0"
-    bottom="0"
+      position="relative"
+      width="100%"
+      right="0"
+      bottom="0"
       display="flex"
       justifyContent="space-between"
       alignItems="center"
@@ -33,7 +33,7 @@ function Footer() {
       >
         ©2022 Digital Booking
       </Text>
-      <Box display="flex"  justifyContent="space-evenly" gap="1.25rem"  mt={isSmallerThan606 ? "0.8rem" : null}>
+      <Box display="flex" justifyContent="space-evenly" gap="1.25rem" mt={isSmallerThan606 ? "0.8rem" : null}>
         <Icon color="#FFF" fontSize="1.75rem" as={FaFacebook} />
         <Icon color="#FFF" fontSize="1.75rem" as={FaLinkedinIn} />
         <Icon color="#FFF" fontSize="1.75rem" as={FaTwitter} />
