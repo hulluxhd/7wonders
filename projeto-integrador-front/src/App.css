@@ -12,6 +12,25 @@ body {
   justify-content: center;
 }
 
+.place-card-location {
+  position: absolute;
+  bottom: 8px;
+  padding: 5px 10px;
+  left: 16px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #ccc;
+  border-radius: 20px;
+}
+
+.place-card-types-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+}
+
+
 .page-name {
   color: #f8f9fa;
   font-size: 28px;
@@ -27,11 +46,9 @@ body {
 .see-more {
   display: flex;
   justify-content: flex-end;
-  position: relative;
   font-size: 14px;
   font-weight: 700;
   color: #0479fb;
-  top: 10px;
 }
 .place-card:focus {
   background-color: green;
@@ -56,6 +73,8 @@ body {
 }
 
 .place-card-body {
+  display: flex;
+  flex-direction: column;
   flex: 1 1 auto;
   padding: 20px;
 }
