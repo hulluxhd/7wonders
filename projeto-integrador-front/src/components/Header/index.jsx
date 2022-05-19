@@ -35,7 +35,7 @@ function Header() {
 
   const layoutWidth = window.innerWidth;
 
-  const { username } = useContext(InfoContext)
+  const { username, setUsername } = useContext(InfoContext)
 
   useEffect(() => {
     const height = document.querySelector('.header').getBoundingClientRect().height;
@@ -78,7 +78,7 @@ function Header() {
                   <Avatar name={username} size="sm" bgColor="var(--hard-blue)" color="#FFF" />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Encerrar sessão</MenuItem>
+                  <MenuItem onClick={() => setUsername("")}>Encerrar sessão</MenuItem>
                 </MenuList>
               </Menu>
               <Box p="0 0.5rem" lineHeight="1rem">
