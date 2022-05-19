@@ -2,7 +2,7 @@ import { Input, Image, Box } from "@chakra-ui/react"
 
 function InputHeader(props) {
 
-  const { image, placeholder, posTop } = props
+  const { image, placeholder, postop } = props
 
   return (
 
@@ -22,7 +22,7 @@ function InputHeader(props) {
         position="absolute"
         border-style="none"
         left="16px"
-        top={posTop || "13px"}
+        top={postop || "13px"}
         zIndex={1}
       />
     </Box>
