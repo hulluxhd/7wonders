@@ -4,6 +4,9 @@ function BasicButton(props) {
   return (
     <Box
       {...props}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
       as="button"
       w={props.w}
       ml={props.ml}
@@ -13,11 +16,6 @@ function BasicButton(props) {
       borderRadius="0.25rem"
       color="#FFF"
       fontWeight="bold"
-      transition="all 0.2s ease-in-out"
-      _hover={{
-        background: 'transparent',
-        border: '2px solid var(--blue)',
-      }}
     >
       {props.description}
     </Box>
