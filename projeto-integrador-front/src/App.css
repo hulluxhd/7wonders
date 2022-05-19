@@ -1,0 +1,81 @@
+body {
+  background-color: whitesmoke;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.place-card-header {
+  align-items: center;
+  background-color: #343a40;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+}
+
+.page-name {
+  color: #f8f9fa;
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.place-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.place-card {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  margin: 50px;
+  overflow: hidden;
+  width: 300px;
+}
+
+
+.place-card-image {
+  width: 100%;
+}
+
+.place-card-body {
+  flex: 1 1 auto;
+  padding: 20px;
+}
+
+.place-card-name {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+
+.place-card-types {
+  color: #6c757d;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.place-card-about {
+  font-size: 14px;
+  text-align: justify;
+}
+
+.rating {
+  background-color: #007bff;
+  border-radius: 25px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 3px 9px;
+}
+
+.place-card-rating {
+  width: 20%;
+  align-self: flex-start;
+  display: flex;
+}

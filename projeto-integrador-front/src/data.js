@@ -19,7 +19,7 @@ const data = [
     
     Whether you're traveling for pleasure or business – or both – EAST, Miami is sure to make your visit to Miami a memorable experience.`,
     rating: 4.5,
-    imagePath: 'images/Kingsglaive_Final_Fantasy_XV.jpg',
+    imagePath: 'images/EAST_Miami.jpg',
   },
   {
     category: 'Resort',
@@ -29,7 +29,7 @@ const data = [
     types: ['Luxurious'],
     about: 'A pool villa paradise, Anantara Kihavah Villas is a luxury resort in the Maldives that offers the ultimate in privacy and tranquility, your own sanctuary within a sanctuary. Expansive space that opens onto bright tropical nature with private pools, high ceilings and wooden interiors. Savor the culinary art and wine served in one of the only underwater restaurants and cellars in the world.',
     rating: 4.5,
-    imagePath: 'images/Final_Fantasy_Spirits_Within.jpg',
+    imagePath: 'images/Anantara_Kihavah.jpg',
   },
   {
     category: 'Hotel',
@@ -51,7 +51,7 @@ const data = [
     
     Enjoy your stay in Udaipur!`,
     rating: 5,
-    imagePath: 'images/Ghost_In_The_Shell_2_0.jpg',
+    imagePath: 'images/Oberoi_Udaivilas.jpg',
   },
   {
     category: 'Hotel',
@@ -73,7 +73,7 @@ const data = [
     
     Enjoy your visit to Dubai!`,
     rating: 3.8,
-    imagePath: 'images/Appleseed_Alpha.jpg',
+    imagePath: 'images/Burj_Al_Arab.jpg',
   },
   {
     category: 'Hotel',
@@ -85,7 +85,7 @@ const data = [
 
 In addition to the Ottoman-style rooms and impeccable service, the hotel's highlight is its five-hectare swimming pool – the largest in the Mediterranean – with a 90,000-liter aquarium in the middle and an impressive da Vinci arched bridge above.`,
     rating: 4.2,
-    imagePath: 'images/Resident_Evil_Vendetta.jpg',
+    imagePath: 'images/Mardan_Palace.jpg',
   },
   {
     category: 'Hotel & Spa',
@@ -99,7 +99,7 @@ In addition to the Ottoman-style rooms and impeccable service, the hotel's highl
     
     The full spa is perched high on a cliff overlooking the forest. There are several activities such as rafting and volcano tours. Its specialty is wine-filled dinner, with a selection of restaurants featuring the best wines from Central and South America.`,
     rating: 4.5,
-    imagePath: 'images/Kingsglaive_Final_Fantasy_XV.jpg',
+    imagePath: 'images/Nayara.jpg',
   },
   {
     category: 'Resort',
@@ -113,7 +113,7 @@ In addition to the Ottoman-style rooms and impeccable service, the hotel's highl
     
     Dining is led by chef James Beard and guests can enjoy their meals at the bar, beach or some other spa facility at the resort. Wonderful!`,
     rating: 4.5,
-    imagePath: 'images/Kingsglaive_Final_Fantasy_XV.jpg',
+    imagePath: 'images/Jade_Mountain.jpg',
   },
   {
     category: 'Casino',
@@ -135,7 +135,7 @@ In addition to the Ottoman-style rooms and impeccable service, the hotel's highl
     
     You're sure to enjoy staying there, as the Palms Casino Resort is right next to all the great things Las Vegas has to offer.`,
     rating: 4.5,
-    imagePath: 'images/Kingsglaive_Final_Fantasy_XV.jpg',
+    imagePath: 'images/Palms_Casino_Resort.jpg',
   },
 ];
 
