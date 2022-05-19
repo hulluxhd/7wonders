@@ -5,11 +5,8 @@ import data from './data';
 
 function App() {
   return (
-    <>
-    <PlacesList placeList={data}/>
-     
-    </>
-   
+    <PlacesList placeList={data} />
+
   );
 }
 

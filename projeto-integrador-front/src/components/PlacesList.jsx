@@ -6,7 +6,10 @@ function PlacesList({ placeList }) {
   return (
     <section className="place-list">
       { placeList
-        .map((placeToRender) => <PlaceCard key={placeToRender.title} place={placeToRender} />)}
+        .map(
+          // eslint-disable-next-line react/no-array-index-key
+          (placeToRender, index) => <PlaceCard key={index} place={placeToRender} />,
+        )}
     </section>
   );
 }
