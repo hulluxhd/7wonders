@@ -33,8 +33,8 @@ const data = [
   },
   {
     category: 'Hotel',
-    city: 'Hotel',
-    country: 'Hotel',
+    city: 'Udaipur',
+    country: 'India',
     name: 'Oberoi Udaivilas',
     types: ['Luxurious'],
     about: `The Oberoi Udaivilas is a great choice for travelers visiting Udaipur. It has a luxurious atmosphere in addition to several amenities to enrich your stay.
