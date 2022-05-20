@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import PlacesList from './components/PlacesList';
+import PlacesLibrary from './components/PlacesLibrary';
 import data from './data';
 
 function App() {
   return (
-    <PlacesList placeList={data} />
+    <PlacesLibrary places={data} />
 
   );
 }

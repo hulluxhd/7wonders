@@ -4,6 +4,34 @@ body {
   font-size: 16px;
 }
 
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  width: 183px;
+  padding-bottom: 10px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.input {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  height: 30px;
+  margin: 2px;
+  max-width: 500px;
+  padding: 1px 2px;
+}
+
+.form {
+  /* display: flex;
+  flex-direction: column; */
+  padding: 20px 30px;
+}
+
 .place-card-header {
   align-items: center;
   background-color: #343a40;
