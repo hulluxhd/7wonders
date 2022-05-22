@@ -4,22 +4,22 @@ import PlacesList from './PlacesList';
 import SearchBar from './SearchBar';
 
 function PlacesLibrary({ places }) {
-  const [searchText, setSearchText] = useState('');
+  const [city, setCity] = useState('');
 
   function handleChange({ target }) {
-    setSearchText(target.value);
+    setCity(target.value);
   }
 
   function filterplaces(placeList) {
     let placesToRender = '';
-    if (searchText !== '') {
+    if (city !== '') {
       placesToRender = placeList
         .filter(
-          (place) => place.category.toLowerCase().includes(searchText)
-          || place.city.toLowerCase().includes(searchText)
-          // || place.types[0].toLowerCase().includes(searchText)
-          || place.name.toLowerCase().includes(searchText)
-          || place.country.toLowerCase().includes(searchText),
+          (place) => place.city.includes(city),
+          // || place.category.toLowerCase().includes(city)
+          // || place.types[0].toLowerCase().includes(city)
+          // || place.name.toLowerCase().includes(city)
+          // || place.country.toLowerCase().includes(city),
         );
     } else {
       placesToRender = places;
@@ -32,9 +32,10 @@ function PlacesLibrary({ places }) {
   return (
     <div>
       <SearchBar
-        searchText={searchText}
+        data={places}
+        cityToRender={city}
         // eslint-disable-next-line react/jsx-no-bind
-        onSearchTextChange={handleChange}
+        onChosedCityToRender={handleChange}
       />
       <PlacesList placeList={placesToRender} />
     </div>
