@@ -72,6 +72,7 @@ function Header({ toRender }) {
         w="100%"
         right="0"
         top="0"
+        zIndex="99999"
       >
         <Box
           as={isSmallerThan606 ? 'header' : null}
