@@ -7,7 +7,7 @@ function SearchBar({ cityToRender, onChosedCityToRender, data }) {
       <label
         htmlFor="city"
         data-testid="city-input-label"
-        className="label"
+        className="city-label"
       >
         Chose a city
         <select
@@ -27,6 +27,22 @@ function SearchBar({ cityToRender, onChosedCityToRender, data }) {
   return (
     <form data-testid="search-bar-form" className="form">
       {inputCity(cityToRender, onChosedCityToRender, data)}
+      <section className="checkin-sec">
+        <label htmlFor="checkin" className="checkin-label">
+          Check In
+          <input
+            name="checkin"
+            type="date"
+          />
+        </label>
+        <label htmlFor="checkout" className="checkout-label">
+          Check Out
+          <input
+            name="checkout"
+            type="date"
+          />
+        </label>
+      </section>
     </form>
   );
 }
