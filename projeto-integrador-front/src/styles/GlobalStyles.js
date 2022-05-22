@@ -1,11 +1,11 @@
 
-import { extendTheme} from "@chakra-ui/react"
+import { extendTheme } from "@chakra-ui/react"
 
 const theme = {
     styles: {
         global: {
             "html": {
-                             
+
             },
             ":root": {
                 "--blue": "#1DBEB4",
@@ -16,15 +16,15 @@ const theme = {
             },
             "body": {
                 background: "var(--light-bege)",
-                "@media(max-width: 1080px)":{
+                "@media(max-width: 1080px)": {
                     fontSize: "93.75%"
                 },
-                "@media(max-width: 720px)":{
+                "@media(max-width: 720px)": {
                     fontSize: "87.5%",
                 },
+                fontFamily: "Poppins, sans-serif",
 
-
-                scroolBehavior: "smooth"   
+                scroolBehavior: "smooth"
             },
             "h1": {
                 fontSize: "1.5rem",
