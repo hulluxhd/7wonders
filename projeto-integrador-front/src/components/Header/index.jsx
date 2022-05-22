@@ -10,16 +10,18 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
 import InputHeader from '../InputHeader';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import DrawerLogin from '../DrawerLogin';
 import BasicButton from '../BasicButton';
 
-function Header() {
+// eslint-disable-next-line react/prop-types
+function Header({ toRender }) {
+  const places = toRender[0];
   // breakpoints
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -33,6 +35,32 @@ function Header() {
     const h = document.querySelector('.header').getBoundingClientRect().height;
     setHeaderHeight(h);
   }, [layoutWidth]);
+
+  const [city, setCity] = useState('');
+
+  function handleChange({ target }) {
+    setCity(target.value);
+  }
+
+  function filterplaces(placeList) {
+    let placesToRender = '';
+    if (city !== '') {
+      placesToRender = placeList
+        .filter(
+          (place) => place.city.includes(city),
+        );
+    } else {
+      placesToRender = places;
+    }
+
+    return placesToRender;
+  }
+
+  useEffect(() => {
+    const placesToRender = filterplaces(places);
+    const setToRender = toRender[1];
+    setToRender(placesToRender);
+  }, [city]);
 
   return (
     <>
@@ -107,6 +135,10 @@ function Header() {
             align="center"
           >
             <InputHeader
+              data={places}
+              cityToRender={city}
+             // eslint-disable-next-line react/jsx-no-bind
+              onChosedCityToRender={handleChange}
               image={geolocalization}
               placeholder="Para onde iremos?"
               postop="10px"
