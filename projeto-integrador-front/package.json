@@ -18,7 +18,8 @@
     "react-icons": "^3.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^0.2.2"
+    "web-vitals": "^0.2.2",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
