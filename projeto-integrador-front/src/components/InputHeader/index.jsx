@@ -12,11 +12,11 @@ function InputHeader(props) {
   } = props;
 
   function inputCity(city, onChosedCity, options) {
-    console.log(options);
+    // console.log(options);
     return (
       <>
         {/* Chose a city */}
-        <select
+        <div
           style={{
             background: '#FFF',
             placeholder,
@@ -30,8 +30,8 @@ function InputHeader(props) {
           data-testid="city-input"
           className="input"
         >
-          {/* {options.map((item) => <option value={item.city}>{item.city}</option>)} */}
-        </select>
+          {options.map((item) => <p value={item.city}>{item.city}</p>)}
+        </div>
         {/* </label>
         <label
           htmlFor="city"

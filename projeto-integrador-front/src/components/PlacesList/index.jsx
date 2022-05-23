@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from './PlaceCard';
+import PlaceCard from '../PlaceCard';
 
 function PlacesList({ placeList }) {
-  console.log(typeof (placeList));
+  // console.log(typeof (placeList));
   return (
     <section className="place-list">
       { placeList
