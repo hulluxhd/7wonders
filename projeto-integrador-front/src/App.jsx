@@ -11,7 +11,6 @@ function App() {
       <BrowserRouter>
         <InfoProvider>
           <Header />
-          <Box as="h1" >Lets look</Box>
           <Routes>
             <Route path="/" element={<Home />} />
           </Routes>
