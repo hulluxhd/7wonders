@@ -4,9 +4,11 @@ import {
   Text,
   Image,
   useMediaQuery,
-
+  Badge,
 } from '@chakra-ui/react';
-import {StarIcon} from "@chakra-ui/icons"
+
+import { StarIcon } from '@chakra-ui/icons';
+
 import data from '../../data';
 import BasicButton from '../../components/BasicButton';
 import geolocalization from '../../assets/geolocalization.svg';
@@ -43,13 +45,26 @@ function Home() {
           w="100%"
         />
         <Box p="1rem 1rem">
-          <Box display="flex" pt="1rem" justifyContent="space-between">
+        <Box display="flex" alignItems="start" pt="0.3rem" gap={2}>
+            <Badge borderRadius="full" pr="2">New</Badge>
+            <Box
+            color="var(--light-blue)"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+            
+            >
+                1 Quarto &bull; 3 camas
+            </Box>
+        </Box>
+          <Box display="flex" alignItems="center" justifyContent="space-between">
             <Box>
-              <Box>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Text color="var(--light-blue)" as="span">
                   HOTEL
                 </Text>
-                <Box>
+                <Box display="flex" alignItems="center">
                   {Array(5)
                     .fill('')
                     .map((el, i) => (
@@ -57,7 +72,7 @@ function Home() {
                     ))}
                 </Box>
               </Box>
-              <Heading pt="10px" lineHeight="1.5rem" fontSize="1.5rem">
+              <Heading mt="10px" lineHeight="1.5rem" fontSize="1.5rem">
                 Hermitage Hotel
               </Heading>
             </Box>
@@ -86,10 +101,10 @@ function Home() {
           </Box>
           <Box pt="1rem">
             <Image src={geolocalization} maxW="0.6rem" display="inline" />
-            <Text as="span">
+            <Text fontSize="xs" as="span">
               {' '}
               A 940m do centro{' '}
-              <Text as="span" color="var(--blue)" fontSize="0.75rem">
+              <Text as="span" color="var(--blue)" fontSize="xs">
                 - MOSTRAR NO MAPA
               </Text>
             </Text>

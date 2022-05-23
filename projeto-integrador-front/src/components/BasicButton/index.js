@@ -5,7 +5,6 @@ function BasicButton(props) {
     <Box
       {...props}
       as="button"
-
       h={props.h || props.height || '2.5rem'}
       background={(props.background || props.bgColor || props.backgroundColor) || "var(--blue)"}
       border={props.border || "2px solid var(--blue)"}
