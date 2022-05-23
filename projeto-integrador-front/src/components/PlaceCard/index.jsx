@@ -73,16 +73,7 @@ function PlaceCard() {
                 <Text color="var(--light-blue)" as="span">
                   HOTEL
                 </Text>
-                <Box display="flex" alignItems="center">
-                  {Array(5)
-                    .fill('')
-                    .map((el, i) => (
-                      <StarIcon
-                        key={i}
-                        color={i < 4 ? 'var(--blue)' : 'gray.500'}
-                      />
-                    ))}
-                </Box>
+                
               </Box>
               <Heading mt="10px" lineHeight="1.5rem" fontSize="1.5rem">
                 Hermitage Hotel
@@ -132,15 +123,7 @@ function PlaceCard() {
               </Text>
             </Text>
           </Box>
-          <BasicButton
-            w="100%"
-            _hover={{
-              color: 'var(--hard-blue)',
-              background: 'transparent',
-              border: '2px solid --blue',
-            }}
-            description="Saiba mais"
-          />
+          
         </Box>
       </Box>
     </Box>
