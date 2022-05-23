@@ -98,9 +98,11 @@ function Header() {
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink fontWeight="bold" color="var(--blue)">
-                    Cadastrar
-                  </BreadcrumbLink>
+                  <Link to="/register">
+                    <BreadcrumbLink fontWeight="bold" color="var(--blue)">
+                      Cadastrar
+                    </BreadcrumbLink>
+                  </Link>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>)
