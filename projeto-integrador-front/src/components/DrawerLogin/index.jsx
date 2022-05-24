@@ -9,8 +9,11 @@ import {
   DrawerOverlay,
   Input,
   Stack,
+  StackItem,
+  Text,
 } from '@chakra-ui/react';
 import { useContext, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { InfoContext } from '../../contexts/InfoContext';
 import BasicButton from '../BasicButton';
 
@@ -18,16 +21,21 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const [nickname, setNickname] = useState('');
   const { setUsername } = useContext(InfoContext);
 
-  const inputNick = useRef()
+  const inputNick = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
     setUsername(nickname);
-    onClose()
+    onClose();
   }
 
   return (
-    <Drawer size={breakpoint ? "full" : "xs"} initialFocusRef={inputNick} isOpen={isOpen} onClose={onClose}>
+    <Drawer
+      size={breakpoint ? 'full' : 'xs'}
+      initialFocusRef={inputNick}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <DrawerOverlay />
       <DrawerContent bg="var(--blue)">
         <DrawerCloseButton />
@@ -39,10 +47,16 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
             <form
               onSubmit={handleSubmit}
               id="login-form"
-              style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
+              }}
             >
               <Box>
-                <label style={{ fontFamily: "Poppins, sans-serif" }}>
+                <label
+                  style={{ fontFamily: 'Poppins, sans-serif', color: '#FFF' }}
+                >
                   Nome
                   <Input
                     onChange={e => setNickname(e.target.value)}
@@ -55,20 +69,56 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 </label>
               </Box>
               <Box>
-                <label style={{ fontFamily: "Poppins, sans-serif" }}>
+                <label
+                  style={{ fontFamily: 'Poppins, sans-serif', color: '#FFF' }}
+                >
                   Senha
-                  <Input color="var(--hard-blue)" id="password" type="password" />
+                  <Input
+                    color="var(--hard-blue)"
+                    id="password"
+                    type="password"
+                  />
                 </label>
               </Box>
             </form>
-
           </Box>
         </DrawerBody>
         <DrawerFooter>
-          <Stack direction="row" spacing="10px">
-            <BasicButton description="Cancelar" onClick={onClose} p="0.5rem" _hover={{ borderBottom: "2px solid #FFF" }} />
-            <BasicButton description="Entrar" p="0.5rem" type='submit' form="login-form" _hover={{ borderBottom: "2px solid #FFF" }} />
-          </Stack>
+          <Box
+            display="flex"
+            flexDir="column"
+            justifyContent="center"
+            alignItems="center"
+            m="0 auto"
+          >
+            <Stack top="-10%" direction="row" spacing="20px">
+              <BasicButton
+                description="Cancelar"
+                onClick={onClose}
+                border="1px solid transparent"
+                p="0.2rem"
+                _hover={{ borderBottom: '1px solid #FFF' }}
+              />
+              <BasicButton
+                description="Entrar"
+                p="0.2rem"
+                type="submit"
+                border="1px solid transparent"
+                form="login-form"
+                _hover={{ borderBottom: '1px solid #FFF' }}
+              />
+            </Stack>
+            <Stack pt="10px" alignItems="center">
+              <StackItem as="span" fontSize="xs" color="var(--hard-blue)">
+                Não tem conta?
+              </StackItem>
+              <Link to="/register">
+                <StackItem as="span" onClick={onClose} fontSize="xs" color="var(--light-bege)">
+                  Cadastrar
+                </StackItem>
+              </Link>
+            </Stack>
+          </Box>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

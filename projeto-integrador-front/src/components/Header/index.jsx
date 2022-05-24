@@ -26,17 +26,18 @@ import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
 
 function Header() {
-  // breakpoints
+  // breakpoint de 606px. Possibilidade de alteração
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
-
+  // state para guardar a altura do header
   const [headerHeight, setHeaderHeight] = useState(0);
-
+  // propriedades do modal
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  // largura da viewport
   const layoutWidth = window.innerWidth;
-
+  // context para guardar o username
   const { username, setUsername } = useContext(InfoContext)
 
+  // user effect para observar a largura da viewport e identificar o tamanho do header em cada alteração
   useEffect(() => {
     const height = document.querySelector('.header').getBoundingClientRect().height;
     setHeaderHeight(height);
@@ -53,6 +54,7 @@ function Header() {
         w="100%"
         right="0"
         top="0"
+        zIndex={1}
       >
         <Box
           as={isSmallerThan606 ? 'header' : null}

@@ -47,7 +47,6 @@ function Register() {
         email: '',
         emailVerf: '',
         password: '',
-        test: '',
       }}
       onSubmit={(values) => {
         setTimeout(() => {
