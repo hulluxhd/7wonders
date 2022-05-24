@@ -22,7 +22,7 @@ const theme = {
                 "@media(max-width: 720px)":{
                     fontSize: "87.5%",
                 },
-
+                fontFamily: "Poppins, sans-serif",
 
                 scroolBehavior: "smooth"   
             },
