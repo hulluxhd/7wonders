@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../PlaceCard';
+import { Box } from '@chakra-ui/react';
 
 function PlacesList({ placeList }) {
   return (
-    <section className="place-list">
+    <Box
+    display="flex"
+    p="2rem"
+    flexWrap="wrap"
+    alignItems="center"
+    justifyContent="space-evenly"
+    gap="1rem"
+  >
       {placeList
         .map(
           // eslint-disable-next-line react/no-array-index-key
           (placeToRender, index) => <PlaceCard key={index} place={placeToRender} />,
         )}
-    </section>
+    </Box>
   );
 }
 

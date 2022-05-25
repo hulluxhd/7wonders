@@ -3,9 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 const theme = {
   styles: {
     global: {
-      html: {
-
-      },
+      html: {},
       ':root': {
         '--blue': '#1DBEB4',
         '--hard-blue': '#383B58',
@@ -21,6 +19,7 @@ const theme = {
         '@media(max-width: 720px)': {
           fontSize: '87.5%',
         },
+        fontFamily: 'Poppins, sans-serif',
 
         scroolBehavior: 'smooth',
       },
@@ -28,7 +27,6 @@ const theme = {
         fontSize: '1.5rem',
         fontFamily: "'Poppins', sans-serif",
         fontWeight: 'bold',
-
       },
       h2: {
         fontSize: '1.25rem',
@@ -48,7 +46,6 @@ const theme = {
       'button, a': {
         cursor: 'pointer',
       },
-
     },
   },
 };
