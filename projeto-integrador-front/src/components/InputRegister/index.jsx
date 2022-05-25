@@ -13,7 +13,7 @@ function InputRegister({
   console.log(touched);
   return (
     <>
-      <FormLabel htmlFor={fieldname}>{fieldDescription}</FormLabel>
+      <FormLabel mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
       <Input
         {...props.getFieldProps(fieldname)}
         id={fieldname}
