@@ -2,27 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function SearchBar({ cityToRender, onChosedCityToRender, data }) {
-  function inputCity(city, onChosedCity, options) {
-    return (
-      <label
-        htmlFor="city"
-        data-testid="city-input-label"
-        className="city-label"
-      >
-        Chose a city
-        <select
-          name="city"
-          id="city"
-          value={city}
-          onChange={onChosedCity}
-          data-testid="city-input"
-          className="input"
-        >
-          {options.map((item) => <option value={item.city}>{item.city}</option>)}
-        </select>
-      </label>
-    );
-  }
+
 
   return (
     <form data-testid="search-bar-form" className="form">

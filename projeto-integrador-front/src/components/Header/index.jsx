@@ -8,6 +8,10 @@ import {
   Flex,
   useMediaQuery,
   useDisclosure,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Divider,
 } from '@chakra-ui/react';
 
 import React, { useEffect, useState } from 'react';
@@ -20,8 +24,10 @@ import DrawerLogin from '../DrawerLogin';
 import BasicButton from '../BasicButton';
 
 // eslint-disable-next-line react/prop-types
-function Header({ toRender }) {
-  const places = toRender[0];
+function Header({ data }) {
+  const { toRender, setToRender } = data;
+  console.log(toRender);
+  const places = data.toRender;
   // breakpoints
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -56,9 +62,13 @@ function Header({ toRender }) {
     return placesToRender;
   }
 
+  function toggleCityDropdown() {
+
+  }
+
   useEffect(() => {
     const placesToRender = filterplaces(places);
-    const setToRender = toRender[1];
+
     setToRender(placesToRender);
   }, [city]);
 
@@ -135,22 +145,42 @@ function Header({ toRender }) {
             justify="center"
             align="center"
           >
-            <InputHeader
-              data={places}
-              cityToRender={city}
-             // eslint-disable-next-line react/jsx-no-bind
-              onChosedCityToRender={handleChange}
-              image={geolocalization}
-              placeholder="Para onde iremos?"
-              postop="10px"
-              w={isSmallerThan606 ? '80%' : '35%'}
-            />
-            <InputHeader
-              image={calendar}
-              placeholder="Check in - Check out"
-              w={isSmallerThan606 ? '80%' : '35%'}
-            />
+            <Box position="relative" w={isSmallerThan606 ? '80%' : '35%'}>
+              <InputHeader
+                image={geolocalization}
+                placeholder="Para onde iremos?"
+                postop="10px"
+              />
+              <Box
+                position="absolute"
+                background="#FFF"
+                w="100%"
+                lineHeight="1.8rem"
+                fontSize="1rem"
+                borderRadius="0.25rem"
+                p="1rem">
+                {places.map((el, i) => {
+                  if (i < 10) {
+                    return (
+                      <>
+                        <Text>{el.city}</Text>
+                        <Divider _last={{ display: 'none' }} w="100%" />
+                      </>
+                    );
+                  }
+                  return null;
+                })}
+              </Box>
+            </Box>
 
+            {console.log(places)}
+            <Box w={isSmallerThan606 ? '80%' : '35%'}>
+              <InputHeader
+                image={calendar}
+                placeholder="Check in - Check out"
+
+              />
+            </Box>
             <BasicButton
               w={isSmallerThan606 ? '80%' : '15%'}
               ml={isSmallerThan606 ? null : '1rem'}

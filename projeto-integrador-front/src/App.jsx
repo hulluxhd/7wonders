@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Box } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -14,7 +13,7 @@ function App() {
     <BrowserRouter>
       <InfoProvider>
         <Header
-          toRender={[toRender, setToRender]}
+          data={{ toRender, setToRender }}
         />
         {/* <Box as="h1">Lets look</Box> */}
         <Routes>
