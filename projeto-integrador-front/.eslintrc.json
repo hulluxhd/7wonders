@@ -32,6 +32,7 @@
         "operator-linebreak": "off",
         "react/jsx-indent": "off",
         "arrow-parens": "off",
-        "comma-dangle": "off"
+        "comma-dangle": "off",
+        "no-nested-ternary": "off"
     }
 }

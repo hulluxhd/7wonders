@@ -1,30 +1,32 @@
 import React from 'react';
+import { Box } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../PlaceCard';
-import { Box } from '@chakra-ui/react';
 
 function PlacesList({ placeList }) {
+  console.log(placeList);
   return (
     <Box
-    display="flex"
-    p="2rem"
-    flexWrap="wrap"
-    alignItems="center"
-    justifyContent="space-evenly"
-    gap="1rem"
-  >
-      {placeList
-        .map(
-          // eslint-disable-next-line react/no-array-index-key
-          (placeToRender, index) => <PlaceCard key={index} place={placeToRender} />,
-        )}
+      display="flex"
+      p="2rem"
+      flexWrap="wrap"
+      justifyContent="space-evenly"
+      gap="1rem"
+      alignItems="stretch"
+    >
+      {placeList.map(
+        // eslint-disable-next-line react/no-array-index-key
+        (placeToRender, index) => (
+          <PlaceCard key={`${placeToRender} + ${index.toString()} `} place={placeToRender} />
+        )
+      )}
     </Box>
   );
 }
 
 export default PlacesList;
 
-PlacesList.propTypes = {
+/* PlacesList.propTypes = {
   placeList: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
@@ -36,3 +38,4 @@ PlacesList.propTypes = {
     imagePath: PropTypes.string.isRequired,
   })).isRequired,
 };
+ */

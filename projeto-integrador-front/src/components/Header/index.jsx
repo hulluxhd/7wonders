@@ -52,8 +52,6 @@ function Header({ data }) {
     setPlace(target.value.toLowerCase());
   }
 
-  console.log(place);
-
   // função que filtra os lugares baseado na busca do usuário
   function filterplaces(placeList) {
     let placesToRender = '';
