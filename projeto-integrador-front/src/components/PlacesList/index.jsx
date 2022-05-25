@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../PlaceCard';
 
 function PlacesList({ placeList }) {
-  // console.log(typeof (placeList));
   return (
     <section className="place-list">
-      { placeList
+      {placeList
         .map(
           // eslint-disable-next-line react/no-array-index-key
           (placeToRender, index) => <PlaceCard key={index} place={placeToRender} />,

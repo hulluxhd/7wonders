@@ -8,12 +8,9 @@ import {
   Flex,
   useMediaQuery,
   useDisclosure,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Divider,
 } from '@chakra-ui/react';
-
+import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
@@ -22,55 +19,57 @@ import calendar from '../../assets/calendar.svg';
 import InputHeader from '../InputHeader';
 import DrawerLogin from '../DrawerLogin';
 import BasicButton from '../BasicButton';
+import useComponentVisible from '../../hooks/useComponentVisible';
 
 // eslint-disable-next-line react/prop-types
 function Header({ data }) {
-  const { toRender, setToRender } = data;
-  console.log(toRender);
-  const places = data.toRender;
-  // breakpoints
+  const { toRender, setToRenderOnPage } = data;
+
+  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
   const [headerHeight, setHeaderHeight] = useState(0);
 
-  const layoutWidth = window.innerWidth;
+  const [place, setPlace] = useState('');
+
+  const [inputSelected, setInputSelected] = useState('');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const layoutWidth = window.innerWidth;
 
   useEffect(() => {
     const h = document.querySelector('.header').getBoundingClientRect().height;
     setHeaderHeight(h);
   }, [layoutWidth]);
 
-  const [city, setCity] = useState('');
-
-  function handleChange({ target }) {
-    setCity(target.value);
+  function handlePlace({ target }) {
+    setPlace(target.value);
   }
 
+  // função que filtra os lugares baseado na busca do usuário
   function filterplaces(placeList) {
     let placesToRender = '';
-    if (city !== '') {
+
+    if (place !== '') {
       placesToRender = placeList
         .filter(
-          (place) => place.city.includes(city),
+          (el) => (el.city.includes(place) || el.country.includes(place)),
         );
     } else {
-      placesToRender = places;
+      placesToRender = toRender;
     }
 
     return placesToRender;
   }
 
-  function toggleCityDropdown() {
-
-  }
-
   useEffect(() => {
-    const placesToRender = filterplaces(places);
+    const placesToRender = filterplaces(toRender);
 
-    setToRender(placesToRender);
-  }, [city]);
+    // seta os cards a serem renderizados
+    setToRenderOnPage(placesToRender);
+  }, [place]);
 
   return (
     <>
@@ -82,7 +81,7 @@ function Header({ data }) {
         w="100%"
         right="0"
         top="0"
-        zIndex="99999"
+        zIndex="10"
       >
         <Box
           as={isSmallerThan606 ? 'header' : null}
@@ -96,7 +95,6 @@ function Header({ data }) {
           w="100%"
           p="20px 50px"
           bg="var(--light-bege)"
-          zIndex={2}
         >
           <Link to="/">
             <Image width="100px" src={logo} />
@@ -145,35 +143,52 @@ function Header({ data }) {
             justify="center"
             align="center"
           >
-            <Box position="relative" w={isSmallerThan606 ? '80%' : '35%'}>
+            <Box
+              position="relative"
+              w={isSmallerThan606 ? '80%' : '35%'}
+              ref={ref}
+              onClick={() => setIsComponentVisible(true)}
+              onChange={(e) => handlePlace(e)}
+            >
+
               <InputHeader
                 image={geolocalization}
                 placeholder="Para onde iremos?"
                 postop="10px"
               />
-              <Box
-                position="absolute"
-                background="#FFF"
-                w="100%"
-                lineHeight="1.8rem"
-                fontSize="1rem"
-                borderRadius="0.25rem"
-                p="1rem">
-                {places.map((el, i) => {
-                  if (i < 10) {
-                    return (
-                      <>
-                        <Text>{el.city}</Text>
-                        <Divider _last={{ display: 'none' }} w="100%" />
-                      </>
-                    );
-                  }
-                  return null;
-                })}
-              </Box>
+              {isComponentVisible && (
+                <Box
+                  position="absolute"
+                  background="#FFF"
+                  w="100%"
+                  lineHeight="1.3rem"
+                  fontSize="1rem"
+                  borderRadius="0.25rem"
+                  p="1rem"
+                  maxH="16rem"
+                  overflow="auto">
+                  {filterplaces(toRender).map((el, i) => (
+
+                    <>
+                      <Box tabIndex={0} pl="1rem" my="0.4rem" borderRadius="0.25rem" _hover={{ bgColor: 'var(--light-bege)' }}>
+                        <Text
+                          fontFamily="Poppins, sans-serif"
+                        >
+                          {el.city}
+                        </Text>
+                        <Text fontSize="xs" as="span">
+                          {el.country}
+                          <BsFillFlagFill />
+                        </Text>
+                      </Box>
+                      <Divider as="hr" _last={{ display: 'none' }} borderColor="var(--blue)" w="100%" />
+                    </>
+                  ))}
+
+                </Box>
+              )}
             </Box>
 
-            {console.log(places)}
             <Box w={isSmallerThan606 ? '80%' : '35%'}>
               <InputHeader
                 image={calendar}

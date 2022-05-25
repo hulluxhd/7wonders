@@ -4,14 +4,10 @@ import { Box } from '@chakra-ui/react';
 import PlacesList from '../../components/PlacesList';
 
 // eslint-disable-next-line react/prop-types
-function Home({ toRender }) {
+function Home({ render }) {
   return (
 
-    <>
-      <Box />
-      {/* <PlacesLibrary places={toRender} /> */}
-      <PlacesList placeList={toRender} />
-    </>
+    <PlacesList placeList={render} />
 
   );
 }

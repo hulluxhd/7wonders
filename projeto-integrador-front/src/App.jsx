@@ -7,17 +7,16 @@ import Home from './pages/Home';
 import data from './data';
 
 function App() {
-  const [toRender, setToRender] = useState(data);
-
+  const [toRender] = useState(data);
+  const [toRenderOnPage, setToRenderOnPage] = useState(data);
   return (
     <BrowserRouter>
       <InfoProvider>
         <Header
-          data={{ toRender, setToRender }}
+          data={{ toRender, setToRenderOnPage }}
         />
-        {/* <Box as="h1">Lets look</Box> */}
         <Routes>
-          <Route path="/" element={<Home toRender={toRender} />} />
+          <Route path="/" element={<Home render={toRenderOnPage} />} />
         </Routes>
         <Footer />
       </InfoProvider>
