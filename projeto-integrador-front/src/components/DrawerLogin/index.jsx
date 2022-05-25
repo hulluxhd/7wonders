@@ -21,13 +21,13 @@ function DrawerLogin({ isOpen, onClose }) {
   const [nickname, setNickname] = useState('');
   const { setUsername } = useContext(InfoContext);
 
-  const inputNick = useRef()
+  const inputNick = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
     setUsername(nickname);
     console.log('submitted');
-    onClose()
+    onClose();
   }
 
   return (
@@ -43,35 +43,50 @@ function DrawerLogin({ isOpen, onClose }) {
             <form
               onSubmit={handleSubmit}
               id="login-form"
-              style={{display: "flex", flexDirection: "column", gap: "1.5rem"}}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
+              }}
             >
               <Box>
-                <label style={{fontFamily: "Poppins, sans-serif"}}>
+                <label style={{ fontFamily: 'Poppins, sans-serif' }}>
                   Nome
-                <Input
-                  onChange={e => setNickname(e.target.value)}
-                  ref={inputNick}
-                  name="nickname"
-                  type="text"
-                  color="var(--hard-blue)"
-                  autoComplete="off"
-                />
+                  <Input
+                    onChange={(e) => setNickname(e.target.value)}
+                    ref={inputNick}
+                    name="nickname"
+                    type="text"
+                    color="var(--hard-blue)"
+                    autoComplete="off"
+                  />
                 </label>
               </Box>
               <Box>
-                <label style={{fontFamily: "Poppins, sans-serif"}}>
+                <label style={{ fontFamily: 'Poppins, sans-serif' }}>
                   Senha
-                <Input color="var(--hard-blue)" id="password" type="password" />
+                  <Input
+                    color="var(--hard-blue)"
+                    id="password"
+                    type="password"
+                  />
                 </label>
               </Box>
             </form>
-        
           </Box>
         </DrawerBody>
         <DrawerFooter>
           <Stack direction="row" spacing="10px">
-            <BasicButton description="Cancelar" type='submit' form="login-form"/>
-            <BasicButton description="Entrar"  border="2px solid #FFF" p="0.5rem"/>
+            <BasicButton
+              description="Cancelar"
+              type="submit"
+              form="login-form"
+            />
+            <BasicButton
+              description="Entrar"
+              border="2px solid #FFF"
+              p="0.5rem"
+            />
           </Stack>
         </DrawerFooter>
       </DrawerContent>

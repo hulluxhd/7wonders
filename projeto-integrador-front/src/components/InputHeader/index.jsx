@@ -26,10 +26,10 @@ function InputHeader(props) {
 
       <Image
         src={image}
-        width="15px"
+        width="1rem"
         position="absolute"
         border-style="none"
-        left="16px"
+        left="1rem"
         top={postop || '13px'}
         zIndex={1}
       />

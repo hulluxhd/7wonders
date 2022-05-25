@@ -10,7 +10,8 @@
     ],
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "js": true
         },
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -25,6 +26,12 @@
         "react/jsx-closing-bracket-location":"off",
         "no-unused-vars": "off",
         "react/jsx-no-bind": "off",
-        "indent": "off"
+        "indent": "off",
+        "react/react-in-jsx-scope": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "operator-linebreak": "off",
+        "react/jsx-indent": "off",
+        "arrow-parens": "off",
+        "comma-dangle": "off"
     }
 }

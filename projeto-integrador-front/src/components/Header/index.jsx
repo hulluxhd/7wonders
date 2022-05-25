@@ -9,6 +9,9 @@ import {
   useMediaQuery,
   useDisclosure,
   Divider,
+  Icon,
+  HStack,
+  VStack,
 } from '@chakra-ui/react';
 import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState } from 'react';
@@ -25,7 +28,8 @@ import useComponentVisible from '../../hooks/useComponentVisible';
 function Header({ data }) {
   const { toRender, setToRenderOnPage } = data;
 
-  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+  const { ref, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(false);
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -45,18 +49,19 @@ function Header({ data }) {
   }, [layoutWidth]);
 
   function handlePlace({ target }) {
-    setPlace(target.value);
+    setPlace(target.value.toLowerCase());
   }
+
+  console.log(place);
 
   // função que filtra os lugares baseado na busca do usuário
   function filterplaces(placeList) {
     let placesToRender = '';
 
     if (place !== '') {
-      placesToRender = placeList
-        .filter(
-          (el) => (el.city.includes(place) || el.country.includes(place)),
-        );
+      placesToRender = placeList.filter(
+        el => el.city.toLowerCase().includes(place) || el.country.toLowerCase().includes(place)
+      );
     } else {
       placesToRender = toRender;
     }
@@ -148,9 +153,8 @@ function Header({ data }) {
               w={isSmallerThan606 ? '80%' : '35%'}
               ref={ref}
               onClick={() => setIsComponentVisible(true)}
-              onChange={(e) => handlePlace(e)}
+              onChange={e => handlePlace(e)}
             >
-
               <InputHeader
                 image={geolocalization}
                 placeholder="Para onde iremos?"
@@ -159,32 +163,48 @@ function Header({ data }) {
               {isComponentVisible && (
                 <Box
                   position="absolute"
+                  top="2.8rem"
                   background="#FFF"
                   w="100%"
                   lineHeight="1.3rem"
                   fontSize="1rem"
                   borderRadius="0.25rem"
-                  p="1rem"
                   maxH="16rem"
-                  overflow="auto">
+                  overflow="auto"
+                >
                   {filterplaces(toRender).map((el, i) => (
-
-                    <>
-                      <Box tabIndex={0} pl="1rem" my="0.4rem" borderRadius="0.25rem" _hover={{ bgColor: 'var(--light-bege)' }}>
-                        <Text
-                          fontFamily="Poppins, sans-serif"
-                        >
-                          {el.city}
-                        </Text>
-                        <Text fontSize="xs" as="span">
-                          {el.country}
-                          <BsFillFlagFill />
-                        </Text>
+                    <Box key={el.city}>
+                      <Box
+                        p="0.5rem 1rem"
+                        cursor="pointer"
+                        tabIndex={0}
+                        borderRadius="0.25rem"
+                        _hover={{ bgColor: 'var(--light-bege)' }}
+                        onClick={() => console.log(el)}
+                      >
+                        <HStack spacing={3} align="center">
+                          <Image maxW="1rem" src={geolocalization} />
+                          <VStack spacing={0} justify="center" align="flex-start">
+                            <Text
+                              color="var(--hard-blue)"
+                              fontWeight="bold"
+                              fontFamily="Poppins, sans-serif"
+                              fontSize="0.9rem"
+                            >
+                              {el.city}
+                            </Text>
+                            <HStack align="center">
+                              <Text color="gray.500" fontWeight="bold" fontSize="xs" as="span">
+                                {el.country}
+                              </Text>
+                              <Icon as={BsFillFlagFill} fontSize="xs" />
+                            </HStack>
+                          </VStack>
+                        </HStack>
                       </Box>
-                      <Divider as="hr" _last={{ display: 'none' }} borderColor="var(--blue)" w="100%" />
-                    </>
+                      <Divider borderColor="var(--blue)" w="100%" />
+                    </Box>
                   ))}
-
                 </Box>
               )}
             </Box>
@@ -193,7 +213,6 @@ function Header({ data }) {
               <InputHeader
                 image={calendar}
                 placeholder="Check in - Check out"
-
               />
             </Box>
             <BasicButton

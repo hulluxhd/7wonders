@@ -1,4 +1,9 @@
-import { Box, Icon, Text, useMediaQuery } from '@chakra-ui/react';
+import {
+  Box,
+  Icon,
+  Text,
+  useMediaQuery,
+ } from '@chakra-ui/react';
 import {
   FaFacebook,
   FaLinkedinIn,
@@ -7,9 +12,7 @@ import {
 } from 'react-icons/fa';
 
 function Footer() {
-
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
-
 
   return (
     <Box
@@ -20,7 +23,7 @@ function Footer() {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      flexDir={isSmallerThan606 ? 'column' : "row"}
+      flexDir={isSmallerThan606 ? 'column' : 'row'}
       as="footer"
       bgColor="var(--blue)"
       p="1rem 3rem"
@@ -33,7 +36,12 @@ function Footer() {
       >
         ©2022 Digital Booking
       </Text>
-      <Box display="flex" justifyContent="space-evenly" gap="1.25rem" mt={isSmallerThan606 ? "0.8rem" : null}>
+      <Box
+        display="flex"
+        justifyContent="space-evenly"
+        gap="1.25rem"
+        mt={isSmallerThan606 ? '0.8rem' : null}
+      >
         <Icon color="#FFF" fontSize="1.75rem" as={FaFacebook} />
         <Icon color="#FFF" fontSize="1.75rem" as={FaLinkedinIn} />
         <Icon color="#FFF" fontSize="1.75rem" as={FaTwitter} />
