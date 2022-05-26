@@ -9,6 +9,7 @@ const theme = {
         '--hard-blue': '#383B58',
         '--light-blue': '#545776',
         '--light-bege': '#F3F1ED',
+        '--red': '#e06141',
         fontSize: '16px',
       },
       body: {

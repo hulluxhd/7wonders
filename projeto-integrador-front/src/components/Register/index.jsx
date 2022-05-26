@@ -75,9 +75,8 @@ function Register() {
                     fieldname="firstName"
                     errors={props.errors.firstName}
                     touched={props.touched.firstName}
-                    placeholderDescription="Primeiro nome"
                     type="text"
-                    errorColor="red.400"
+                    errorColor="var(--red)"
                   />
                   <InputRegister
                     fieldDescription="Sobrenome"
@@ -85,9 +84,8 @@ function Register() {
                     fieldname="lastName"
                     errors={props.errors.lastName}
                     touched={props.touched.lastName}
-                    placeholderDescription="Último nome"
                     type="text"
-                    errorColor="red.400"
+                    errorColor="var(--red)"
                   />
                   <InputRegister
                     fieldDescription="Email"
@@ -95,24 +93,17 @@ function Register() {
                     fieldname="email"
                     errors={props.errors.email}
                     touched={props.touched.email}
-                    placeholderDescription="Endereço de email"
                     type="text"
-                    errorColor="red.400"
+                    errorColor="var(--red)"
                   />
-
-                  <FormHelperText>
-                    Seu email não será compartilhado.
-                  </FormHelperText>
-
                   <InputRegister
                     fieldDescription="Confirme seu email"
                     props={props}
                     fieldname="emailVerf"
                     errors={props.errors.emailVerf}
                     touched={props.touched.emailVerf}
-                    placeholderDescription="Endereço de email"
                     type="text"
-                    errorColor="red.400"
+                    errorColor="var(--red)"
                   />
                   <InputRegister
                     fieldDescription="Senha"
@@ -120,9 +111,8 @@ function Register() {
                     fieldname="password"
                     errors={props.errors.password}
                     touched={props.touched.password}
-                    placeholderDescription="Password"
                     type="password"
-                    errorColor="red.400"
+                    errorColor="var(--red)"
                   />
                 </FormControl>
 
@@ -145,12 +135,12 @@ function Register() {
                       border: '2px solid var(--blue)',
                     }}
                     onClick={() => toast({
-                        title: 'Account created.',
-                        description: "We've created your account for you.",
-                        status: 'success',
-                        duration: 3000,
-                        isClosable: true,
-                      })}
+                      title: 'Account created.',
+                      description: "We've created your account for you.",
+                      status: 'success',
+                      duration: 3000,
+                      isClosable: true,
+                    })}
                   />
                 </Box>
               </Form>

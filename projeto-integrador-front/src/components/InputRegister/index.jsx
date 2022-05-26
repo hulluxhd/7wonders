@@ -1,4 +1,6 @@
-import { FormLabel, Input, Text } from '@chakra-ui/react';
+import {
+  Box, FormLabel, Input, Text
+} from '@chakra-ui/react';
 
 function InputRegister({
   fieldname,
@@ -11,7 +13,7 @@ function InputRegister({
   touched,
 }) {
   return (
-    <>
+    <Box display="flex" flexDirection="column">
       <FormLabel mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
       <Input
         {...props.getFieldProps(fieldname)}
@@ -20,12 +22,14 @@ function InputRegister({
         type={type}
         name={fieldname}
       />
-      {errors && touched ? (
-        <Text as="span" color={errorColor} size="xs">
-          {errors}
-        </Text>
-      ) : null}
-    </>
+      <Box>
+        {errors && touched ? (
+          <Text as="span" color={errorColor} size="xs" position="absolute">
+            {errors}
+          </Text>
+        ) : null}
+      </Box>
+    </Box>
   );
 }
 
