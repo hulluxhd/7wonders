@@ -11,20 +11,16 @@ function App() {
   const [toRender] = useState(data);
   const [toRenderOnPage, setToRenderOnPage] = useState(data);
   return (
-  
-      <BrowserRouter>
-        <InfoProvider>
-        <Header
-          data={{ toRender, setToRenderOnPage }}
-        />
+    <BrowserRouter>
+      <InfoProvider>
+        <Header data={{ toRender, setToRenderOnPage }} />
         <Routes>
           <Route path="/" element={<Home render={toRenderOnPage} />} />
-            <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-          <Footer />
-        </InfoProvider>
-      </BrowserRouter>
-   
+        <Footer />
+      </InfoProvider>
+    </BrowserRouter>
   );
 }
 

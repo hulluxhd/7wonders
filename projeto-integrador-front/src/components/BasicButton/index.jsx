@@ -27,7 +27,7 @@ function BasicButton(props) {
 
 export default BasicButton;
 
-BasicButton.propTypes = {
+/* BasicButton.propTypes = {
   w: PropTypes.string.isRequired,
   ml: PropTypes.string.isRequired,
   h: PropTypes.string.isRequired,
@@ -37,4 +37,4 @@ BasicButton.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   border: PropTypes.string.isRequired,
-};
+}; */

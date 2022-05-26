@@ -10,7 +10,6 @@ function InputRegister({
   errors,
   touched,
 }) {
-  console.log(touched);
   return (
     <>
       <FormLabel mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
