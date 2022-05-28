@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useDisclosure } from '@chakra-ui/react';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Register from './components/Register';
@@ -8,6 +9,7 @@ import Home from './pages/Home';
 import localData from './data';
 
 function App() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [toRenderOnPage, setToRenderOnPage] = useState(localData);
   const [cardsRender, setCardsRender] = useState(toRenderOnPage);
   console.log(cardsRender);
@@ -20,13 +22,16 @@ function App() {
             toRenderOnPage,
             setToRenderOnPage,
             setCardsRender,
-            localData
+            localData,
+            isOpen,
+            onOpen,
+            onClose
           }
           }
         />
         <Routes>
           <Route path="/" element={<Home render={cardsRender} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register openDrawer={onOpen} />} />
         </Routes>
         <Footer />
       </InfoProvider>

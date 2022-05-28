@@ -32,7 +32,7 @@ import { InfoContext } from '../../contexts/InfoContext';
 
 function Header({ data }) {
   const {
-    toRenderOnPage, setToRenderOnPage, setCardsRender, localData
+    toRenderOnPage, setToRenderOnPage, setCardsRender, localData, isOpen, onOpen, onClose
   } = data;
 
   const [toRender] = useState(localData);
@@ -48,8 +48,6 @@ function Header({ data }) {
   const [place, setPlace] = useState('');
 
   const [inputSelected, setInputSelected] = useState('');
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // largura da viewport
   const layoutWidth = window.innerWidth;
@@ -76,11 +74,11 @@ function Header({ data }) {
     return placesToRender;
   }
 
-  function cardsOnDisplay() {
+  function handleCardsOnDisplay() {
     setCardsRender(toRenderOnPage);
   }
 
-  function cleanRenderStates() {
+  function handleCleanRenderStates() {
     setCardsRender(toRender);
     setToRenderOnPage(toRender);
   }
@@ -127,7 +125,7 @@ function Header({ data }) {
           bg="var(--light-bege)"
         >
           <Link to="/">
-            <Image width="100px" src={logo} onClick={cleanRenderStates} />
+            <Image width="100px" src={logo} onClick={handleCleanRenderStates} />
           </Link>
           {username ? (
             <Box display="flex" justifyContent="center" alignItems="center">
@@ -293,7 +291,7 @@ function Header({ data }) {
                 background: 'var(--light-blue)',
                 border: '2px solid var(--blue)',
               }}
-              onClick={cardsOnDisplay}
+              onClick={handleCardsOnDisplay}
             />
           </Flex>
         </Box>

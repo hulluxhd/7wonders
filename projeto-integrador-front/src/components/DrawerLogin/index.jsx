@@ -18,16 +18,44 @@ import { InfoContext } from '../../contexts/InfoContext';
 import BasicButton from '../BasicButton';
 
 function DrawerLogin({ isOpen, onClose, breakpoint }) {
-  const [nickname, setNickname] = useState('');
+  const mockupInfo = {
+    name: 'Denny Ribeiro',
+    email: 'denny.ribeiro@outlook.com',
+    password: '123456',
+  };
+
+  const errors = {};
+
+  const [password, setPassword] = useState('');
+
+  const [email, setEmail] = useState('');
+
   const { setUsername } = useContext(InfoContext);
 
-  const inputNick = useRef();
+  const inputNick = useRef(null);
+
+  // por algum motivo que não entendo, não consigo colocar essa condição
+  // dentro de uma função
+  if (password.length < 6) {
+    errors.password = 'A senha deve ter pelo menos 6 caracteres';
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setUsername(nickname);
-    console.log('submitted');
-    onClose();
+    if (password === mockupInfo.password && email === mockupInfo.email) {
+      setUsername(mockupInfo.name);
+      onClose();
+    } else {
+      alert('credenciais inválidas');
+    }
   }
 
   return (
@@ -58,14 +86,13 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 <label
                   style={{ fontFamily: 'Poppins, sans-serif', color: '#FFF' }}
                 >
-                  Nome
+                  E-mail
                   <Input
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={e => handleChangeEmail(e)}
                     ref={inputNick}
                     name="nickname"
                     type="text"
                     color="var(--hard-blue)"
-                    autoComplete="off"
                   />
                 </label>
               </Box>
@@ -75,11 +102,15 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 >
                   Senha
                   <Input
+                    onChange={e => handleChangePassword(e)}
                     color="var(--hard-blue)"
                     id="password"
                     type="password"
                   />
                 </label>
+                {errors.password && (
+                  <Text as="span" fontSize="xs" color="gray.600">{errors.password}</Text>
+                )}
               </Box>
             </form>
           </Box>
@@ -114,7 +145,12 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 Não tem conta?
               </StackItem>
               <Link to="/register">
-                <StackItem as="span" onClick={onClose} fontSize="xs" color="var(--light-bege)">
+                <StackItem
+                  as="span"
+                  onClick={onClose}
+                  fontSize="xs"
+                  color="var(--light-bege)"
+                >
                   Cadastrar
                 </StackItem>
               </Link>
