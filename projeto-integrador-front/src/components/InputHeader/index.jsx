@@ -7,23 +7,21 @@ import {
 function InputHeader(props) {
   // eslint-disable-next-line react/prop-types
   const {
-    // eslint-disable-next-line react/prop-types
     placeholder, image, postop,
   } = props;
+
   return (
 
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Box {...props} position="relative">
       <Input
         background="#FFF"
         placeholder={placeholder}
         borderRadius="0.25rem"
-        paddingLeft="43px"
+        paddingLeft="2.7rem"
         _placeholder={{
-          fontSize: '0.8rem',
+          fontSize: '0.85rem',
         }}
       />
-
       <Image
         src={image}
         width="1rem"

@@ -1,16 +1,8 @@
 import {
-  Input,
   FormControl,
-  FormLabel,
-  AlertIcon,
-  AlertTitle,
-  FormHelperText,
   Box,
-  Alert,
-  Spacer,
   Container,
   useMediaQuery,
-  FormErrorMessage,
   Text,
   useToast,
   Link,
@@ -61,6 +53,13 @@ function Register() {
         onSubmit={values => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
+            toast({
+                      title: 'Account created.',
+                      description: "We've created your account for you.",
+                      status: 'success',
+                      duration: 3000,
+                      isClosable: true,
+                    });
           });
         }}
       >
@@ -134,13 +133,6 @@ function Register() {
                       color: 'var(--hard-blue)',
                       border: '2px solid var(--blue)',
                     }}
-                    onClick={() => toast({
-                      title: 'Account created.',
-                      description: "We've created your account for you.",
-                      status: 'success',
-                      duration: 3000,
-                      isClosable: true,
-                    })}
                   />
                 </Box>
               </Form>

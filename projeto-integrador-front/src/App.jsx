@@ -5,17 +5,27 @@ import Header from './components/Header';
 import Register from './components/Register';
 import InfoProvider from './contexts/InfoContext';
 import Home from './pages/Home';
-import data from './data';
+import localData from './data';
 
 function App() {
-  const [toRender] = useState(data);
-  const [toRenderOnPage, setToRenderOnPage] = useState(data);
+  const [toRenderOnPage, setToRenderOnPage] = useState(localData);
+  const [cardsRender, setCardsRender] = useState(toRenderOnPage);
+  console.log(cardsRender);
   return (
     <BrowserRouter>
       <InfoProvider>
-        <Header data={{ toRender, setToRenderOnPage }} />
+        <Header
+          data={
+            {
+            toRenderOnPage,
+            setToRenderOnPage,
+            setCardsRender,
+            localData
+          }
+          }
+        />
         <Routes>
-          <Route path="/" element={<Home render={toRenderOnPage} />} />
+          <Route path="/" element={<Home render={cardsRender} />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         <Footer />

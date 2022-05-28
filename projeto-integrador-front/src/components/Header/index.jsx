@@ -30,9 +30,12 @@ import BasicButton from '../BasicButton';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
 
-// eslint-disable-next-line react/prop-types
 function Header({ data }) {
-  const { toRender, setToRenderOnPage } = data;
+  const {
+    toRenderOnPage, setToRenderOnPage, setCardsRender, localData
+  } = data;
+
+  const [toRender] = useState(localData);
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
@@ -54,22 +57,13 @@ function Header({ data }) {
   // context para guardar o username
   const { username, setUsername } = useContext(InfoContext);
 
-  // user effect para observar a largura da viewport e identificar o
-  // tamanho do header em cada alteração
-  useEffect(() => {
-    const { height } = document
-      .querySelector('.header')
-      .getBoundingClientRect();
-    setHeaderHeight(height);
-  }, [layoutWidth]);
-
   function handlePlace({ target }) {
     setPlace(target.value.toLowerCase());
   }
 
   // função que filtra os lugares baseado na busca do usuário
   function filterplaces(placeList) {
-    let placesToRender = '';
+    let placesToRender;
 
     if (place !== '') {
       placesToRender = placeList.filter(
@@ -82,12 +76,30 @@ function Header({ data }) {
     return placesToRender;
   }
 
+  function cardsOnDisplay() {
+    setCardsRender(toRenderOnPage);
+  }
+
+  function cleanRenderStates() {
+    setCardsRender(toRender);
+    setToRenderOnPage(toRender);
+  }
+
   useEffect(() => {
     const placesToRender = filterplaces(toRender);
 
     // seta os cards a serem renderizados
     setToRenderOnPage(placesToRender);
   }, [place]);
+
+  // user effect para observar a largura da viewport e identificar o
+  // tamanho do header em cada alteração
+  useEffect(() => {
+    const { height } = document
+      .querySelector('.header')
+      .getBoundingClientRect();
+    setHeaderHeight(height);
+  }, [layoutWidth]);
 
   return (
     <>
@@ -115,7 +127,7 @@ function Header({ data }) {
           bg="var(--light-bege)"
         >
           <Link to="/">
-            <Image width="100px" src={logo} />
+            <Image width="100px" src={logo} onClick={cleanRenderStates} />
           </Link>
           {username ? (
             <Box display="flex" justifyContent="center" alignItems="center">
@@ -199,11 +211,11 @@ function Header({ data }) {
             <Box
               position="relative"
               w={isSmallerThan606 ? '80%' : '35%'}
-              ref={ref}
               onClick={() => setIsComponentVisible(true)}
-              onChange={e => handlePlace(e)}
+              ref={ref}
             >
               <InputHeader
+                onChange={e => handlePlace(e)}
                 image={geolocalization}
                 placeholder="Para onde iremos?"
                 postop="10px"
@@ -220,7 +232,7 @@ function Header({ data }) {
                   maxH="16rem"
                   overflow="auto"
                 >
-                  {filterplaces(toRender).map((el, i) => (
+                  {toRenderOnPage.map((el, i) => (
                     <Box key={el.city}>
                       <Box
                         p="0.5rem 1rem"
@@ -228,7 +240,7 @@ function Header({ data }) {
                         tabIndex={0}
                         borderRadius="0.25rem"
                         _hover={{ bgColor: 'var(--light-bege)' }}
-                        onClick={() => console.log(el)}
+                        onClick={() => setInputSelected(el)}
                       >
                         <HStack spacing={3} align="center">
                           <Image maxW="1rem" src={geolocalization} />
@@ -281,6 +293,7 @@ function Header({ data }) {
                 background: 'var(--light-blue)',
                 border: '2px solid var(--blue)',
               }}
+              onClick={cardsOnDisplay}
             />
           </Flex>
         </Box>

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../PlaceCard';
 
 function PlacesList({ placeList }) {
-  console.log(placeList);
   return (
     <Box
       display="flex"

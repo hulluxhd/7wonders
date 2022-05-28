@@ -12,12 +12,11 @@ import geolocalization from '../../assets/geolocalization.svg';
 function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
-
   const
   {
     category,
     city,
-    countrym,
+    country,
     about,
     rating,
     imagePath,
@@ -42,6 +41,7 @@ function PlaceCard({ place }) {
         alt={name}
         w="100%"
         h="16rem"
+        fit="cover"
       />
       <Box p="1rem 1rem">
         <Box display="flex" alignItems="start" pt="0.3rem" gap={2}>
