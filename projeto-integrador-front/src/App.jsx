@@ -10,16 +10,16 @@ import Register from './pages/Register';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [toRenderOnPage, setToRenderOnPage] = useState(localData);
-  const [cardsRender, setCardsRender] = useState(toRenderOnPage);
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
+  const [cardsRender, setCardsRender] = useState(toRenderOnDropdown);
   return (
     <BrowserRouter>
       <InfoProvider>
         <Header
           data={
             {
-            toRenderOnPage,
-            setToRenderOnPage,
+            toRenderOnDropdown,
+            setToRenderOnDropdown,
             setCardsRender,
             localData,
             isOpen,

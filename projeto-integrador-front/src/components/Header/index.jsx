@@ -32,7 +32,7 @@ import { InfoContext } from '../../contexts/InfoContext';
 
 function Header({ data }) {
   const {
-    toRenderOnPage, setToRenderOnPage, setCardsRender, localData, isOpen, onOpen, onClose
+    toRenderOnDropdown, setToRenderOnDropdown, setCardsRender, localData, isOpen, onOpen, onClose
   } = data;
 
   const [toRender] = useState(localData);
@@ -56,16 +56,17 @@ function Header({ data }) {
   const { username, setUsername } = useContext(InfoContext);
 
   function handlePlace({ target }) {
-    setPlace(target.value.toLowerCase());
+    setPlace(target.value);
   }
 
   // função que filtra os lugares baseado na busca do usuário
-  function filterplaces(placeList) {
+  function filterPlaces(placeList) {
     let placesToRender;
 
     if (place !== '') {
       placesToRender = placeList.filter(
-        el => el.city.toLowerCase().includes(place) || el.country.toLowerCase().includes(place)
+        el => el.city.toLowerCase().includes(place.toLowerCase()) ||
+        el.country.toLowerCase().includes(place.toLowerCase())
       );
     } else {
       placesToRender = toRender;
@@ -74,23 +75,25 @@ function Header({ data }) {
     return placesToRender;
   }
 
+  // função que seta os cards a serem exibidos em tela
   function handleCardsOnDisplay() {
-    setCardsRender(toRenderOnPage);
+    setCardsRender(filterPlaces(toRender));
   }
 
   function handleCleanRenderStates() {
     setCardsRender(toRender);
-    setToRenderOnPage(toRender);
+    setToRenderOnDropdown(toRender);
+    setPlace('');
   }
 
   useEffect(() => {
-    const placesToRender = filterplaces(toRender);
+    const placesToRender = filterPlaces(toRender);
 
-    // seta os cards a serem renderizados
-    setToRenderOnPage(placesToRender);
+    // seta os cards a serem renderizados no dropdown
+    setToRenderOnDropdown(placesToRender);
   }, [place]);
 
-  // user effect para observar a largura da viewport e identificar o
+  // useEffect para observar a largura da viewport e identificar o
   // tamanho do header em cada alteração
   useEffect(() => {
     const { height } = document
@@ -217,6 +220,7 @@ function Header({ data }) {
                 image={geolocalization}
                 placeholder="Para onde iremos?"
                 postop="10px"
+                value={place}
               />
               {isComponentVisible && (
                 <Box
@@ -230,7 +234,7 @@ function Header({ data }) {
                   maxH="16rem"
                   overflow="auto"
                 >
-                  {toRenderOnPage.map((el, i) => (
+                  {toRenderOnDropdown.map((el, i) => (
                     <Box key={el.city}>
                       <Box
                         p="0.5rem 1rem"
@@ -238,8 +242,9 @@ function Header({ data }) {
                         tabIndex={0}
                         borderRadius="0.25rem"
                         _hover={{ bgColor: 'var(--light-bege)' }}
-                        onClick={() => setInputSelected(el)}
+                        onClick={() => setPlace(el.city)}
                       >
+                      {console.log(place)}
                         <HStack spacing={3} align="center">
                           <Image maxW="1rem" src={geolocalization} />
                           <VStack

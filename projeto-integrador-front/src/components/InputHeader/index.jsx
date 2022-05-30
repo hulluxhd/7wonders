@@ -7,12 +7,12 @@ import {
 function InputHeader(props) {
   // eslint-disable-next-line react/prop-types
   const {
-    placeholder, image, postop,
+    placeholder, image, postop, value, onChange
   } = props;
 
   return (
 
-    <Box {...props} position="relative">
+    <Box position="relative">
       <Input
         background="#FFF"
         placeholder={placeholder}
@@ -21,6 +21,8 @@ function InputHeader(props) {
         _placeholder={{
           fontSize: '0.85rem',
         }}
+        value={value}
+        onChange={onChange}
       />
       <Image
         src={image}

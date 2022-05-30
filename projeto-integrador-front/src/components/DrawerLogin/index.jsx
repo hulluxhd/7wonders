@@ -46,8 +46,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     errors.email = 'Email inválido';
   }
 
-  console.log(errors.email);
-
   function handleChangePassword(e) {
     setPassword(e.target.value);
   }
