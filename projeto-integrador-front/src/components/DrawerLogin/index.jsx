@@ -30,6 +30,8 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
 
   const [email, setEmail] = useState('');
 
+  const [isWrongCredencial, setIsWrongCredencial] = useState(false);
+
   const { setUsername } = useContext(InfoContext);
 
   const inputNick = useRef(null);
@@ -39,6 +41,12 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
   if (password.length < 6) {
     errors.password = 'A senha deve ter pelo menos 6 caracteres';
   }
+
+  if (!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+    errors.email = 'Email inválido';
+  }
+
+  console.log(errors.email);
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
@@ -50,11 +58,12 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (password === mockupInfo.password && email === mockupInfo.email) {
+    if (password === mockupInfo.password && email === mockupInfo.email && !errors.email) {
       setUsername(mockupInfo.name);
+      setIsWrongCredencial(false);
       onClose();
     } else {
-      alert('credenciais inválidas');
+      setIsWrongCredencial(true);
     }
   }
 
@@ -93,6 +102,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                     name="nickname"
                     type="text"
                     color="var(--hard-blue)"
+                    fontSize="sm"
                   />
                 </label>
               </Box>
@@ -104,16 +114,30 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   <Input
                     onChange={e => handleChangePassword(e)}
                     color="var(--hard-blue)"
+                    fontSize="sm"
                     id="password"
                     type="password"
                   />
                 </label>
                 {errors.password && (
-                  <Text as="span" fontSize="xs" color="gray.600">{errors.password}</Text>
+                  <Text as="span" fontSize="xs" color="gray.600">
+                    {errors.password}
+                  </Text>
                 )}
               </Box>
             </form>
           </Box>
+          {isWrongCredencial && (
+            <Text
+              textAlign="center"
+              fontFamily="'Poppins', sans-serif"
+              fontSize="sm"
+              as="span"
+              color="red.500"
+            >
+              Credenciais inválidas, por favor tente novamente.
+            </Text>
+          )}
         </DrawerBody>
         <DrawerFooter>
           <Box
@@ -126,7 +150,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
             <Stack top="-10%" direction="row" spacing="20px">
               <BasicButton
                 description="Cancelar"
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                  setIsWrongCredencial(false);
+                }}
                 border="1px solid transparent"
                 p="0.2rem"
                 _hover={{ borderBottom: '1px solid #FFF' }}

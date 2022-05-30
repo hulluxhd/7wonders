@@ -31,7 +31,7 @@ const SignupSchema = Yup.object().shape({
     .required('Obrigatório'),
 });
 
-function Register({ openDrawer }) {
+function RegisterForm({ openDrawer }) {
   // breakpoint de 606px. Possibilidade de alteração
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -152,4 +152,4 @@ function Register({ openDrawer }) {
     </Box>
   );
 }
-export default Register;
+export default RegisterForm;

@@ -189,7 +189,7 @@ function Header({ data }) {
           flexDirection="column"
         >
           <Text
-            p="1rem 0"
+            p="0 0 1rem"
             w="100%"
             color="#FFF"
             textAlign="center"

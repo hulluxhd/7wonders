@@ -3,16 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDisclosure } from '@chakra-ui/react';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Register from './components/Register';
 import InfoProvider from './contexts/InfoContext';
 import Home from './pages/Home';
 import localData from './data';
+import Register from './pages/Register';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [toRenderOnPage, setToRenderOnPage] = useState(localData);
   const [cardsRender, setCardsRender] = useState(toRenderOnPage);
-  console.log(cardsRender);
   return (
     <BrowserRouter>
       <InfoProvider>
