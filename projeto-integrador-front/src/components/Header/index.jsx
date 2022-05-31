@@ -32,7 +32,7 @@ import { InfoContext } from '../../contexts/InfoContext';
 
 function Header({ data }) {
   const {
-    toRenderOnPage, setToRenderOnPage, setCardsRender, localData
+    toRenderOnDropdown, setToRenderOnDropdown, setCardsRender, localData, isOpen, onOpen, onClose
   } = data;
 
   const [toRender] = useState(localData);
@@ -45,11 +45,9 @@ function Header({ data }) {
   // state para guardar a altura do header
   const [headerHeight, setHeaderHeight] = useState(0);
 
-  const [place, setPlace] = useState('');
-
-  const [inputSelected, setInputSelected] = useState('');
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
+  // ! as funções de renderização o utilizam
+  const [place, setPlace] = useState({ city: '', country: '' });
 
   // largura da viewport
   const layoutWidth = window.innerWidth;
@@ -57,18 +55,15 @@ function Header({ data }) {
   // context para guardar o username
   const { username, setUsername } = useContext(InfoContext);
 
-  function handlePlace({ target }) {
-    setPlace(target.value.toLowerCase());
-  }
-
   // função que filtra os lugares baseado na busca do usuário
-  function filterplaces(placeList) {
+  function filterPlaces(placeList) {
     let placesToRender;
 
-    if (place !== '') {
+    if (place.city !== '') {
       placesToRender = placeList.filter(
-        el => el.city.toLowerCase().includes(place) || el.country.toLowerCase().includes(place)
-      );
+        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
+        el.country.toLowerCase().includes(place.city.toLowerCase())
+        );
     } else {
       placesToRender = toRender;
     }
@@ -76,24 +71,38 @@ function Header({ data }) {
     return placesToRender;
   }
 
-  function cardsOnDisplay() {
-    setCardsRender(toRenderOnPage);
+  // função que seta os cards a serem exibidos em tela
+  function handleCardsOnDisplay() {
+    setCardsRender(filterPlaces(toRender));
   }
 
-  function cleanRenderStates() {
+  function handleCleanRenderStates() {
     setCardsRender(toRender);
-    setToRenderOnPage(toRender);
+    setToRenderOnDropdown(toRender);
+    setPlace({ city: '', country: '' });
+  }
+
+  // * Gerenciadores do motor de busca
+  function handlePlace({ target }) {
+    setPlace({ city: target.value, country: '' });
+  }
+
+  function handleInputController() {
+    if (place.city && place.country) {
+      return `${place.city}, ${place.country}`;
+    }
+    return place.city;
   }
 
   useEffect(() => {
-    const placesToRender = filterplaces(toRender);
+    const placesToRender = filterPlaces(toRender);
 
-    // seta os cards a serem renderizados
-    setToRenderOnPage(placesToRender);
+    // seta os cards a serem renderizados no dropdown
+    setToRenderOnDropdown(placesToRender);
   }, [place]);
 
-  // user effect para observar a largura da viewport e identificar o
-  // tamanho do header em cada alteração
+  // useEffect para observar a largura da viewport e identificar o
+  // tamanho do header em cada alteração // ! Modificar
   useEffect(() => {
     const { height } = document
       .querySelector('.header')
@@ -127,7 +136,7 @@ function Header({ data }) {
           bg="var(--light-bege)"
         >
           <Link to="/">
-            <Image width="100px" src={logo} onClick={cleanRenderStates} />
+            <Image width="100px" src={logo} onClick={handleCleanRenderStates} />
           </Link>
           {username ? (
             <Box display="flex" justifyContent="center" alignItems="center">
@@ -191,7 +200,7 @@ function Header({ data }) {
           flexDirection="column"
         >
           <Text
-            p="1rem 0"
+            p="0 0 1rem"
             w="100%"
             color="#FFF"
             textAlign="center"
@@ -219,6 +228,7 @@ function Header({ data }) {
                 image={geolocalization}
                 placeholder="Para onde iremos?"
                 postop="10px"
+                value={handleInputController()}
               />
               {isComponentVisible && (
                 <Box
@@ -232,7 +242,7 @@ function Header({ data }) {
                   maxH="16rem"
                   overflow="auto"
                 >
-                  {toRenderOnPage.map((el, i) => (
+                  {toRenderOnDropdown.map((el, i) => (
                     <Box key={el.city}>
                       <Box
                         p="0.5rem 1rem"
@@ -240,7 +250,7 @@ function Header({ data }) {
                         tabIndex={0}
                         borderRadius="0.25rem"
                         _hover={{ bgColor: 'var(--light-bege)' }}
-                        onClick={() => setInputSelected(el)}
+                        onClick={() => setPlace({ city: el.city, country: el.country })}
                       >
                         <HStack spacing={3} align="center">
                           <Image maxW="1rem" src={geolocalization} />
@@ -293,7 +303,7 @@ function Header({ data }) {
                 background: 'var(--light-blue)',
                 border: '2px solid var(--blue)',
               }}
-              onClick={cardsOnDisplay}
+              onClick={handleCardsOnDisplay}
             />
           </Flex>
         </Box>

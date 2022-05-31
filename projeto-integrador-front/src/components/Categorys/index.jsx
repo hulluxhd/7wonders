@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import CategoryCard from '../CategoryCard';
 
@@ -28,21 +28,25 @@ function Categorys() {
     ]);
 
   return (
-    <Box
-      display="flex"
+    <>
+<Text marginLeft="15px" padding="15px" fontWeight="bold" fontSize="24px">
+      Buscar por tipo de acomodação
+</Text>
+<Box
+  display="flex"
       // p="2rem"
       // flexWrap="wrap"
-      justifyContent="space-evenly"
-      // gap="1rem"
-      // alignItems="stretch"
+  justifyContent="space-evenly"
+  marginBottom="50px"
     >
-      {eachCategory.map(
-        // eslint-disable-next-line react/no-array-index-key
-        (categoryToRender, index) => (
-          <CategoryCard key={`${categoryToRender} + ${index.toString()} `} categoryToRender={categoryToRender} />
-        )
-      )}
-    </Box>
+        {eachCategory.map(
+          // eslint-disable-next-line react/no-array-index-key
+          (categoryToRender, index) => (
+            <CategoryCard key={`${categoryToRender} + ${index.toString()} `} categoryToRender={categoryToRender} />
+          )
+        )}
+</Box>
+    </>
   );
 }
 

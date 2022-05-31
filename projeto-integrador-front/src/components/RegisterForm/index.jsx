@@ -5,7 +5,6 @@ import {
   useMediaQuery,
   Text,
   useToast,
-  Link,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -32,9 +31,10 @@ const SignupSchema = Yup.object().shape({
     .required('Obrigatório'),
 });
 
-function Register() {
+function RegisterForm({ openDrawer }) {
   // breakpoint de 606px. Possibilidade de alteração
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+
   // variável que armazena os dados da confirmação do cadastro
   const toast = useToast();
 
@@ -139,10 +139,10 @@ function Register() {
               <Box display="flex" justifyContent="center" m={2}>
                 <Text fontSize="sm">
                   Já tem uma conta?
-                  <Link to="/register" color="var(--blue)" fontSize="sm">
+                  <Text cursor="pointer" onClick={openDrawer} as="span" color="var(--blue)" fontSize="sm">
                     {' '}
                     Login
-                  </Link>
+                  </Text>
                 </Text>
               </Box>
             </Box>
@@ -152,4 +152,4 @@ function Register() {
     </Box>
   );
 }
-export default Register;
+export default RegisterForm;

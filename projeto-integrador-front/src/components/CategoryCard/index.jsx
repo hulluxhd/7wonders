@@ -4,7 +4,8 @@ import {
     Image,
   } from '@chakra-ui/react';
 
-  function CategoryCard({ imagePath, category }) {
+  function CategoryCard({ categoryToRender }) {
+    console.log(categoryToRender);
     return (
       <Box
         borderRadius="0.25rem"
@@ -16,8 +17,8 @@ import {
         w="300px"
       >
         <Image
-          src={imagePath}
-          alt={category}
+          src={categoryToRender.imagePath}
+          alt={categoryToRender.category}
           w="100%"
           h="16rem"
           fit="cover"
@@ -27,11 +28,15 @@ import {
             <Box>
               <Box
                 display="flex"
+                flexDirection="column"
                 justifyContent="space-between"
-                alignItems="center"
+                // alignItems="center"
               >
                 <Text color="var(--light-blue)" fontSize="sm" as="span">
-                  {category}
+                  {categoryToRender.category}
+                </Text>
+                <Text color="var(--light-blue)" fontSize="sm" as="span">
+                  {categoryToRender.quantity}
                 </Text>
               </Box>
             </Box>

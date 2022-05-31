@@ -5,22 +5,24 @@ import {
 } from '@chakra-ui/react';
 
 function InputHeader(props) {
-  // eslint-disable-next-line react/prop-types
   const {
-    placeholder, image, postop,
+    placeholder, image, postop, value, onChange
   } = props;
 
   return (
 
-    <Box {...props} position="relative">
+    <Box position="relative">
       <Input
         background="#FFF"
+        fontSize="sm"
         placeholder={placeholder}
         borderRadius="0.25rem"
         paddingLeft="2.7rem"
         _placeholder={{
           fontSize: '0.85rem',
         }}
+        value={value}
+        onChange={onChange}
       />
       <Image
         src={image}

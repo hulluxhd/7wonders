@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useDisclosure } from '@chakra-ui/react';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Register from './components/Register';
 import InfoProvider from './contexts/InfoContext';
 import Home from './pages/Home';
 import localData from './data';
+import Register from './pages/Register';
 
 function App() {
-  const [toRenderOnPage, setToRenderOnPage] = useState(localData);
-  const [cardsRender, setCardsRender] = useState(toRenderOnPage);
-  // console.log(cardsRender);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
+  const [cardsRender, setCardsRender] = useState(toRenderOnDropdown);
   return (
     <BrowserRouter>
       <InfoProvider>
         <Header
           data={
             {
-            toRenderOnPage,
-            setToRenderOnPage,
+            toRenderOnDropdown,
+            setToRenderOnDropdown,
             setCardsRender,
-            localData
+            localData,
+            isOpen,
+            onOpen,
+            onClose
           }
           }
         />
         <Routes>
           <Route path="/" element={<Home render={cardsRender} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register openDrawer={onOpen} />} />
         </Routes>
         <Footer />
       </InfoProvider>
