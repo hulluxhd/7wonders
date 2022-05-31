@@ -10,7 +10,7 @@ import localData from './data';
 function App() {
   const [toRenderOnPage, setToRenderOnPage] = useState(localData);
   const [cardsRender, setCardsRender] = useState(toRenderOnPage);
-  console.log(cardsRender);
+  // console.log(cardsRender);
   return (
     <BrowserRouter>
       <InfoProvider>
