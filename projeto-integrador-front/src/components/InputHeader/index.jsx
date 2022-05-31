@@ -5,7 +5,6 @@ import {
 } from '@chakra-ui/react';
 
 function InputHeader(props) {
-  // eslint-disable-next-line react/prop-types
   const {
     placeholder, image, postop, value, onChange
   } = props;
@@ -15,6 +14,7 @@ function InputHeader(props) {
     <Box position="relative">
       <Input
         background="#FFF"
+        fontSize="sm"
         placeholder={placeholder}
         borderRadius="0.25rem"
         paddingLeft="2.7rem"

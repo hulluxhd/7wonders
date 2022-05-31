@@ -1,7 +1,6 @@
 import React from 'react';
 import PlacesList from '../../components/PlacesList';
 
-// eslint-disable-next-line react/prop-types
 function Home({ render }) {
   return (
 
