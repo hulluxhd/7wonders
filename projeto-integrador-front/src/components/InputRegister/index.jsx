@@ -16,6 +16,7 @@ function InputRegister({
     <Box display="flex" flexDirection="column">
       <FormLabel mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
       <Input
+        bgColor="#FFF"
         {...props.getFieldProps(fieldname)}
         id={fieldname}
         placeholder={placeholderDescription}

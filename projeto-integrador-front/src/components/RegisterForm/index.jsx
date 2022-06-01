@@ -5,11 +5,17 @@ import {
   useMediaQuery,
   Text,
   useToast,
+  InputGroup,
+  InputRightElement,
+  Button,
+  Icon,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import React, { useState } from 'react';
 import BasicButton from '../BasicButton';
 import InputRegister from '../InputRegister';
+import InputPassword from '../InputPassword';
 
 // regras  e errors para validação dos inputs
 const SignupSchema = Yup.object().shape({
@@ -22,19 +28,18 @@ const SignupSchema = Yup.object().shape({
     .max(40, 'Muito longo!')
     .required('Obrigatório'),
   email: Yup.string().email('Email invalido!').required('Obrigatório'),
-  emailVerf: Yup.string()
-    .email('Email invalido!')
-    .required('Confirmação obrigatória')
-    .oneOf([Yup.ref('email')], 'Use o mesmo endereço de email!'),
   password: Yup.string()
     .min(4, 'Use no mínimo 4 caracteres')
     .required('Obrigatório'),
+  passwordVerf: Yup.string()
+    .required('Confirmação obrigatória')
+    .oneOf([Yup.ref('password')], 'Use a mesma senha!'),
+
 });
 
 function RegisterForm({ openDrawer }) {
   // breakpoint de 606px. Possibilidade de alteração
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
-
   // variável que armazena os dados da confirmação do cadastro
   const toast = useToast();
 
@@ -54,20 +59,21 @@ function RegisterForm({ openDrawer }) {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             toast({
-                      title: 'Account created.',
-                      description: "We've created your account for you.",
-                      status: 'success',
-                      duration: 3000,
-                      isClosable: true,
-                    });
+              title: 'Account created.',
+              description: "We've created your account for you.",
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+            });
           });
         }}
       >
         {props => (
-          <Container maxW="md" bgColor="#FFF">
+          <Container maxW="md" bgColor="">
             <Box display="flex" flexWrap="wrap" flexDirection="column">
               <Form onSubmit={props.handleSubmit}>
                 <FormControl>
+                  <Box display="flex" flexDirection="row" gap={4}>
                   <InputRegister
                     fieldDescription="Nome"
                     props={props}
@@ -86,6 +92,7 @@ function RegisterForm({ openDrawer }) {
                     type="text"
                     errorColor="var(--red)"
                   />
+                  </Box>
                   <InputRegister
                     fieldDescription="Email"
                     props={props}
@@ -95,21 +102,20 @@ function RegisterForm({ openDrawer }) {
                     type="text"
                     errorColor="var(--red)"
                   />
-                  <InputRegister
-                    fieldDescription="Confirme seu email"
-                    props={props}
-                    fieldname="emailVerf"
-                    errors={props.errors.emailVerf}
-                    touched={props.touched.emailVerf}
-                    type="text"
-                    errorColor="var(--red)"
-                  />
-                  <InputRegister
+                  <InputPassword
                     fieldDescription="Senha"
                     props={props}
                     fieldname="password"
                     errors={props.errors.password}
                     touched={props.touched.password}
+                    errorColor="var(--red)"
+                  />
+                  <InputRegister
+                    fieldDescription="Confirme sua Senha"
+                    props={props}
+                    fieldname="passwordVerf"
+                    errors={props.errors.passwordVerf}
+                    touched={props.touched.passwordVerf}
                     type="password"
                     errorColor="var(--red)"
                   />
