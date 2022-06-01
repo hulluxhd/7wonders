@@ -64,8 +64,8 @@ function Header({ data }) {
     if (place.city !== '') {
       placesToRender = placeList.filter(
         el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
-        el.country.toLowerCase().includes(place.city.toLowerCase())
-        );
+          el.country.toLowerCase().includes(place.city.toLowerCase())
+      );
     } else {
       placesToRender = toRender;
     }
@@ -293,27 +293,28 @@ function Header({ data }) {
             <GridItem
               colSpan={isSmallerThan606 ? 1 : 2}
               w="100%"
-              >
+            >
               <InputHeader
                 image={calendar}
                 placeholder="Check in - Check out"
+                disabled
               />
             </GridItem>
             <GridItem
               colSpan={1}
               w="100%"
             >
-            <BasicButton
-              w="100%"
-              description="Buscar"
-              ml={isSmallerThan606 ? null : '1rem'}
-              transition="all 0.2s ease-in-out"
-              _hover={{
-                background: 'var(--light-blue)',
-                border: '2px solid var(--blue)',
-              }}
-              onClick={handleCardsOnDisplay}
-            />
+              <BasicButton
+                w="100%"
+                description="Buscar"
+                ml={isSmallerThan606 ? null : '1rem'}
+                transition="all 0.2s ease-in-out"
+                _hover={{
+                  background: 'var(--light-blue)',
+                  border: '2px solid var(--blue)',
+                }}
+                onClick={handleCardsOnDisplay}
+              />
             </GridItem>
           </Grid>
         </Box>

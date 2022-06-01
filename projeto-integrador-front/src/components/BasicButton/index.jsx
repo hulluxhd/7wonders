@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react';
 
 function BasicButton(props) {
   const {
-    w, ml, h, height, background, bgColor, backgroundColor, description, border,
+    w, ml, h, height, background, bgColor, backgroundColor, description, border, borderRadius
   } = props;
   return (
     <Box
@@ -16,7 +16,7 @@ function BasicButton(props) {
       h={h || height || '2.5rem'}
       background={(background || bgColor || backgroundColor) || 'var(--blue)'}
       border={border || '2px solid var(--blue)'}
-      borderRadius="0.25rem"
+      borderRadius={borderRadius || '0.25rem'}
       color="#FFF"
       fontWeight="bold"
     >
