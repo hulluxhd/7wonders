@@ -154,9 +154,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
             <Stack top="-10%" direction="row" spacing="20px">
               <BasicButton
                 description="Cancelar"
-                onClick={() => {
-                  onClose();
-                }}
+                onClick={onClose}
                 border="1px solid transparent"
                 p="0.2rem"
                 borderRadius="0"
