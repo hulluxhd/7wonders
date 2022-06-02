@@ -1,6 +1,6 @@
 import React from 'react';
 import PlacesList from '../../components/PlacesList';
-import Categories from '../../components/Categories';
+import Categories from './Categories';
 
 function Home({ render }) {
   return (

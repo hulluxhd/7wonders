@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Text, useMediaQuery } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
-import CategoryCard from '../CategoryCard';
-import Wrapper from '../Wrapper';
+import CategoryCard from './CategoryCard';
+import Wrapper from '../../../components/Wrapper';
 
 function Categories() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
