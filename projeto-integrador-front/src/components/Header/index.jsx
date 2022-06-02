@@ -16,7 +16,9 @@ import {
   MenuList,
   MenuItem,
   MenuButton,
-  Avatar
+  Avatar,
+  Grid,
+  GridItem
 } from '@chakra-ui/react';
 import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState, useContext } from 'react';
@@ -24,8 +26,8 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
-import InputHeader from '../InputHeader';
-import DrawerLogin from '../DrawerLogin';
+import InputHeader from './InputHeader';
+import DrawerLogin from './DrawerLogin';
 import BasicButton from '../BasicButton';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
@@ -62,8 +64,8 @@ function Header({ data }) {
     if (place.city !== '') {
       placesToRender = placeList.filter(
         el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
-        el.country.toLowerCase().includes(place.city.toLowerCase())
-        );
+          el.country.toLowerCase().includes(place.city.toLowerCase())
+      );
     } else {
       placesToRender = toRender;
     }
@@ -87,7 +89,7 @@ function Header({ data }) {
     setPlace({ city: target.value, country: '' });
   }
 
-  function handleInputController() {
+  function handleInputValueController() {
     if (place.city && place.country) {
       return `${place.city}, ${place.country}`;
     }
@@ -210,16 +212,16 @@ function Header({ data }) {
             Buscar ofertas em hóteis, casas e muito mais
           </Text>
 
-          <Flex
-            gap={1}
-            w="100%"
-            flexDir={isSmallerThan606 ? 'column' : 'row'}
-            justify="center"
-            align="center"
+          <Grid
+            gap={2}
+            templateColumns={isSmallerThan606 ? '1fr' : 'repeat(5, 1fr)'}
+            alignItems="center"
+            px="2rem"
           >
-            <Box
+            <GridItem
+              w="100%"
+              colSpan={isSmallerThan606 ? 1 : 2}
               position="relative"
-              w={isSmallerThan606 ? '80%' : '35%'}
               onClick={() => setIsComponentVisible(true)}
               ref={ref}
             >
@@ -228,7 +230,7 @@ function Header({ data }) {
                 image={geolocalization}
                 placeholder="Para onde iremos?"
                 postop="10px"
-                value={handleInputController()}
+                value={handleInputValueController()}
               />
               {isComponentVisible && (
                 <Box
@@ -286,26 +288,35 @@ function Header({ data }) {
                   ))}
                 </Box>
               )}
-            </Box>
+            </GridItem>
 
-            <Box w={isSmallerThan606 ? '80%' : '35%'}>
+            <GridItem
+              colSpan={isSmallerThan606 ? 1 : 2}
+              w="100%"
+            >
               <InputHeader
                 image={calendar}
                 placeholder="Check in - Check out"
+                disabled
               />
-            </Box>
-            <BasicButton
-              description="Buscar"
-              w={isSmallerThan606 ? '80%' : '15%'}
-              ml={isSmallerThan606 ? null : '1rem'}
-              transition="all 0.2s ease-in-out"
-              _hover={{
-                background: 'var(--light-blue)',
-                border: '2px solid var(--blue)',
-              }}
-              onClick={handleCardsOnDisplay}
-            />
-          </Flex>
+            </GridItem>
+            <GridItem
+              colSpan={1}
+              w="100%"
+            >
+              <BasicButton
+                w="100%"
+                description="Buscar"
+                ml={isSmallerThan606 ? null : '1rem'}
+                transition="all 0.2s ease-in-out"
+                _hover={{
+                  background: 'var(--light-blue)',
+                  border: '2px solid var(--blue)',
+                }}
+                onClick={handleCardsOnDisplay}
+              />
+            </GridItem>
+          </Grid>
         </Box>
       </Box>
       <DrawerLogin
