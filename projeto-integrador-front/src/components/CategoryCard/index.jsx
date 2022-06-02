@@ -1,52 +1,41 @@
-import {
-    Box,
-    Text,
-    Image,
-  } from '@chakra-ui/react';
+import { Box, Text, Image } from '@chakra-ui/react';
 
-  function CategoryCard({ categoryToRender }) {
-    console.log(categoryToRender);
-    return (
+function CategoryCard({ categoryToRender }) {
+  console.log(categoryToRender);
+  return (
+    <Box
+      borderRadius="10px"
+      background="#FFF"
+      display="flex"
+      flexDir="column"
+      boxShadow="md"
+      w="100%"
+    >
+      <Image
+        src={categoryToRender.imagePath}
+        alt={categoryToRender.category}
+        borderRadius="10px 10px 0 0"
+        w="100%"
+        h="100%"
+        fit="cover"
+      />
       <Box
-        borderRadius="0.25rem"
-        background="#FFF"
         display="flex"
-        flexDir="column"
-        boxShadow="base"
-        alignItems="stretch"
-        w="300px"
+        flexDirection="column"
+        m="0.5rem"
       >
-        <Image
-          src={categoryToRender.imagePath}
-          alt={categoryToRender.category}
-          w="100%"
-          h="16rem"
-          fit="cover"
-        />
-        <Box p="1rem 1rem">
-          <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Box>
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                // alignItems="center"
-              >
-                <Text color="var(--light-blue)" fontSize="sm" as="span">
-                  {categoryToRender.category}
-                </Text>
-                <Text color="var(--light-blue)" fontSize="sm" as="span">
-                  {categoryToRender.quantity}
-                </Text>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+        <Text color="var(--hard-blue)" as="h3" fontWeight="800">
+          {categoryToRender.category}
+        </Text>
+        <Text color="var(--hard-blue)" fontSize="sm" as="span">
+          {categoryToRender.quantity} {categoryToRender.category}s
+        </Text>
       </Box>
-    );
-  }
+    </Box>
+  );
+}
 
-  /* CategoryCard.propTypes = {
+/* CategoryCard.propTypes = {
     categoryToRender: PropTypes.shape({
       category: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,
@@ -72,4 +61,4 @@ import {
     }),
   }; */
 
-  export default CategoryCard;
+export default CategoryCard;

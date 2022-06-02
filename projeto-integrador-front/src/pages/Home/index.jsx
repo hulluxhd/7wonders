@@ -1,14 +1,13 @@
 import React from 'react';
 import PlacesList from '../../components/PlacesList';
-import Categorys from '../../components/Categorys';
+import Categories from '../../components/Categories';
 
 function Home({ render }) {
   return (
     <>
-    <Categorys />
-    <PlacesList placeList={render} />
+      <Categories />
+      <PlacesList placeList={render} />
     </>
-
   );
 }
 
