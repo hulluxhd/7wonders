@@ -1,23 +1,24 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../PlaceCard';
 import Wrapper from '../Wrapper';
 
 function PlacesList({ placeList }) {
+  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+  const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   return (
     <Wrapper>
       <Box
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="center"
+        display="grid"
+        gridTemplateColumns={isSmallerThan606 ? '1fr' : (isSmallerThan800 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)')}
         gap="1rem"
       >
         {placeList.map(
           // eslint-disable-next-line react/no-array-index-key
           (placeToRender, index) => (
             <PlaceCard
-              key={`${placeToRender} + ${index.toString()} `}
+              key={`${placeToRender.city} + ${index.toString()} `}
               place={placeToRender}
             />
           )

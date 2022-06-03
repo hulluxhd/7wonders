@@ -30,9 +30,7 @@ function PlaceCard({ place }) {
       background="#FFF"
       display="flex"
       flexDir="column"
-      flex={
-        isSmallerThan606 ? '0 1 90%' : isSmallerThan800 ? '0 1 45%' : '0 1 31%'
-      }
+      w="100%"
       boxShadow="base"
       alignItems="stretch"
     >
@@ -44,7 +42,7 @@ function PlaceCard({ place }) {
         fit="cover"
       />
       <Box p="1rem 1rem">
-        <Box display="flex" alignItems="start" pt="0.3rem" gap={2}>
+        <Box display="flex" alignItems="start" gap={2}>
           <Badge background="green.200" borderRadius="base" pr="2">
             Novo
           </Badge>

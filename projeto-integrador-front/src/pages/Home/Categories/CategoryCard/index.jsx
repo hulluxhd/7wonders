@@ -8,8 +8,9 @@ function CategoryCard({ categoryToRender }) {
       background="#FFF"
       display="flex"
       flexDir="column"
-      boxShadow="0px 6px 2px var(--light-bege)"
+      boxShadow="2px 6px 2px var(--light-bege)"
       w="100%"
+      border="1px solid var(--light-bege)"
       cursor="pointer"
     >
       <Image
