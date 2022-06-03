@@ -10,43 +10,36 @@ import {
   Button,
   Icon,
 } from '@chakra-ui/react';
-import { Formik, Form } from 'formik';
+import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
-<<<<<<< HEAD:projeto-integrador-front/src/components/RegisterForm/index.jsx
-import React, { useState } from 'react';
-import BasicButton from '../BasicButton';
-import InputRegister from '../InputRegister';
-import InputPassword from '../InputPassword';
-=======
 import BasicButton from '../../../components/BasicButton';
+import InputPassword from './InputPassword';
 import InputRegister from './InputRegister';
->>>>>>> c3865dd4298773839c7adab42957e1f11bc6764e:projeto-integrador-front/src/pages/Register/RegisterForm/index.jsx
 
 // regras  e errors para validação dos inputs
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, 'Muito curto!')
-    .max(15, 'Muito longo!')
-    .required('Obrigatório'),
-  lastName: Yup.string()
-    .min(2, 'Muito curto!')
-    .max(40, 'Muito longo!')
-    .required('Obrigatório'),
-  email: Yup.string().email('Email invalido!').required('Obrigatório'),
-  password: Yup.string()
-    .min(4, 'Use no mínimo 4 caracteres')
-    .required('Obrigatório'),
-  passwordVerf: Yup.string()
-    .required('Confirmação obrigatória')
-    .oneOf([Yup.ref('password')], 'Use a mesma senha!'),
-
+const SignupSchema = Yup.object ().shape ({
+  firstName: Yup.string ()
+    .min (2, 'Muito curto!')
+    .max (15, 'Muito longo!')
+    .required ('Obrigatório'),
+  lastName: Yup.string ()
+    .min (2, 'Muito curto!')
+    .max (40, 'Muito longo!')
+    .required ('Obrigatório'),
+  email: Yup.string ().email ('Email invalido!').required ('Obrigatório'),
+  password: Yup.string ()
+    .min (4, 'Use no mínimo 4 caracteres')
+    .required ('Obrigatório'),
+  passwordVerf: Yup.string ()
+    .required ('Confirmação obrigatória')
+    .oneOf ([Yup.ref ('password')], 'Use a mesma senha!'),
 });
 
-function RegisterForm({ openDrawer }) {
+function RegisterForm({openDrawer}) {
   // breakpoint de 606px. Possibilidade de alteração
-  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+  const [isSmallerThan606] = useMediaQuery ('(max-width: 606px)');
   // variável que armazena os dados da confirmação do cadastro
-  const toast = useToast();
+  const toast = useToast ();
 
   return (
     <Box p="1rem">
@@ -61,9 +54,9 @@ function RegisterForm({ openDrawer }) {
         }}
         // função para capturar os valores dos inputs
         onSubmit={values => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            toast({
+          setTimeout (() => {
+            alert (JSON.stringify (values, null, 2));
+            toast ({
               title: 'Account created.',
               description: "We've created your account for you.",
               status: 'success',
@@ -79,24 +72,24 @@ function RegisterForm({ openDrawer }) {
               <Form onSubmit={props.handleSubmit}>
                 <FormControl>
                   <Box display="flex" flexDirection="row" gap={4}>
-                  <InputRegister
-                    fieldDescription="Nome"
-                    props={props}
-                    fieldname="firstName"
-                    errors={props.errors.firstName}
-                    touched={props.touched.firstName}
-                    type="text"
-                    errorColor="var(--red)"
-                  />
-                  <InputRegister
-                    fieldDescription="Sobrenome"
-                    props={props}
-                    fieldname="lastName"
-                    errors={props.errors.lastName}
-                    touched={props.touched.lastName}
-                    type="text"
-                    errorColor="var(--red)"
-                  />
+                    <InputRegister
+                      fieldDescription="Nome"
+                      props={props}
+                      fieldname="firstName"
+                      errors={props.errors.firstName}
+                      touched={props.touched.firstName}
+                      type="text"
+                      errorColor="var(--red)"
+                    />
+                    <InputRegister
+                      fieldDescription="Sobrenome"
+                      props={props}
+                      fieldname="lastName"
+                      errors={props.errors.lastName}
+                      touched={props.touched.lastName}
+                      type="text"
+                      errorColor="var(--red)"
+                    />
                   </Box>
                   <InputRegister
                     fieldDescription="Email"
@@ -150,7 +143,13 @@ function RegisterForm({ openDrawer }) {
               <Box display="flex" justifyContent="center" m={2}>
                 <Text fontSize="sm">
                   Já tem uma conta?
-                  <Text cursor="pointer" onClick={openDrawer} as="span" color="var(--blue)" fontSize="sm">
+                  <Text
+                    cursor="pointer"
+                    onClick={openDrawer}
+                    as="span"
+                    color="var(--blue)"
+                    fontSize="sm"
+                  >
                     {' '}
                     Login
                   </Text>
