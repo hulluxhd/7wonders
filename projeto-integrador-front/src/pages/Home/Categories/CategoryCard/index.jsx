@@ -8,8 +8,9 @@ function CategoryCard({ categoryToRender }) {
       background="#FFF"
       display="flex"
       flexDir="column"
-      boxShadow="md"
+      boxShadow="0px 3px 4px var(--light-blue)"
       w="100%"
+      cursor="pointer"
     >
       <Image
         src={categoryToRender.imagePath}
@@ -27,7 +28,7 @@ function CategoryCard({ categoryToRender }) {
         <Text color="var(--hard-blue)" as="h3" fontWeight="800">
           {categoryToRender.category}
         </Text>
-        <Text color="var(--hard-blue)" fontSize="sm" as="span">
+        <Text color="var(--light-blue)" fontSize="sm" as="span" fontWeight="bold">
           {categoryToRender.quantity} {categoryToRender.category}s
         </Text>
       </Box>

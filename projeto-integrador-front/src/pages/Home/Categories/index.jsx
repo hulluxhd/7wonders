@@ -6,6 +6,7 @@ import Wrapper from '../../../components/Wrapper';
 
 function Categories() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+  const [isSmallerThan851] = useMediaQuery('(max-width: 851px)');
 
   const [eachCategory, setEachCategory] = useState([
     {
@@ -31,35 +32,36 @@ function Categories() {
   ]);
 
   return (
-    <Wrapper>
-      <Text
-        as="h2"
-        color="var(--hard-blue)"
-        fontSize={isSmallerThan606 ? '1.25rem' : '1.75rem'}
-        lineHeight="1.75rem"
-        fontWeight="700"
-        py="1rem"
-      >
-        Buscar por tipo de acomodação
-      </Text>
-      <Box
-        display="flex"
-        // p="2rem"
-        flexWrap={isSmallerThan606 ? 'wrap' : 'nowrap'}
-        justifyContent="center"
-        gap="0.8rem"
-      >
-        {eachCategory.map(
-          // eslint-disable-next-line react/no-array-index-key
-          (categoryToRender, index) => (
-            <CategoryCard
-              key={`${categoryToRender} + ${index.toString()} `}
-              categoryToRender={categoryToRender}
-            />
-          )
-        )}
-      </Box>
-    </Wrapper>
+    <Box background="#FFF" p="0 0 0.5rem">
+      <Wrapper>
+        <Text
+          as="h2"
+          color="var(--hard-blue)"
+          fontSize={isSmallerThan606 ? '1.25rem' : '1.75rem'}
+          lineHeight="1.75rem"
+          fontWeight="700"
+          py="1rem"
+        >
+          Buscar por tipo de acomodação
+        </Text>
+        <Box
+          display="flex"
+          flexWrap={isSmallerThan851 ? 'wrap' : 'no-wrap'}
+          justifyContent="center"
+          gap="0.8rem"
+        >
+          {eachCategory.map(
+            // eslint-disable-next-line react/no-array-index-key
+            (categoryToRender, index) => (
+              <CategoryCard
+                key={`${categoryToRender} + ${index.toString()} `}
+                categoryToRender={categoryToRender}
+              />
+            )
+          )}
+        </Box>
+      </Wrapper>
+    </Box>
   );
 }
 
