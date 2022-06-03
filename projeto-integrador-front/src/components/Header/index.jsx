@@ -18,7 +18,7 @@ import {
   MenuButton,
   Avatar,
   Grid,
-  GridItem
+  GridItem,
 } from '@chakra-ui/react';
 import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState, useContext } from 'react';
@@ -35,7 +35,13 @@ import Wrapper from '../Wrapper';
 
 function Header({ data }) {
   const {
-    toRenderOnDropdown, setToRenderOnDropdown, setCardsRender, localData, isOpen, onOpen, onClose
+    toRenderOnDropdown,
+    setToRenderOnDropdown,
+    setCardsRender,
+    localData,
+    isOpen,
+    onOpen,
+    onClose,
   } = data;
 
   const [toRender] = useState(localData);
@@ -125,22 +131,26 @@ function Header({ data }) {
         top="0"
         zIndex="10"
       >
-        <Wrapper>
-          <Box
-            as={isSmallerThan606 ? 'header' : null}
-            className={isSmallerThan606 ? 'header' : null}
-            position={isSmallerThan606 ? 'fixed' : 'relative'}
+        <Box
+          as={isSmallerThan606 ? 'header' : null}
+          className={isSmallerThan606 ? 'header' : null}
+          position={isSmallerThan606 ? 'fixed' : 'relative'}
+          right="0"
+          top="0"
+          w="100%"
+          py="1rem"
+          bg="var(--light-bege)"
+        >
+          <Wrapper
             display="flex"
             justifyContent="space-between"
-            alignItems="center"
-            right="0"
-            top="0"
-            w="100%"
-            py="1rem"
-            bg="var(--light-bege)"
-          >
+            alignItems="center">
             <Link to="/">
-              <Image width="100px" src={logo} onClick={handleCleanRenderStates} />
+              <Image
+                width="100px"
+                src={logo}
+                onClick={handleCleanRenderStates}
+              />
             </Link>
             {username ? (
               <Box display="flex" justifyContent="center" alignItems="center">
@@ -165,8 +175,7 @@ function Header({ data }) {
                     as="span"
                     display="block"
                   >
-                    Olá,
-                    {' '}
+                    Olá,{' '}
                   </Text>
                   <Text fontFamily="Poppins, sans-serif" color="var(--blue)">
                     {username}
@@ -195,8 +204,8 @@ function Header({ data }) {
                 </Breadcrumb>
               </Box>
             )}
-          </Box>
-        </Wrapper>
+          </Wrapper>
+        </Box>
         <Box
           display="flex"
           flexWrap="wrap"
@@ -204,17 +213,17 @@ function Header({ data }) {
           flexDirection="column"
           paddingBottom="1rem"
         >
+          <Text
+            p="1rem"
+            w="100%"
+            color="#FFF"
+            textAlign="center"
+            fontSize="1.75rem"
+            as="h1"
+          >
+            Buscar ofertas em hóteis, casas e muito mais
+          </Text>
           <Wrapper paddingX="10rem">
-            <Text
-              py="1rem"
-              w="100%"
-              color="#FFF"
-              textAlign="center"
-              fontSize="2rem"
-              as="h1"
-            >
-              Buscar ofertas em hóteis, casas e muito mais
-            </Text>
             <Grid
               gap={2}
               templateColumns={isSmallerThan606 ? '1fr' : 'repeat(5, 1fr)'}
@@ -292,20 +301,14 @@ function Header({ data }) {
                 )}
               </GridItem>
 
-              <GridItem
-                colSpan={isSmallerThan606 ? 1 : 2}
-                w="100%"
-              >
+              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%">
                 <InputHeader
                   image={calendar}
                   placeholder="Check in - Check out"
                   disabled
                 />
               </GridItem>
-              <GridItem
-                colSpan={1}
-                w="100%"
-              >
+              <GridItem colSpan={1} w="100%">
                 <BasicButton
                   w="100%"
                   description="Buscar"

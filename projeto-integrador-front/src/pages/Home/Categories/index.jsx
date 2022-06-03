@@ -37,17 +37,16 @@ function Categories() {
         <Text
           as="h2"
           color="var(--hard-blue)"
-          fontSize={isSmallerThan606 ? '1.25rem' : '1.75rem'}
+          fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
           lineHeight="1.75rem"
           fontWeight="700"
-          py="1rem"
+          p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
         >
           Buscar por tipo de acomodação
         </Text>
         <Box
-          display="flex"
-          flexWrap={isSmallerThan851 ? 'wrap' : 'no-wrap'}
-          justifyContent="center"
+          display="grid"
+          gridTemplateColumns={isSmallerThan606 ? 'repeat(1, 1fr)' : (isSmallerThan851 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)')}
           gap="0.8rem"
         >
           {eachCategory.map(
