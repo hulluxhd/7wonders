@@ -13,16 +13,16 @@ function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const
-  {
-    category,
-    city,
-    country,
-    about,
-    rating,
-    imagePath,
-    types,
-    name
-  } = place;
+    {
+      category,
+      city,
+      country,
+      about,
+      rating,
+      imagePath,
+      types,
+      name
+    } = place;
 
   return (
     <Box
@@ -40,7 +40,7 @@ function PlaceCard({ place }) {
         src={imagePath}
         alt={name}
         w="100%"
-        h="16rem"
+        h="100%"
         fit="cover"
       />
       <Box p="1rem 1rem">

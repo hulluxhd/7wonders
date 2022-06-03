@@ -12,10 +12,17 @@ import {
   StackItem,
   Text,
 } from '@chakra-ui/react';
-import { useContext, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { Link } from 'react-router-dom';
-import { InfoContext } from '../../contexts/InfoContext';
-import BasicButton from '../BasicButton';
+import * as yup from 'yup';
+import { InfoContext } from '../../../contexts/InfoContext';
+import BasicButton from '../../BasicButton';
 
 function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const mockupInfo = {
@@ -24,44 +31,43 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     password: '123456',
   };
 
-  const errors = {};
+  const inputNick = useRef();
 
-  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState('');
 
-  const [email, setEmail] = useState('');
-
-  const [isWrongCredencial, setIsWrongCredencial] = useState(false);
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
 
   const { setUsername } = useContext(InfoContext);
 
-  const inputNick = useRef(null);
+  const validateEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  // por algum motivo que não entendo, não consigo colocar essa condição
-  // dentro de uma função
-  if (password.length < 6) {
-    errors.password = 'A senha deve ter pelo menos 6 caracteres';
-  }
+  const handleChangeLogin = useCallback(({ target }) => {
+    setLoginData((prev) => ({
+      ...prev,
+      [target.name]: target.value // entre [] pois é um atributo do input
+    }));
+  }, [setLoginData]);
 
-  if (!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-    errors.email = 'Email inválido';
-  }
+  useEffect(() => {
+    console.log(loginData);
+  }, [loginData]);
 
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (password === mockupInfo.password && email === mockupInfo.email && !errors.email) {
+    const schema = yup.object().shape({
+      email: yup.string().email().matches(validateEmailRegex)
+        .matches(mockupInfo.email)
+        .required(),
+      password: yup.string().matches(mockupInfo.password).required()
+    });
+
+    try {
+      await schema.validate(loginData);
       setUsername(mockupInfo.name);
-      setIsWrongCredencial(false);
       onClose();
-    } else {
-      setIsWrongCredencial(true);
+      setErrors('');
+    } catch (err) {
+      setErrors(err.errors[0]);
     }
   }
 
@@ -95,9 +101,8 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 >
                   E-mail
                   <Input
-                    onChange={e => handleChangeEmail(e)}
-                    ref={inputNick}
-                    name="nickname"
+                    onChange={e => handleChangeLogin(e)}
+                    name="email"
                     type="text"
                     color="var(--hard-blue)"
                     fontSize="sm"
@@ -110,11 +115,12 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 >
                   Senha
                   <Input
-                    onChange={e => handleChangePassword(e)}
+                    onChange={e => handleChangeLogin(e)}
                     color="var(--hard-blue)"
                     fontSize="sm"
                     id="password"
                     type="password"
+                    name="password"
                   />
                 </label>
                 {errors.password && (
@@ -125,7 +131,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               </Box>
             </form>
           </Box>
-          {isWrongCredencial && (
+          {errors && (
             <Text
               textAlign="center"
               fontFamily="'Poppins', sans-serif"
@@ -150,10 +156,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 description="Cancelar"
                 onClick={() => {
                   onClose();
-                  setIsWrongCredencial(false);
                 }}
                 border="1px solid transparent"
                 p="0.2rem"
+                borderRadius="0"
                 _hover={{ borderBottom: '1px solid #FFF' }}
               />
               <BasicButton
@@ -161,6 +167,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 p="0.2rem"
                 type="submit"
                 border="1px solid transparent"
+                borderRadius="0"
                 form="login-form"
                 _hover={{ borderBottom: '1px solid #FFF' }}
               />
@@ -175,6 +182,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   onClick={onClose}
                   fontSize="xs"
                   color="var(--light-bege)"
+                  _hover={{ borderBottom: '1px solid #fff' }}
                 >
                   Cadastrar
                 </StackItem>
