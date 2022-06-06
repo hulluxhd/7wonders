@@ -12,13 +12,7 @@ import {
   StackItem,
   Text,
 } from '@chakra-ui/react';
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { InfoContext } from '../../../contexts/InfoContext';
@@ -41,24 +35,33 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
 
   const validateEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const handleChangeLogin = useCallback(({ target }) => {
-    setLoginData((prev) => ({
-      ...prev,
-      [target.name]: target.value // entre [] pois é um atributo do input
-    }));
-  }, [setLoginData]);
+  const handleChangeLogin = useCallback(
+    ({ target }) => {
+      setLoginData(prev => ({
+        ...prev,
+        [target.name]: target.value, // entre [] pois é um atributo do input
+      }));
+    },
+    [setLoginData]
+  );
 
-  useEffect(() => {
-    console.log(loginData);
-  }, [loginData]);
+  useEffect(
+    () => {
+      console.log(loginData);
+    },
+    [loginData]
+  );
 
   async function handleSubmit(e) {
     e.preventDefault();
     const schema = yup.object().shape({
-      email: yup.string().email().matches(validateEmailRegex)
+      email: yup
+        .string()
+        .email()
+        .matches(validateEmailRegex)
         .matches(mockupInfo.email)
         .required(),
-      password: yup.string().matches(mockupInfo.password).required()
+      password: yup.string().min(6).matches(mockupInfo.password).required(),
     });
 
     try {
@@ -123,15 +126,14 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                     name="password"
                   />
                 </label>
-                {errors.password && (
+                {errors.password &&
                   <Text as="span" fontSize="xs" color="gray.600">
                     {errors.password}
-                  </Text>
-                )}
+                  </Text>}
               </Box>
             </form>
           </Box>
-          {errors && (
+          {errors &&
             <Text
               textAlign="center"
               fontFamily="'Poppins', sans-serif"
@@ -140,8 +142,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               color="red.500"
             >
               Credenciais inválidas, por favor tente novamente.
-            </Text>
-          )}
+            </Text>}
         </DrawerBody>
         <DrawerFooter>
           <Box

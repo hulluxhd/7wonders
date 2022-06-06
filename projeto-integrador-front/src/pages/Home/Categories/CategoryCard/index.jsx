@@ -21,15 +21,16 @@ function CategoryCard({ categoryToRender }) {
         h="100%"
         fit="cover"
       />
-      <Box
-        display="flex"
-        flexDirection="column"
-        m="0.5rem"
-      >
+      <Box display="flex" flexDirection="column" m="0.5rem">
         <Text color="var(--hard-blue)" as="h3" fontWeight="800">
           {categoryToRender.category}
         </Text>
-        <Text color="var(--light-blue)" fontSize="sm" as="span" fontWeight="bold">
+        <Text
+          color="var(--light-blue)"
+          fontSize="sm"
+          as="span"
+          fontWeight="bold"
+        >
           {categoryToRender.quantity} {categoryToRender.category}s
         </Text>
       </Box>

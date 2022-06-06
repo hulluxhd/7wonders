@@ -10,36 +10,36 @@ import {
   Button,
   Icon,
 } from '@chakra-ui/react';
-import {Formik, Form} from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import BasicButton from '../../../components/BasicButton';
 import InputPassword from './InputPassword';
 import InputRegister from './InputRegister';
 
 // regras  e errors para validação dos inputs
-const SignupSchema = Yup.object ().shape ({
-  firstName: Yup.string ()
-    .min (2, 'Muito curto!')
-    .max (15, 'Muito longo!')
-    .required ('Obrigatório'),
-  lastName: Yup.string ()
-    .min (2, 'Muito curto!')
-    .max (40, 'Muito longo!')
-    .required ('Obrigatório'),
-  email: Yup.string ().email ('Email invalido!').required ('Obrigatório'),
-  password: Yup.string ()
-    .min (4, 'Use no mínimo 4 caracteres')
-    .required ('Obrigatório'),
-  passwordVerf: Yup.string ()
-    .required ('Confirmação obrigatória')
-    .oneOf ([Yup.ref ('password')], 'Use a mesma senha!'),
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, 'Muito curto!')
+    .max(15, 'Muito longo!')
+    .required('Obrigatório'),
+  lastName: Yup.string()
+    .min(2, 'Muito curto!')
+    .max(40, 'Muito longo!')
+    .required('Obrigatório'),
+  email: Yup.string().email('Email invalido!').required('Obrigatório'),
+  password: Yup.string()
+    .min(4, 'Use no mínimo 4 caracteres')
+    .required('Obrigatório'),
+  passwordVerf: Yup.string()
+    .required('Confirmação obrigatória')
+    .oneOf([Yup.ref('password')], 'Use a mesma senha!'),
 });
 
-function RegisterForm({openDrawer}) {
+function RegisterForm({ openDrawer }) {
   // breakpoint de 606px. Possibilidade de alteração
-  const [isSmallerThan606] = useMediaQuery ('(max-width: 606px)');
+  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   // variável que armazena os dados da confirmação do cadastro
-  const toast = useToast ();
+  const toast = useToast();
 
   return (
     <Box p="1rem">
@@ -54,9 +54,9 @@ function RegisterForm({openDrawer}) {
         }}
         // função para capturar os valores dos inputs
         onSubmit={values => {
-          setTimeout (() => {
-            alert (JSON.stringify (values, null, 2));
-            toast ({
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            toast({
               title: 'Account created.',
               description: "We've created your account for you.",
               status: 'success',
