@@ -12,7 +12,13 @@ import {
   StackItem,
   Text,
 } from '@chakra-ui/react';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { InfoContext } from '../../../contexts/InfoContext';
@@ -82,12 +88,11 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
       onClose={onClose}
     >
       <DrawerOverlay />
-      <DrawerContent bg="var(--blue)">
+      <DrawerContent bg="#FFF">
         <DrawerCloseButton />
-        <DrawerHeader as="h2" color="#FFF">
-          Entre com a sua conta
-        </DrawerHeader>
-        <DrawerBody>
+
+        <DrawerBody display="flex" flexDir="column" justifyContent="center" color="var(--hard-blue)">
+          <Text as="h2" mb="2rem">Entre com a sua conta</Text>
           <Box>
             <form
               onSubmit={handleSubmit}
@@ -100,7 +105,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
             >
               <Box>
                 <label
-                  style={{ fontFamily: 'Poppins, sans-serif', color: '#FFF' }}
+                  style={{ fontFamily: 'Poppins, sans-serif', color: 'var(--hard-blue)' }}
                 >
                   E-mail
                   <Input
@@ -114,7 +119,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               </Box>
               <Box>
                 <label
-                  style={{ fontFamily: 'Poppins, sans-serif', color: '#FFF' }}
+                  style={{ fontFamily: 'Poppins, sans-serif', color: 'var(--hard-blue)' }}
                 >
                   Senha
                   <Input
@@ -127,48 +132,59 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   />
                 </label>
                 {errors.password &&
-                  <Text as="span" fontSize="xs" color="gray.600">
-                    {errors.password}
-                  </Text>}
+                  (
+                    <Text as="span" fontSize="xs" color="gray.600">
+                      {errors.password}
+                    </Text>
+                  )}
               </Box>
             </form>
           </Box>
-          {errors &&
-            <Text
-              textAlign="center"
-              fontFamily="'Poppins', sans-serif"
-              fontSize="sm"
-              as="span"
-              color="red.500"
-            >
-              Credenciais inválidas, por favor tente novamente.
-            </Text>}
-        </DrawerBody>
-        <DrawerFooter>
+          {
+            errors &&
+            (
+              <Text
+                textAlign="left"
+                fontFamily="'Poppins', sans-serif"
+                fontSize="sm"
+                as="span"
+                color="red.500"
+              >
+                Credenciais inválidas, por favor tente novamente.
+              </Text>
+            )
+          }
+
           <Box
             display="flex"
             flexDir="column"
             justifyContent="center"
             alignItems="center"
-            m="0 auto"
+            m="2rem auto"
           >
             <Stack top="-10%" direction="row" spacing="20px">
               <BasicButton
-                description="Cancelar"
-                onClick={onClose}
+                description="Voltar"
+                onClick={() => {
+                  onClose();
+                  setErrors('');
+                }}
                 border="1px solid transparent"
-                p="0.2rem"
                 borderRadius="0"
-                _hover={{ borderBottom: '1px solid #FFF' }}
+                background="transparent"
+                transition="all 0.2s ease-in-out"
+                color="var(--blue)"
+                _hover={{ borderBottom: '1px solid var(--blue)' }}
               />
               <BasicButton
                 description="Entrar"
-                p="0.2rem"
+                p="0.5rem 1rem"
                 type="submit"
-                border="1px solid transparent"
-                borderRadius="0"
+                border="1px solid var(--blue)"
+                borderRadius="0.25rem"
                 form="login-form"
-                _hover={{ borderBottom: '1px solid #FFF' }}
+                transition="all 0.2s ease-in-out"
+                _hover={{ border: '1px solid var(--blue)', color: 'var(--blue)', bgColor: '#FFF' }}
               />
             </Stack>
             <Stack pt="10px" alignItems="center">
@@ -180,15 +196,15 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   as="span"
                   onClick={onClose}
                   fontSize="xs"
-                  color="var(--light-bege)"
-                  _hover={{ borderBottom: '1px solid #fff' }}
+                  color="var(--blue)"
+                  _hover={{ borderBottom: '1px solid var(--blue)' }}
                 >
                   Cadastrar
                 </StackItem>
               </Link>
             </Stack>
           </Box>
-        </DrawerFooter>
+        </DrawerBody>
       </DrawerContent>
     </Drawer>
   );
