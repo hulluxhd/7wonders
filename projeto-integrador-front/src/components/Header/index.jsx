@@ -64,24 +64,9 @@ function Header({ data }) {
     setUsername,
     place,
     setPlace,
-    localData
+    localData,
+    filterPlaces
   } = useContext(InfoContext);
-
-  // função que filtra os lugares baseado na busca do usuário
-  function filterPlaces(placeList) {
-    let placesToRender;
-
-    if (place.city !== '') {
-      placesToRender = placeList.filter(
-        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
-          el.country.toLowerCase().includes(place.city.toLowerCase())
-      );
-    } else {
-      placesToRender = localData;
-    }
-
-    return placesToRender;
-  }
 
   // função que seta os cards a serem exibidos em tela
   function handleCardsOnDisplay() {
@@ -106,11 +91,9 @@ function Header({ data }) {
     return place.city;
   }
 
+  // seta os cards a serem renderizados no dropdown
   useEffect(() => {
-    const placesToRender = filterPlaces(localData);
-
-    // seta os cards a serem renderizados no dropdown
-    setToRenderOnDropdown(placesToRender);
+    setToRenderOnDropdown(filterPlaces());
   }, [place]);
 
   // useEffect para observar a largura da viewport e identificar o

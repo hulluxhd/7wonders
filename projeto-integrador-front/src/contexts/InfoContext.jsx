@@ -10,6 +10,21 @@ function InfoProvider({ children }) {
   const [place, setPlace] = useState({ city: '', country: '', category: '' });
   const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
   const [cardsRender, setCardsRender] = useState(toRenderOnDropdown);
+
+  // função que filtra os lugares baseado na busca do usuário
+  function filterPlaces() {
+
+
+    if (place.city || place.category) {
+      return localData.filter(
+        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
+          el.country.toLowerCase().includes(place.city.toLowerCase()) ||
+          el.category === place.category
+      );
+    }
+    return localData
+  }
+
   return (
     <InfoContext.Provider
       value={{
@@ -21,7 +36,8 @@ function InfoProvider({ children }) {
         setToRenderOnDropdown,
         cardsRender,
         setCardsRender,
-        localData
+        localData,
+        filterPlaces
       }}
     >
       {children}

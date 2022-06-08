@@ -6,37 +6,25 @@ function CategoryCard({ categoryToRender }) {
   const {
     cardsRender,
     setCardsRender,
-    localData,
     place,
-    setPlace
+    setPlace,
+    filterPlaces
   } = useContext(InfoContext);
 
-  function filterCategory() {
-    if (place.category) {
-      return localData.filter(card => console.log(card));
-    }
-    return localData;
-  }
-
   function categoryEngine(category) {
-    setPlace(prev => (
+    setPlace(prev =>
+    (
       {
         ...prev,
         category: category,
       }
-    ));
-    setCardsRender(filterCategory(category));
-  }
-
-  function filterByCategory(category) {
-    useCallback(() => {
-      categoryEngine();
-    }, [place]);
+    ))
   }
 
   useEffect(() => {
-    console.log(place);
-  }, [place]);
+    console.log(place)
+    setCardsRender(filterPlaces())
+  }, [place.category]);
 
   return (
     <Box
