@@ -25,7 +25,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.png';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
 import InputHeader from './InputHeader';
@@ -35,16 +35,17 @@ import Wrapper from '../Wrapper';
 
 function Header({ data }) {
   const {
-    toRenderOnDropdown,
-    setToRenderOnDropdown,
-    setCardsRender,
-    localData,
     isOpen,
     onOpen,
     onClose,
   } = data;
 
-  const [toRender] = useState(localData);
+  const {
+    toRenderOnDropdown,
+    setToRenderOnDropdown,
+    cardsRender,
+    setCardsRender,
+  } = useContext(InfoContext);
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
@@ -54,15 +55,17 @@ function Header({ data }) {
   // state para guardar a altura do header
   const [headerHeight, setHeaderHeight] = useState(0);
 
-  // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
-  // ! as funções de renderização o utilizam
-  const [place, setPlace] = useState({ city: '', country: '' });
-
   // largura da viewport
   const layoutWidth = window.innerWidth;
 
   // context para guardar o username
-  const { username, setUsername } = useContext(InfoContext);
+  const {
+    username,
+    setUsername,
+    place,
+    setPlace,
+    localData
+  } = useContext(InfoContext);
 
   // função que filtra os lugares baseado na busca do usuário
   function filterPlaces(placeList) {
@@ -74,7 +77,7 @@ function Header({ data }) {
           el.country.toLowerCase().includes(place.city.toLowerCase())
       );
     } else {
-      placesToRender = toRender;
+      placesToRender = localData;
     }
 
     return placesToRender;
@@ -82,18 +85,18 @@ function Header({ data }) {
 
   // função que seta os cards a serem exibidos em tela
   function handleCardsOnDisplay() {
-    setCardsRender(filterPlaces(toRender));
+    setCardsRender(filterPlaces(localData));
   }
 
   function handleCleanRenderStates() {
-    setCardsRender(toRender);
-    setToRenderOnDropdown(toRender);
-    setPlace({ city: '', country: '' });
+    setCardsRender(localData);
+    setToRenderOnDropdown(localData);
+    setPlace({ city: '', country: '', category: '' });
   }
 
   // * Gerenciadores do motor de busca
   function handlePlace({ target }) {
-    setPlace({ city: target.value, country: '' });
+    setPlace({ city: target.value, country: '', category: '' });
   }
 
   function handleInputValueController() {
@@ -104,7 +107,7 @@ function Header({ data }) {
   }
 
   useEffect(() => {
-    const placesToRender = filterPlaces(toRender);
+    const placesToRender = filterPlaces(localData);
 
     // seta os cards a serem renderizados no dropdown
     setToRenderOnDropdown(placesToRender);
@@ -147,7 +150,8 @@ function Header({ data }) {
             alignItems="center">
             <Link to="/">
               <Image
-                width="100px"
+                maxH="40px"
+                fit="contain"
                 src={logo}
                 onClick={handleCleanRenderStates}
               />

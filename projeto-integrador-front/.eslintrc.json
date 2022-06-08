@@ -35,6 +35,7 @@
         "comma-dangle": "off",
         "no-nested-ternary": "off",
         "react/jsx-props-no-spreading": "off",
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "categoryToRender": "off"
     }
 }

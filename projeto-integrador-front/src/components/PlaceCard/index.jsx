@@ -105,7 +105,7 @@ function PlaceCard({ place }) {
             </Text>
           </Box>
         </Box>
-        <Box pt="1rem">
+        <Box pt="0.5rem">
           <Image src={geolocalization} maxW="0.6rem" display="inline" />
           <Text fontSize="xs" as="span">
             {' '}
@@ -117,13 +117,13 @@ function PlaceCard({ place }) {
           </Text>
         </Box>
         <Box>
-          <Text p="1rem 0" fontSize="90%" lineHeight="1.2rem">
+          <Text p="0.5rem 0" fontSize="90%" lineHeight="1.2rem">
             {about.slice(
               0,
-              150
+              100
             )}
             <Text as="span" color="var(--blue)">
-              ... see more
+              ... veja mais
             </Text>
           </Text>
         </Box>

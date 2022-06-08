@@ -1,11 +1,13 @@
 import { Text, useMediaQuery } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import PlacesList from '../../components/PlacesList';
 import Wrapper from '../../components/Wrapper';
+import { InfoContext } from '../../contexts/InfoContext';
 import Categories from './Categories';
 
-function Home({ render }) {
+function Home() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+  const { cardsRender } = useContext(InfoContext);
 
   return (
     <>
@@ -22,7 +24,7 @@ function Home({ render }) {
           Recomendações
         </Text>
       </Wrapper>
-      <PlacesList placeList={render} />
+      <PlacesList placeList={cardsRender} />
     </>
   );
 }

@@ -1,7 +1,25 @@
 import { Box, Text, Image } from '@chakra-ui/react';
+import { useCallback, useContext } from 'react';
+import { InfoContext } from '../../../../contexts/InfoContext';
 
 function CategoryCard({ categoryToRender }) {
-  console.log(categoryToRender);
+  const {
+    cardsRender,
+    setCardsRender,
+    localData,
+    place,
+    setPlace
+   } =
+    useContext(InfoContext);
+
+  function filterByCategory(category) {
+    setPlace(prev => ({
+      ...prev,
+      category: category,
+    }));
+    console.log(place);
+  }
+
   return (
     <Box
       borderRadius="10px"
@@ -12,6 +30,7 @@ function CategoryCard({ categoryToRender }) {
       w="100%"
       border="1px solid var(--light-bege)"
       cursor="pointer"
+      onClick={() => filterByCategory(categoryToRender.category)}
     >
       <Image
         src={categoryToRender.imagePath}

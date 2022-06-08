@@ -51,13 +51,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     [setLoginData]
   );
 
-  useEffect(
-    () => {
-      console.log(loginData);
-    },
-    [loginData]
-  );
-
   async function handleSubmit(e) {
     e.preventDefault();
     const schema = yup.object().shape({
