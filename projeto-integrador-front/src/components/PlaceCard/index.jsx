@@ -28,7 +28,7 @@ function PlaceCard({ place }) {
       alignItems="stretch"
     >
       <Box h="100%" position="relative">
-        <Image src={imagePath} alt={name} w="100%" h="100%" fit="cover" />
+        <Image src={imagePath} alt={name} w="100%" h="100%" fit="cover" minH="16rem"/>
         <Icon
           as={AiFillHeart}
           position="absolute"

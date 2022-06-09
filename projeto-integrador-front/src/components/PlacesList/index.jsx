@@ -1,32 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, useMediaQuery } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y
+} from 'swiper';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import PlaceCard from '../PlaceCard';
 import Wrapper from '../Wrapper';
 import { InfoContext } from '../../contexts/InfoContext';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 function PlacesList() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const { cardsRender } = useContext(InfoContext);
-
+  const [swiperProxy, setSwiperProxy] = useState({})
   return (
     <Wrapper>
-      <Box
-        display="grid"
-        gridTemplateColumns={isSmallerThan606 ? '1fr' : (isSmallerThan800 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)')}
-        gap="1rem"
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        spaceBetween={25}
+        slidesPerView={3}
+        navigation
+        grabCursor
+        roundLengths={true}
+        pagination={{ clickable: true }}
+        onSwiper={(swiper) => setSwiperProxy(swiper)}
       >
-        {cardsRender.map(
-          // eslint-disable-next-line react/no-array-index-key
-          (card, index) => (
-            <PlaceCard
-              key={`${card.city} + ${index.toString()} `}
-              place={card}
-            />
-          )
-        )}
-      </Box>
+      {console.log(swiperProxy)}
+        {cardsRender.map((card, i) => (
+          <SwiperSlide key={card.name}>
+            <PlaceCard place={card} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </Wrapper>
   );
 }
