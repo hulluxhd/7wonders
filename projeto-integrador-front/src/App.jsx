@@ -7,6 +7,7 @@ import InfoProvider from './contexts/InfoContext';
 import Home from './pages/Home';
 import localData from './data';
 import Register from './pages/Register';
+import Product from './pages/Product/index';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home render={cardsRender} />} />
           <Route path="/register" element={<Register openDrawer={onOpen} />} />
+          <Route path="/product" element={<Product />} />
         </Routes>
         <Footer />
       </InfoProvider>
