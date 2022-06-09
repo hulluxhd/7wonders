@@ -5,7 +5,6 @@ import PlaceCard from '../PlaceCard';
 import Wrapper from '../Wrapper';
 import { InfoContext } from '../../contexts/InfoContext';
 
-
 function PlacesList() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');

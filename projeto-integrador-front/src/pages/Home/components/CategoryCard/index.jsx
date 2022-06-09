@@ -3,8 +3,12 @@ import { useContext, useEffect } from 'react';
 import { InfoContext } from '../../../../contexts/InfoContext';
 
 function CategoryCard({ categoryToRender }) {
-  const { setCardsRender, place, setPlace, localData } =
-    useContext(InfoContext);
+  const {
+    setCardsRender,
+    place,
+    setPlace,
+    localData
+  } = useContext(InfoContext);
 
   function categoryEngine(category) {
     setPlace({
@@ -32,6 +36,8 @@ function CategoryCard({ categoryToRender }) {
       w="100%"
       border="1px solid var(--light-bege)"
       cursor="pointer"
+      transition="transform 0.2s ease-in-out"
+      _hover={{ transform: 'scale(1.08)'}}
       onClick={() => categoryEngine(categoryToRender.category)}
     >
       <Image

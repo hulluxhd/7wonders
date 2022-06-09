@@ -1,4 +1,4 @@
-import RegisterForm from './RegisterForm';
+import RegisterForm from './components/RegisterForm';
 
 function Register({ openDrawer }) {
   return <RegisterForm openDrawer={openDrawer} />;

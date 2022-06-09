@@ -28,8 +28,8 @@ import { InfoContext } from '../../contexts/InfoContext';
 import logo from '../../assets/logo.png';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
-import InputHeader from './InputHeader';
-import DrawerLogin from './DrawerLogin';
+import InputHeader from './components/InputHeader';
+import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import Wrapper from '../Wrapper';
 
@@ -70,8 +70,7 @@ function Header({ data }) {
   function filterPlaces() {
     if (place.city) {
       return localData.filter(
-        el =>
-          el.city.toLowerCase().includes(place.city.toLowerCase()) ||
+        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
           el.country.toLowerCase().includes(place.city.toLowerCase())
       );
     }
