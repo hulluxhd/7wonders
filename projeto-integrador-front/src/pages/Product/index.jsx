@@ -16,6 +16,8 @@ import {
   VisuallyHidden,
   List,
   ListItem,
+  Grid,
+  GridItem
 } from '@chakra-ui/react';
 
 export default function Product() {
@@ -28,12 +30,12 @@ export default function Product() {
         color="#FFF"
         display="flex"
         alignItems="center"
-        padding="0 1rem"
+        padding="0 2rem"
         justifyContent="space-between"
         >
         <span>
-          <h3>Categoria</h3>
-          <h2>Nome do hotel</h2>
+          <h3>Hoteis</h3>
+          <h2>Hotel EAST Miami</h2>
         </span>
         <button
           type="button"
@@ -47,7 +49,9 @@ export default function Product() {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        padding="2rem"
+        padding="1rem 2rem"
+        marginBottom="1rem"
+        bg="#dbdce7"
         lineHeight="1rem"
       >
         <Text
@@ -58,49 +62,129 @@ export default function Product() {
           fontWeight="500"
           mb="4"
           >
-          Buenos Aires,Cidade Autônoma de Buenos Aires, Argentina 940m para o centro
+          Miami, Estados Unidos, a 940m para o centro.
         </Text>
         <span>
-          <Text>
-            Rating
+          <Text
+            color="#FFF"
+            fontWeight="bold"
+            p="1rem 0.75rem"
+            background="var(--hard-blue)"
+            borderRadius="0.25rem"
+            textAlign="center"
+            maxW="100%"
+          >
+            4.5
           </Text>
         </span>
       </Box>
-      <flex>
+      {/* <flex>
         <Image
           rounded="lg"
-          alt="product image"
-          src="https://www.short.ink/PNcw2pf1OzK"
+          alt="hotel miami"
+          src="https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit"
           fit="cover"
           align="center"
           w={{ base: '100%', lg: '700px' }}
           h={{ base: '100%', sm: '600px', lg: '700px' }}
         />
-      </flex>
+      </flex> */}
+      <Grid
+        h={{ base: '100%', sm: '600px', lg: '700px' }}
+        templateRows="repeat(2, 1fr)"
+        templateColumns="repeat(5, 1fr)"
+        gap={2}
+        padding="0 2rem"
+      >
+        <GridItem
+          rounded="lg"
+          rowSpan={2}
+          colSpan={1}
+          cursor="pointer"
+          w={{ base: '100%', lg: '700px' }}
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          bgPosition="center"
+          bgSize="cover"
+          bgRepeat="no-repeat"
+          _hover={{
+            transform: 'scale(1.03)',
+            border: '1px solid var(--hard-blue)'
+          }}
+          transition="transform 0.5s ease-in-out"
+        />
+        <GridItem
+          rounded="lg"
+          colSpan={2}
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          bgPosition="center"
+          bgSize="cover"
+          cursor="pointer"
+          bgRepeat="no-repeat"
+          _hover={{
+            transform: 'scale(1.03)',
+            border: '1px solid var(--hard-blue)'
+          }}
+          transition="transform 0.5s ease-in-out"
+        />
+        <GridItem
+          rounded="lg"
+          colSpan={2}
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26544b9f.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          cursor="pointer"
+          bgSize="cover"
+          _hover={{
+            transform: 'scale(1.03)',
+            border: '1px solid var(--hard-blue)'
+          }}
+          transition="transform 0.5s ease-in-out"
+        />
+        <GridItem
+          rounded="lg"
+          colSpan={4}
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          cursor="pointer"
+          bgSize="cover"
+          _hover={{
+            transform: 'scale(1.03)',
+            border: '1px solid var(--hard-blue)'
+          }}
+          transition="transform 0.5s ease-in-out"
+        />
+      </Grid>
 
       <Text
         fontSize={{ base: '16px', lg: '18px' }}
         fontFamily="Poppins, sans-serif"
         color="var(--hard-blue)"
-        padding="1rem"
+        padding="2rem"
       >
         <h1>
           Fique no coração de Buenos Aires
         </h1>
       </Text>
       <Text
+        w="75%"
         color="#000000"
         fontWeight="500"
         fontSize={{ base: '16px', lg: '18px' }}
-        padding="0 1rem 1rem"
+        padding="0 2rem 1rem"
 
       >
-      Está localizado a poucas quadras da Avenida Alvear,da
-      Avenida Quintana,do Parque San Martín e do bairro da
-      Recoleta.Nos arredores também existem vários locais de
-      interesse,como a Rua Florida,oCentro Comercial Galerías
-      Pacífico,a zona de Puerto Madero,aPlaza de Mayo e o
-      Palácio Municipal.
+        Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
+        e fica a apenas 5 minutosde carro de Brickell City Centre.
+        Os hóspedes podem aproveitar massagens. Quinto La Huella,
+        um dos 2 restaurantes, serve café da manhã, almoço e jantar.
+        Este hotel de luxo possui 4 piscinas externas, 2 bares/lounges.
+        os quartos oferecem comodidades como roupas de cama premium e
+        chuveiros com efeito de chuva. Os viajantes costumam elogiar
+        as boas condições da propriedade e a localização. A propriedade
+        também tem acesso fácil aos meios de transporte público: Estação de
+        Metromover Eighth Street fica a 2 minutos e Estação de Metromover Fifth
+        Street fica a 4 minutos de caminhada do local.
       </Text>
     </>
   );
