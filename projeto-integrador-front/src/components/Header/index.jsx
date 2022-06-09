@@ -41,9 +41,6 @@ function Header({ data }) {
   } = data;
 
   const {
-    toRenderOnDropdown,
-    setToRenderOnDropdown,
-    cardsRender,
     setCardsRender,
   } = useContext(InfoContext);
 
@@ -65,12 +62,29 @@ function Header({ data }) {
     place,
     setPlace,
     localData,
-    filterPlaces
   } = useContext(InfoContext);
+
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
+
+  // função que filtra os lugares baseado na busca do usuário
+  function filterPlaces() {
+    if (place.city) {
+      return localData.filter(
+        el =>
+          el.city.toLowerCase().includes(place.city.toLowerCase()) ||
+          el.country.toLowerCase().includes(place.city.toLowerCase())
+      );
+    }
+    return localData;
+}
 
   // função que seta os cards a serem exibidos em tela
   function handleCardsOnDisplay() {
-    setCardsRender(filterPlaces(localData));
+    setPlace(prev => ({
+      ...prev,
+      category: ''
+    }));
+    setCardsRender(filterPlaces());
   }
 
   function handleCleanRenderStates() {
@@ -250,7 +264,7 @@ function Header({ data }) {
                           tabIndex={0}
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
-                          onClick={() => setPlace({ city: el.city, country: el.country })}
+                          onClick={() => setPlace({ city: el.city, country: el.country, category: '' })}
                         >
                           <HStack spacing={3} align="center">
                             <Image maxW="1rem" src={geolocalization} />

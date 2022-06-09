@@ -8,22 +8,8 @@ function InfoProvider({ children }) {
   // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
   // ! as funções de renderização o utilizam
   const [place, setPlace] = useState({ city: '', country: '', category: '' });
-  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
-  const [cardsRender, setCardsRender] = useState(toRenderOnDropdown);
 
-  // função que filtra os lugares baseado na busca do usuário
-  function filterPlaces() {
-
-
-    if (place.city || place.category) {
-      return localData.filter(
-        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
-          el.country.toLowerCase().includes(place.city.toLowerCase()) ||
-          el.category === place.category
-      );
-    }
-    return localData
-  }
+  const [cardsRender, setCardsRender] = useState(localData);
 
   return (
     <InfoContext.Provider
@@ -32,12 +18,9 @@ function InfoProvider({ children }) {
         setUsername,
         place,
         setPlace,
-        toRenderOnDropdown,
-        setToRenderOnDropdown,
         cardsRender,
         setCardsRender,
         localData,
-        filterPlaces
       }}
     >
       {children}
