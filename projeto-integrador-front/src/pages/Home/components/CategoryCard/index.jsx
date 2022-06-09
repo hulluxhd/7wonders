@@ -1,7 +1,31 @@
 import { Box, Text, Image } from '@chakra-ui/react';
+import { useContext, useEffect } from 'react';
+import { InfoContext } from '../../../../contexts/InfoContext';
 
 function CategoryCard({ categoryToRender }) {
-  console.log(categoryToRender);
+  const {
+    setCardsRender,
+    place,
+    setPlace,
+    localData
+  } = useContext(InfoContext);
+
+  function categoryEngine(category) {
+    setPlace({
+      city: '',
+      country: '',
+      category: category,
+    });
+  }
+
+  useEffect(() => {
+    console.log(place);
+    if (place.category) {
+      const filtered = localData.filter(el => el.category === place.category);
+      setCardsRender(filtered);
+    }
+  }, [place.category]);
+
   return (
     <Box
       borderRadius="10px"
@@ -12,6 +36,9 @@ function CategoryCard({ categoryToRender }) {
       w="100%"
       border="1px solid var(--light-bege)"
       cursor="pointer"
+      transition="transform 0.2s ease-in-out"
+      _hover={{ transform: 'scale(1.08)'}}
+      onClick={() => categoryEngine(categoryToRender.category)}
     >
       <Image
         src={categoryToRender.imagePath}

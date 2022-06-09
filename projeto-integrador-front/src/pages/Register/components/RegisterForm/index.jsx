@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import BasicButton from '../../../components/BasicButton';
-import InputPassword from './InputPassword';
-import InputRegister from './InputRegister';
+import BasicButton from '../../../../components/BasicButton';
+import InputPassword from '../InputPassword';
+import InputRegister from '../InputRegister';
 
 // regras  e errors para validação dos inputs
 const SignupSchema = Yup.object().shape({

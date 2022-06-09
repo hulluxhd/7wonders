@@ -25,26 +25,24 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.png';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
-import InputHeader from './InputHeader';
-import DrawerLogin from './DrawerLogin';
+import InputHeader from './components/InputHeader';
+import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import Wrapper from '../Wrapper';
 
 function Header({ data }) {
   const {
-    toRenderOnDropdown,
-    setToRenderOnDropdown,
-    setCardsRender,
-    localData,
     isOpen,
     onOpen,
     onClose,
   } = data;
 
-  const [toRender] = useState(localData);
+  const {
+    setCardsRender,
+  } = useContext(InfoContext);
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
@@ -54,46 +52,49 @@ function Header({ data }) {
   // state para guardar a altura do header
   const [headerHeight, setHeaderHeight] = useState(0);
 
-  // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
-  // ! as funções de renderização o utilizam
-  const [place, setPlace] = useState({ city: '', country: '' });
-
   // largura da viewport
   const layoutWidth = window.innerWidth;
 
   // context para guardar o username
-  const { username, setUsername } = useContext(InfoContext);
+  const {
+    username,
+    setUsername,
+    place,
+    setPlace,
+    localData,
+  } = useContext(InfoContext);
+
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
 
   // função que filtra os lugares baseado na busca do usuário
-  function filterPlaces(placeList) {
-    let placesToRender;
-
-    if (place.city !== '') {
-      placesToRender = placeList.filter(
+  function filterPlaces() {
+    if (place.city) {
+      return localData.filter(
         el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
           el.country.toLowerCase().includes(place.city.toLowerCase())
       );
-    } else {
-      placesToRender = toRender;
     }
-
-    return placesToRender;
-  }
+    return localData;
+}
 
   // função que seta os cards a serem exibidos em tela
   function handleCardsOnDisplay() {
-    setCardsRender(filterPlaces(toRender));
+    setPlace(prev => ({
+      ...prev,
+      category: ''
+    }));
+    setCardsRender(filterPlaces());
   }
 
   function handleCleanRenderStates() {
-    setCardsRender(toRender);
-    setToRenderOnDropdown(toRender);
-    setPlace({ city: '', country: '' });
+    setCardsRender(localData);
+    setToRenderOnDropdown(localData);
+    setPlace({ city: '', country: '', category: '' });
   }
 
   // * Gerenciadores do motor de busca
   function handlePlace({ target }) {
-    setPlace({ city: target.value, country: '' });
+    setPlace({ city: target.value, country: '', category: '' });
   }
 
   function handleInputValueController() {
@@ -103,11 +104,9 @@ function Header({ data }) {
     return place.city;
   }
 
+  // seta os cards a serem renderizados no dropdown
   useEffect(() => {
-    const placesToRender = filterPlaces(toRender);
-
-    // seta os cards a serem renderizados no dropdown
-    setToRenderOnDropdown(placesToRender);
+    setToRenderOnDropdown(filterPlaces());
   }, [place]);
 
   // useEffect para observar a largura da viewport e identificar o
@@ -147,7 +146,8 @@ function Header({ data }) {
             alignItems="center">
             <Link to="/">
               <Image
-                width="100px"
+                maxH="40px"
+                fit="contain"
                 src={logo}
                 onClick={handleCleanRenderStates}
               />
@@ -263,7 +263,7 @@ function Header({ data }) {
                           tabIndex={0}
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
-                          onClick={() => setPlace({ city: el.city, country: el.country })}
+                          onClick={() => setPlace({ city: el.city, country: el.country, category: '' })}
                         >
                           <HStack spacing={3} align="center">
                             <Image maxW="1rem" src={geolocalization} />

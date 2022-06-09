@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, useMediaQuery } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../PlaceCard';
 import Wrapper from '../Wrapper';
+import { InfoContext } from '../../contexts/InfoContext';
 
-function PlacesList({ placeList }) {
+function PlacesList() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
+  const { cardsRender } = useContext(InfoContext);
+
   return (
     <Wrapper>
       <Box
@@ -14,12 +17,12 @@ function PlacesList({ placeList }) {
         gridTemplateColumns={isSmallerThan606 ? '1fr' : (isSmallerThan800 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)')}
         gap="1rem"
       >
-        {placeList.map(
+        {cardsRender.map(
           // eslint-disable-next-line react/no-array-index-key
-          (placeToRender, index) => (
+          (card, index) => (
             <PlaceCard
-              key={`${placeToRender.city} + ${index.toString()} `}
-              place={placeToRender}
+              key={`${card.city} + ${index.toString()} `}
+              place={card}
             />
           )
         )}

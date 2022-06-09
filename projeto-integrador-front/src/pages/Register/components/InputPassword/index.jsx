@@ -46,11 +46,11 @@ function InputPassword({
         </InputRightElement>
       </InputGroup>
       <Box>
-        {errors && touched
-          ? <Text as="span" color={errorColor} size="xs" position="absolute">
+        {errors && touched ? (
+          <Text as="span" color={errorColor} size="xs" position="absolute">
             {errors}
           </Text>
-          : null}
+        ) : null}
       </Box>
     </Box>
   );

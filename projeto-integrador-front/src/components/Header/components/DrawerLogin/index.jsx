@@ -21,8 +21,8 @@ import {
 } from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { InfoContext } from '../../../contexts/InfoContext';
-import BasicButton from '../../BasicButton';
+import { InfoContext } from '../../../../contexts/InfoContext';
+import BasicButton from '../../../BasicButton';
 
 function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const mockupInfo = {
@@ -49,13 +49,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
       }));
     },
     [setLoginData]
-  );
-
-  useEffect(
-    () => {
-      console.log(loginData);
-    },
-    [loginData]
   );
 
   async function handleSubmit(e) {
