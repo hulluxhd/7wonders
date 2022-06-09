@@ -5,24 +5,17 @@ import {
   Image,
   useMediaQuery,
   Badge,
+  Icon,
 } from '@chakra-ui/react';
 
+import { AiFillHeart } from 'react-icons/ai';
 import geolocalization from '../../assets/geolocalization.svg';
 
 function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
-  const
-    {
-      category,
-      city,
-      country,
-      about,
-      rating,
-      imagePath,
-      types,
-      name
-    } = place;
+  const { category, city, country, about, rating, imagePath, types, name } =
+    place;
 
   return (
     <Box
@@ -34,13 +27,18 @@ function PlaceCard({ place }) {
       boxShadow="base"
       alignItems="stretch"
     >
-      <Image
-        src={imagePath}
-        alt={name}
-        w="100%"
-        h="100%"
-        fit="cover"
-      />
+      <Box h="100%" position="relative">
+        <Image src={imagePath} alt={name} w="100%" h="100%" fit="cover" />
+        <Icon
+          as={AiFillHeart}
+          position="absolute"
+          top="1rem"
+          right="1rem"
+          color="#FFF"
+          boxSize="2rem"
+          cursor="pointer"
+        />
+      </Box>
       <Box p="1rem 1rem">
         <Box display="flex" alignItems="start" gap={2}>
           <Badge background="green.200" borderRadius="base" pr="2">
@@ -109,8 +107,7 @@ function PlaceCard({ place }) {
           <Image src={geolocalization} maxW="0.6rem" display="inline" />
           <Text fontSize="xs" as="span">
             {' '}
-            A 940m do centro
-            {' '}
+            A 940m do centro{' '}
             <Text as="span" color="var(--blue)" fontSize="xs">
               - MOSTRAR NO MAPA
             </Text>
@@ -118,10 +115,7 @@ function PlaceCard({ place }) {
         </Box>
         <Box>
           <Text p="0.5rem 0" fontSize="90%" lineHeight="1.2rem">
-            {about.slice(
-              0,
-              100
-            )}
+            {about.slice(0, 100)}
             <Text as="span" color="var(--blue)">
               ... veja mais
             </Text>
