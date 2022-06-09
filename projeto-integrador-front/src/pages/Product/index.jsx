@@ -163,7 +163,7 @@ export default function Product() {
         padding="2rem"
       >
         <h1>
-          Fique no coração de Buenos Aires
+          Umas das melhores localizações de Miami
         </h1>
       </Text>
       <Text
