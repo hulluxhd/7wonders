@@ -12,6 +12,9 @@ const theme = {
         '--red': '#e06141',
         fontSize: '16px',
       },
+      '.swiper-pagination-bullet-active': {
+        background: 'var(--blue) !important',
+      },
       body: {
         background: 'var(--light-bege)',
         '@media(max-width: 1080px)': {
@@ -47,6 +50,7 @@ const theme = {
       'button, a': {
         cursor: 'pointer',
       },
+
     },
   },
 };

@@ -6,6 +6,7 @@ import {
   useMediaQuery,
   Badge,
   Icon,
+  VStack,
 } from '@chakra-ui/react';
 
 import { AiFillHeart } from 'react-icons/ai';
@@ -28,17 +29,30 @@ function PlaceCard({ place }) {
       alignItems="stretch"
     >
       <Box h="100%" position="relative">
-        <Image src={imagePath} alt={name} w="100%" h="100%" fit="cover" minH="16rem"/>
-        <Icon
-          as={AiFillHeart}
-          position="absolute"
-          top="1rem"
-          right="1rem"
-          color="#FFF"
-          boxSize="2rem"
-          cursor="pointer"
-        />
+        <Image src={imagePath} alt={name} w="100%" h="15rem" fit="cover" borderRadius="0.25rem 0.25rem 0 0 " />
+        <VStack position="absolute" top="1rem" right="1rem">
+          <Icon
+            as={AiFillHeart}
+            color="gray.400"
+            boxSize="2rem"
+            cursor="pointer"
+          />
+          <Text
+            color="#FFF"
+            fontSize="sm"
+            boxSize="2rem"
+            lineHeight="2rem"
+            fontWeight="bold"
+            background="var(--hard-blue)"
+            borderRadius="0.25rem"
+            textAlign="center"
+            maxW="100%"
+          >
+            {rating}
+          </Text>
+        </VStack>
       </Box>
+
       <Box p="1rem 1rem">
         <Box display="flex" alignItems="start" gap={2}>
           <Badge background="green.200" borderRadius="base" pr="2">
@@ -74,52 +88,6 @@ function PlaceCard({ place }) {
               {name}
             </Heading>
           </Box>
-          <Box
-            pt="10px"
-            display="flex"
-            flexDir="column"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Text
-              color="#FFF"
-              fontWeight="bold"
-              p="0.2rem 0.75rem"
-              background="var(--hard-blue)"
-              borderRadius="0.25rem"
-              textAlign="center"
-              maxW="100%"
-            >
-              {rating}
-            </Text>
-            <Text
-              fontWeight="bold"
-              textAlign="center"
-              fontSize="sm"
-              color="var(--light-blue)"
-              as="span"
-            >
-              {rating >= 4 ? 'Muito bom' : 'Bom'}
-            </Text>
-          </Box>
-        </Box>
-        <Box pt="0.5rem">
-          <Image src={geolocalization} maxW="0.6rem" display="inline" />
-          <Text fontSize="xs" as="span">
-            {' '}
-            A 940m do centro{' '}
-            <Text as="span" color="var(--blue)" fontSize="xs">
-              - MOSTRAR NO MAPA
-            </Text>
-          </Text>
-        </Box>
-        <Box>
-          <Text p="0.5rem 0" fontSize="90%" lineHeight="1.2rem">
-            {about.slice(0, 100)}
-            <Text as="span" color="var(--blue)">
-              ... veja mais
-            </Text>
-          </Text>
         </Box>
       </Box>
     </Box>
