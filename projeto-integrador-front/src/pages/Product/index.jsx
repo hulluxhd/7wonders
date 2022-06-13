@@ -1,5 +1,13 @@
 import React from 'react';
 import {
+  ArrowUUpLeft,
+  Heart,
+  MapPin,
+  ShareNetwork,
+  Star
+} from 'phosphor-react';
+
+import {
   Box,
   chakra,
   Container,
@@ -16,6 +24,7 @@ import {
   VisuallyHidden,
   List,
   ListItem,
+  Link,
   Grid,
   GridItem
 } from '@chakra-ui/react';
@@ -32,6 +41,7 @@ export default function Product() {
         alignItems="center"
         padding="0 2rem"
         justifyContent="space-between"
+        position="relative"
         >
         <span>
           <h3>Hoteis</h3>
@@ -42,7 +52,7 @@ export default function Product() {
           float="right"
           paddingLeft="1rem"
           >
-            SETA
+            <ArrowUUpLeft size={32} color="#FFF" />
         </button>
       </Box>
       <Box
@@ -50,21 +60,36 @@ export default function Product() {
         justifyContent="space-between"
         alignItems="center"
         padding="1rem 2rem"
-        marginBottom="1rem"
         bg="#dbdce7"
         lineHeight="1rem"
       >
-        <Text
-          w="60%"
-          fontSize={{ base: '16px', lg: '18px' }}
-          fontFamily="Poppins, sans-serif"
-          color="var(--hard-blue)"
-          fontWeight="500"
-          mb="4"
-          >
-          Miami, Estados Unidos, a 940m para o centro.
-        </Text>
-        <span>
+        <Box display="flex" alignItems="center" gap="1rem">
+          <MapPin size={28} color="var(--hard-blue)" position="floatLeft" />
+          <Text
+            w="60%"
+            fontSize={{ base: '16px', lg: '18px' }}
+            fontFamily="Poppins, sans-serif"
+            color="var(--hard-blue)"
+            fontWeight="500"
+            >
+            Miami, Estados Unidos, a 940m para o centro.
+          </Text>
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap="1.2rem"
+        >
+          <span>
+            <p>Muito bom</p>
+            <Box display="flex">
+              <Star size={26} color="var(--hard-blue)" />
+              <Star size={26} color="var(--hard-blue)" />
+              <Star size={26} color="var(--hard-blue)" />
+              <Star size={26} color="var(--hard-blue)" />
+              <Star size={26} color="var(--hard-blue)" />
+            </Box>
+          </span>
           <Text
             color="#FFF"
             fontWeight="bold"
@@ -76,25 +101,35 @@ export default function Product() {
           >
             4.5
           </Text>
-        </span>
+        </Box>
       </Box>
-      {/* <flex>
-        <Image
-          rounded="lg"
-          alt="hotel miami"
-          src="https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit"
-          fit="cover"
-          align="center"
-          w={{ base: '100%', lg: '700px' }}
-          h={{ base: '100%', sm: '600px', lg: '700px' }}
+      <Box
+        h="60px"
+        w="100%"
+        display="flex"
+        alignItems="center"
+        padding="0 2rem"
+        gap="1rem"
+
+      >
+        <ShareNetwork
+          size={28}
+          color="var(--hard-blue)"
+          cursor="pointer"
         />
-      </flex> */}
+        <Heart
+          size={30}
+          color="var(--hard-blue)"
+          cursor="pointer"
+        />
+      </Box>
       <Grid
         h={{ base: '100%', sm: '600px', lg: '700px' }}
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(5, 1fr)"
         gap={2}
         padding="0 2rem"
+        position="relative"
       >
         <GridItem
           rounded="lg"
@@ -107,7 +142,7 @@ export default function Product() {
           bgSize="cover"
           bgRepeat="no-repeat"
           _hover={{
-            transform: 'scale(1.03)',
+            transform: 'scale(1.01)',
             border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
@@ -121,7 +156,7 @@ export default function Product() {
           cursor="pointer"
           bgRepeat="no-repeat"
           _hover={{
-            transform: 'scale(1.03)',
+            transform: 'scale(1.01)',
             border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
@@ -135,7 +170,7 @@ export default function Product() {
           cursor="pointer"
           bgSize="cover"
           _hover={{
-            transform: 'scale(1.03)',
+            transform: 'scale(1.01)',
             border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
@@ -149,11 +184,29 @@ export default function Product() {
           cursor="pointer"
           bgSize="cover"
           _hover={{
-            transform: 'scale(1.03)',
+            transform: 'scale(1.01)',
             border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
         />
+
+        <Box
+          position="absolute"
+          right="3rem"
+          bottom="1rem"
+          color="var(--hard-blue)"
+          bg="lightblue"
+          padding="0.5rem 1rem"
+          borderRadius="8px"
+          _hover={{
+            color: '#FFF',
+            bg: 'var(--hard-blue)',
+            letterSpacing: '1.1px'
+          }}
+          transition="all 0.3s ease-in"
+          >
+          <Link href="https://google.com">Ver mais</Link>
+        </Box>
       </Grid>
 
       <Text
