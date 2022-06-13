@@ -50,7 +50,7 @@ export default function Product() {
         <button
           type="button"
           float="right"
-          paddingLeft="1rem"
+          padding="0 0 0 1rem"
           >
             <ArrowUUpLeft size={32} color="#FFF" />
         </button>
@@ -215,9 +215,7 @@ export default function Product() {
         color="var(--hard-blue)"
         padding="2rem"
       >
-        <h1>
-          Umas das melhores localizações de Miami
-        </h1>
+        Umas das melhores localizações de Miami
       </Text>
       <Text
         w="75%"
