@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Image, useMediaQuery } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import {
   Navigation,
   Pagination,
   Scrollbar,
-  A11y
+  Autoplay
 } from 'swiper';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import PlaceCard from '../PlaceCard';
@@ -15,37 +15,42 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import prev from '../../assets/prev-galeria.svg'
-import next from '../../assets/next-galeria.svg'
+import 'swiper/css/autoplay';
+import prev from '../../assets/prev-galeria.svg';
+import next from '../../assets/next-galeria.svg';
 
 function PlacesList() {
-  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
-  const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const { cardsRender } = useContext(InfoContext);
-  const [swiperProxy, setSwiperProxy] = useState({})
+  const [swiperProxy, setSwiperProxy] = useState({});
 
   return (
     <Wrapper mb="2rem">
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        modules={[Navigation, Pagination, Scrollbar, Autoplay]}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
         spaceBetween={20}
         slidesPerView={1}
         grabCursor
-        pagination={{ clickable: true }}
+        centerInsufficientSlides
         breakpoints={{
           606: {
             slidesPerView: 2,
-            spaceBetween: 20
+            spaceBetween: 20,
           },
           800: {
             slidesPerView: 3,
-            spaceBetween: 30
+            spaceBetween: 30,
           },
         }}
-        onSwiper={(swiper) => setSwiperProxy(swiper)}
+        onSwiper={swiper => setSwiperProxy(swiper)}
       >
-        {/*Controladores do carrossel*/}
-        <Image position="absolute"
+        {/* Controladores do carrossel  */}
+        <Image
+          position="absolute"
           zIndex={10}
           top="50%"
           left="10px"
@@ -53,8 +58,10 @@ function PlacesList() {
           w="3rem"
           cursor="pointer"
           mt="-1.5rem"
-          onClick={() => swiperProxy.slidePrev()} />
-        <Image position="absolute"
+          onClick={() => swiperProxy.slidePrev()}
+        />
+        <Image
+          position="absolute"
           zIndex={10}
           top="50%"
           right="10px"
@@ -62,14 +69,15 @@ function PlacesList() {
           w="3rem"
           cursor="pointer"
           mt="-1.5rem"
-          onClick={() => swiperProxy.slideNext()} />
-        {cardsRender.map((card) => (
+          onClick={() => swiperProxy.slideNext()}
+        />
+        {cardsRender.map(card => (
           <SwiperSlide key={card.name}>
             <PlaceCard place={card} />
           </SwiperSlide>
         ))}
       </Swiper>
-    </Wrapper >
+    </Wrapper>
   );
 }
 

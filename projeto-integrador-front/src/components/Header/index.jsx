@@ -25,7 +25,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
-import logo from '../../assets/logo.png';
+import logo2 from '../../assets/logo2.svg';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
 import InputHeader from './components/InputHeader';
@@ -148,7 +148,7 @@ function Header({ data }) {
               <Image
                 maxH="40px"
                 fit="contain"
-                src={logo}
+                src={logo2}
                 onClick={handleCleanRenderStates}
               />
             </Link>

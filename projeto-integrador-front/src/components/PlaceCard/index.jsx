@@ -9,14 +9,30 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineShareAlt } from 'react-icons/ai';
+import { FiShare2 } from 'react-icons/fi';
 import geolocalization from '../../assets/geolocalization.svg';
 
 function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
-  const { category, city, country, about, rating, imagePath, types, name } =
+  const {
+    category,
+    city,
+    country,
+    about,
+    rating,
+    imagePath,
+    types,
+    name
+   } =
     place;
+
+  function removeLastWord(phrase) {
+    const splited = phrase.split(' ');
+    while (splited.length > 2) splited.pop();
+    return splited.join(' ');
+  }
 
   return (
     <Box
@@ -29,27 +45,57 @@ function PlaceCard({ place }) {
       alignItems="stretch"
     >
       <Box h="100%" position="relative">
-        <Image src={imagePath} alt={name} w="100%" h="15rem" fit="cover" borderRadius="0.25rem 0.25rem 0 0 " />
-        <VStack position="absolute" top="1rem" right="1rem">
-          <Icon
-            as={AiFillHeart}
-            color="gray.400"
-            boxSize="2rem"
-            cursor="pointer"
-          />
-          <Text
-            color="#FFF"
-            fontSize="sm"
-            boxSize="2rem"
-            lineHeight="2rem"
-            fontWeight="bold"
-            background="var(--hard-blue)"
-            borderRadius="0.25rem"
-            textAlign="center"
-            maxW="100%"
-          >
-            {rating}
-          </Text>
+        <Image
+          src={imagePath}
+          alt={name}
+          w="100%"
+          h="15rem"
+          fit="cover"
+          borderRadius="0.25rem 0.25rem 0 0"
+        />
+        <VStack
+          position="absolute"
+          borderRadius="0 0.25rem 0 0"
+          top="0"
+          right="0"
+          paddingLeft="1rem"
+          h="100%"
+          transition="all 0.2s ease-in-out"
+          _hover={{
+              background: 'var(--light-blue)',
+          }}
+        >
+          <VStack p="1rem 1rem 0 0">
+            <Box>
+            <Icon
+              as={AiFillHeart}
+              color="whiteAlpha.800"
+              boxSize="1.5rem"
+              cursor="pointer"
+              opacity="0.9"
+            />
+            </Box>
+            <Text
+              color="#FFF"
+              fontSize="xs"
+              boxSize="1.5rem"
+              lineHeight="1.5rem"
+              fontWeight="bold"
+              background="var(--hard-blue)"
+              borderRadius="0.25rem"
+              textAlign="center"
+              maxW="100%"
+            >
+              {rating}
+            </Text>
+            <Icon
+              as={FiShare2}
+              color="black"
+              boxSize="1.5rem"
+              cursor="pointer"
+              opacity="0.9"
+            />
+          </VStack>
         </VStack>
       </Box>
 
@@ -84,8 +130,9 @@ function PlaceCard({ place }) {
               mt="10px"
               lineHeight="1.5rem"
               fontSize="1.2rem"
+              overflow="hidden"
             >
-              {name}
+              {isSmallerThan606 ? name : removeLastWord(name)}
             </Heading>
           </Box>
         </Box>
