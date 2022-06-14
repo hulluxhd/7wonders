@@ -1,4 +1,8 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+
 import {
   ArrowUUpLeft,
   Heart,
@@ -227,7 +231,29 @@ export default function Product() {
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text>texto</Text>
+            <Swiper
+              spaceBetween={50}
+              slidesPerView={3}
+              onSlideChange={() => console.log('slide change')}
+              onSwiper={(swiper) => console.log(swiper)}
+            >
+              <SwiperSlide>
+                <Box
+                  bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+                  bgPosition="center"
+                  bgSize="cover"
+                  bgRepeat="no-repeat"
+                  minHeight="550px"
+                  width="450px"
+                >
+                  Slide 1
+                </Box>
+              </SwiperSlide>
+              <SwiperSlide>Slide 2</SwiperSlide>
+              <SwiperSlide>Slide 3</SwiperSlide>
+              <SwiperSlide>Slide 4</SwiperSlide>
+              ...
+            </Swiper>
             </ModalBody>
               <ModalFooter>
                 <Button colorScheme="blue" mr={3} onClick={onClose}>
@@ -240,7 +266,7 @@ export default function Product() {
       </Grid>
 
       <Text
-        fontSize={{ base: '16px', lg: '18px' }}
+        fontSize={{ base: '18px', lg: '22px' }}
         fontFamily="Poppins, sans-serif"
         color="var(--hard-blue)"
         padding="2rem"
@@ -249,7 +275,7 @@ export default function Product() {
       </Text>
       <Text
         w="75%"
-        color="#000000"
+        color="var(--hard-blue)"
         fontWeight="500"
         fontSize={{ base: '16px', lg: '18px' }}
         padding="0 2rem 1rem"
