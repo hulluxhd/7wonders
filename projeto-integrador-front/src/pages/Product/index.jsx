@@ -26,10 +26,21 @@ import {
   ListItem,
   Link,
   Grid,
-  GridItem
+  GridItem,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 
 export default function Product() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const finalRef = React.useRef(null);
+
   return (
     <>
       <Box
@@ -130,6 +141,8 @@ export default function Product() {
         gap={2}
         padding="0 2rem"
         position="relative"
+        ref={finalRef}
+        tabIndex={-1}
       >
         <GridItem
           rounded="lg"
@@ -189,11 +202,12 @@ export default function Product() {
           }}
           transition="transform 0.5s ease-in-out"
         />
-
-        <Box
+        <Button
           position="absolute"
-          right="3rem"
+          right="3.5rem"
           bottom="1rem"
+          mt={4}
+          onClick={onOpen}
           color="var(--hard-blue)"
           bg="lightblue"
           padding="0.5rem 1rem"
@@ -205,8 +219,24 @@ export default function Product() {
           }}
           transition="all 0.3s ease-in"
           >
-          <Link href="https://google.com">Ver mais</Link>
-        </Box>
+          Ver mais
+        </Button>
+        <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Modal Title</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text>texto</Text>
+            </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  Voltar
+                </Button>
+                <Button variant="ghost">Fazer reserva</Button>
+              </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Grid>
 
       <Text
@@ -223,7 +253,6 @@ export default function Product() {
         fontWeight="500"
         fontSize={{ base: '16px', lg: '18px' }}
         padding="0 2rem 1rem"
-
       >
         Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
         e fica a apenas 5 minutosde carro de Brickell City Centre.
