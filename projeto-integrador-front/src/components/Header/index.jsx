@@ -23,6 +23,7 @@ import {
 import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Calendar } from 'react-calendar';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
 import logo2 from '../../assets/logo2.svg';
