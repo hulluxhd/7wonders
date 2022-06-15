@@ -6,7 +6,7 @@ import Header from './components/Header';
 import InfoProvider, { InfoContext } from './contexts/InfoContext';
 import Home from './pages/Home';
 import Register from './pages/Register';
-import Calendly from './components/Calendly';
+import Calendly from './components/Calendar';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();

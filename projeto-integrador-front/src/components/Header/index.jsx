@@ -33,6 +33,7 @@ import InputHeader from './components/InputHeader';
 import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import Wrapper from '../Wrapper';
+import Calendly from '../Calendar';
 
 function Header({ data }) {
   const {
@@ -247,7 +248,8 @@ function Header({ data }) {
                 {isComponentVisible && (
                   <Box
                     position="absolute"
-                    top="2.8rem"
+                    top="0"
+                    marginTop="2.8rem"
                     background="#FFF"
                     w="100%"
                     lineHeight="1.3rem"
@@ -295,14 +297,15 @@ function Header({ data }) {
                             </VStack>
                           </HStack>
                         </Box>
-                        <Divider borderColor="var(--blue)" w="100%" />
+                        <Divider borderColor="var(--blue)" _last={{ borderColor: 'none' }} w="100%" />
                       </Box>
                     ))}
                   </Box>
                 )}
               </GridItem>
 
-              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%">
+              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative">
+                <Calendly marginTop="2.8rem" />
                 <InputHeader
                   image={calendar}
                   placeholder="Check in - Check out"
