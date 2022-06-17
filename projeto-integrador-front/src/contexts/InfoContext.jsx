@@ -11,6 +11,8 @@ function InfoProvider({ children }) {
 
   const [cardsRender, setCardsRender] = useState(localData);
 
+  const [dateCheckinAndCheckout, setDateCheckinAndCheckout] = useState(null);
+
   return (
     <InfoContext.Provider
       value={{
@@ -21,6 +23,8 @@ function InfoProvider({ children }) {
         cardsRender,
         setCardsRender,
         localData,
+        dateCheckinAndCheckout,
+        setDateCheckinAndCheckout
       }}
     >
       {children}

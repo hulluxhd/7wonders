@@ -6,13 +6,14 @@ import {
 
 function InputHeader(props) {
   const {
-    placeholder, image, postop, value, onChange
+    placeholder, image, postop, value, onChange, readOnly, disabled
   } = props;
 
   return (
 
     <Box position="relative">
       <Input
+        readOnly={readOnly}
         background="#FFF"
         fontSize="sm"
         placeholder={placeholder}

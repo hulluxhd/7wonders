@@ -33,7 +33,7 @@ import InputHeader from './components/InputHeader';
 import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import Wrapper from '../Wrapper';
-import Calendly from '../Calendar';
+import BasicCalendar from '../Calendar';
 
 function Header({ data }) {
   const {
@@ -44,10 +44,14 @@ function Header({ data }) {
 
   const {
     setCardsRender,
+    dateCheckinAndCheckout,
+    setDateCheckinAndCheckout
   } = useContext(InfoContext);
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
+
+  const calendarComponent = useComponentVisible(false);
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -99,11 +103,21 @@ function Header({ data }) {
     setPlace({ city: target.value, country: '', category: '' });
   }
 
-  function handleInputValueController() {
+  function handleInputCityValueController() {
     if (place.city && place.country) {
       return `${place.city}, ${place.country}`;
     }
     return place.city;
+  }
+
+  function handleInputDateValueController(dateArray) {
+    console.log(dateArray);
+    if (dateArray !== null) {
+     const [checkin, checkout] = dateArray;
+     return `${checkin.getDate()}/${checkin.getMonth() + 1} - ${checkout.getDate()}/${checkout.getMonth() + 1}`;
+    }
+
+    return '';
   }
 
   // seta os cards a serem renderizados no dropdown
@@ -243,7 +257,7 @@ function Header({ data }) {
                   image={geolocalization}
                   placeholder="Para onde iremos?"
                   postop="10px"
-                  value={handleInputValueController()}
+                  value={handleInputCityValueController()}
                 />
                 {isComponentVisible && (
                   <Box
@@ -303,13 +317,25 @@ function Header({ data }) {
                   </Box>
                 )}
               </GridItem>
+              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative" ref={calendarComponent.ref} onClick={() => calendarComponent.setIsComponentVisible(true)}>
 
-              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative">
-                <Calendly marginTop="2.8rem" />
+              {calendarComponent.isComponentVisible && (
+              <BasicCalendar marginTop="2.8rem">
+                <Grid gap="0.1rem" templateColumns="1fr 1fr">
+                    <GridItem w="100%">
+                      <BasicButton description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
+                    </GridItem>
+                    <GridItem w="100%">
+                      <BasicButton description="Continuar" onClick={() => calendarComponent.setIsComponentVisible(false)} />
+                    </GridItem>
+                </Grid>
+              </BasicCalendar>
+            )}
                 <InputHeader
                   image={calendar}
                   placeholder="Check in - Check out"
-                  disabled
+                  readOnly
+                  value={handleInputDateValueController(dateCheckinAndCheckout)}
                 />
               </GridItem>
               <GridItem colSpan={1} w="100%">
