@@ -81,7 +81,7 @@ function Header({ data }) {
       );
     }
     return localData;
-}
+  }
 
   // função que seta os cards a serem exibidos em tela
   function handleCardsOnDisplay() {
@@ -113,8 +113,8 @@ function Header({ data }) {
   function handleInputDateValueController(dateArray) {
     console.log(dateArray);
     if (dateArray !== null) {
-     const [checkin, checkout] = dateArray;
-     return `${checkin.getDate()}/${checkin.getMonth() + 1} - ${checkout.getDate()}/${checkout.getMonth() + 1}`;
+      const [checkin, checkout] = dateArray;
+      return `${checkin.getDate()}/${checkin.getMonth() + 1} - ${checkout.getDate()}/${checkout.getMonth() + 1}`;
     }
 
     return '';
@@ -272,7 +272,7 @@ function Header({ data }) {
                     maxH="16rem"
                     overflow="auto"
                   >
-                    {toRenderOnDropdown.map((el, i) => (
+                    {toRenderOnDropdown.map((el) => (
                       <Box key={el.city}>
                         <Box
                           p="0.5rem 1rem"
@@ -280,7 +280,10 @@ function Header({ data }) {
                           tabIndex={0}
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
-                          onClick={() => setPlace({ city: el.city, country: el.country, category: '' })}
+                          onClick={() => {
+                            setPlace({ city: el.city, country: el.country, category: '' });
+                            setIsComponentVisible(false);
+                          }}
                         >
                           <HStack spacing={3} align="center">
                             <Image maxW="1rem" src={geolocalization} />
@@ -319,35 +322,36 @@ function Header({ data }) {
               </GridItem>
               <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative" ref={calendarComponent.ref} onClick={() => calendarComponent.setIsComponentVisible(true)}>
 
-              {calendarComponent.isComponentVisible && (
-              <BasicCalendar marginTop="2.8rem">
-                <Grid gap="0.1rem" templateColumns="1fr 1fr">
-                    <GridItem w="100%">
-                      <BasicButton description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
-                    </GridItem>
-                    <GridItem w="100%">
-                      <BasicButton description="Continuar" onClick={() => calendarComponent.setIsComponentVisible(false)} />
-                    </GridItem>
-                </Grid>
-              </BasicCalendar>
-            )}
+                {calendarComponent.isComponentVisible === true && (
+                  <BasicCalendar marginTop="2.8rem">
+                    <Grid gap="0.1rem" templateColumns="1fr 1fr">
+                      <GridItem w="100%">
+                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0 0.25rem 0.25rem 0.25rem" description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
+                      </GridItem>
+                      <GridItem w="100%">
+                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0.25rem 0 0.25rem 0.25rem" description="Aplicar" onClick={() => document.getElementById('btn-buscar').click()} />
+                      </GridItem>
+                    </Grid>
+                  </BasicCalendar>
+                )}
                 <InputHeader
-                  image={calendar}
-                  placeholder="Check in - Check out"
-                  readOnly
                   value={handleInputDateValueController(dateCheckinAndCheckout)}
+                  placeholder="Check in - Check out"
+                  image={calendar}
+                  readOnly
                 />
               </GridItem>
               <GridItem colSpan={1} w="100%">
                 <BasicButton
-                  w="100%"
-                  description="Buscar"
                   transition="all 0.2s ease-in-out"
                   _hover={{
                     background: 'var(--light-blue)',
                     border: '2px solid var(--blue)',
                   }}
                   onClick={handleCardsOnDisplay}
+                  id="btn-buscar"
+                  description="Buscar"
+                  w="100%"
                 />
               </GridItem>
             </Grid>

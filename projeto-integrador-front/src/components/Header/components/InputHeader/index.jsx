@@ -6,7 +6,7 @@ import {
 
 function InputHeader(props) {
   const {
-    placeholder, image, postop, value, onChange, readOnly, disabled
+    placeholder, image, postop, value, onChange, readOnly
   } = props;
 
   return (

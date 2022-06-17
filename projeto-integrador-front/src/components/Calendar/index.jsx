@@ -1,17 +1,16 @@
 import {
- Box, Grid, GridItem, Icon
+  Box, Icon
 } from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
-import { Calendar } from 'react-calendar';
-import './calendar.css';
+import { useContext } from 'react';
+import Calendar from 'react-calendar';
 import {
   FaChevronRight,
   FaChevronCircleRight,
   FaChevronCircleLeft,
   FaChevronLeft,
 } from 'react-icons/fa';
-import BasicButton from '../BasicButton';
 import { InfoContext } from '../../contexts/InfoContext';
+import './calendar.css';
 
 function BasicCalendar({ marginTop, children }) {
   const { dateCheckinAndCheckout, setDateCheckinAndCheckout } =
@@ -28,6 +27,7 @@ function BasicCalendar({ marginTop, children }) {
       left={0}
       marginTop={marginTop}
       background="#FFF"
+      borderRadius="0.25rem"
     >
       <Calendar
         next2Label={<Icon as={FaChevronCircleRight} />}
