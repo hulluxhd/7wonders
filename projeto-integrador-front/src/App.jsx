@@ -7,6 +7,7 @@ import InfoProvider, { InfoContext } from './contexts/InfoContext';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Calendly from './components/Calendar';
+import Results from './pages/Results';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register openDrawer={onOpen} />} />
+          <Route path="/results" element={<Results />} />
           <Route path="/calendar" element={<Calendly />} />
         </Routes>
         <Footer />

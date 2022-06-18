@@ -1,11 +1,16 @@
 import { Text, useMediaQuery } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Wrapper from '../../components/Wrapper';
+import baseApi from '../../services/service.baseApi';
 import Categories from './components/Categories';
 import PlacesList from './components/PlacesList';
 
 function Home() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+
+  useEffect(() => {
+    baseApi.get('/accommodations').then((response) => console.log(response));
+  }, []);
 
   return (
     <>

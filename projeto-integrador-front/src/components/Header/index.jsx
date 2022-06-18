@@ -64,8 +64,8 @@ function Header({ data }) {
   const layoutWidth = window.innerWidth;
 
   const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
-  // função que seta os cards a serem exibidos em tela
-  // ! ESSA FUNÇÃO VAI PARA A PÁGINA DE LISTAGEM
+
+  // função que seta os cards a serem exibidos em tela -> fazer requisição ao backend?
   function handleCardsOnDisplay() {
     setPlace(prev => ({
       ...prev,
@@ -246,7 +246,7 @@ function Header({ data }) {
                     {toRenderOnDropdown.map((el) => (
                       <Box
                         key={el.city}
-                        >
+                      >
                         <Box
                           p="0.5rem 1rem"
                           cursor="pointer"
@@ -318,17 +318,19 @@ function Header({ data }) {
                 />
               </GridItem>
               <GridItem colSpan={1} w="100%">
-                <BasicButton
-                  transition="all 0.2s ease-in-out"
-                  _hover={{
-                    background: 'var(--light-blue)',
-                    border: '2px solid var(--blue)',
-                  }}
-                  onClick={handleCardsOnDisplay}
-                  id="btn-buscar"
-                  description="Buscar"
-                  w="100%"
-                />
+                <Link to="/results">
+                  <BasicButton
+                    transition="all 0.2s ease-in-out"
+                    _hover={{
+                      background: 'var(--light-blue)',
+                      border: '2px solid var(--blue)',
+                    }}
+                    onClick={handleCardsOnDisplay}
+                    id="btn-buscar"
+                    description="Buscar"
+                    w="100%"
+                  />
+                </Link>
               </GridItem>
             </Grid>
           </Wrapper>
