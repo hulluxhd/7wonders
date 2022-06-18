@@ -12,7 +12,7 @@ import {
 import { InfoContext } from '../../contexts/InfoContext';
 import './calendar.css';
 
-function BasicCalendar({ marginTop, children }) {
+function BasicCalendar({ marginTop, showDoubleView, children }) {
   const { dateCheckinAndCheckout, setDateCheckinAndCheckout } =
     useContext(InfoContext);
 
@@ -34,6 +34,7 @@ function BasicCalendar({ marginTop, children }) {
         prev2Label={<Icon as={FaChevronCircleLeft} />}
         nextLabel={<Icon as={FaChevronRight} />}
         prevLabel={<Icon as={FaChevronLeft} />}
+        showDoubleView={showDoubleView}
         value={dateCheckinAndCheckout}
         minDate={new Date()}
         onChange={onChange}
