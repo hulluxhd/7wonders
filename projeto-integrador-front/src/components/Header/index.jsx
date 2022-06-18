@@ -31,7 +31,7 @@ import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import Wrapper from '../Wrapper';
 import BasicCalendar from '../Calendar';
-import componentIsVisible from './utils/util.componentsVisible';
+import ComponentIsVisible from './utils/util.componentsVisible';
 
 function Header({ data }) {
   const {
@@ -46,7 +46,8 @@ function Header({ data }) {
     setDateCheckinAndCheckout
   } = useContext(InfoContext);
 
-  const componentsVisible = componentIsVisible();
+  const componentsVisible = new ComponentIsVisible();
+  console.log(componentsVisible);
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -138,6 +139,7 @@ function Header({ data }) {
         w="100%"
         right="0"
         top="0"
+        zIndex={99}
       >
         <Box
           zIndex={100}

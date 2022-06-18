@@ -1,10 +1,14 @@
-function componentsVisible() {
-  const inputCity = componentsVisible(false);
-  const inputCalendar = componentsVisible(false);
+import useComponentVisible from '../../../hooks/useComponentVisible';
 
-  return {
-    inputCity,
-    inputCalendar,
-  };
+class ComponentsVisible {
+  inputCity;
+
+  inputCalendar;
+
+  constructor(inputCity, inputCalendar) {
+    this.inputCity = useComponentVisible(false);
+    this.inputCalendar = useComponentVisible(false);
+  }
 }
-export default componentsVisible;
+
+export default ComponentsVisible;
