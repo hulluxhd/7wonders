@@ -12,7 +12,9 @@ import {
 import { InfoContext } from '../../contexts/InfoContext';
 import './calendar.css';
 
-function BasicCalendar({ marginTop, showDoubleView, children }) {
+function BasicCalendar({
+  marginTop, showDoubleView, width, children
+}) {
   const { dateCheckinAndCheckout, setDateCheckinAndCheckout } =
     useContext(InfoContext);
 
@@ -22,12 +24,14 @@ function BasicCalendar({ marginTop, showDoubleView, children }) {
 
   return (
     <Box
+      className="calendar-wrapper"
       position="absolute"
       top={0}
       left={0}
       marginTop={marginTop}
       background="#FFF"
       borderRadius="0.25rem"
+      width={width}
     >
       <Calendar
         next2Label={<Icon as={FaChevronCircleRight} />}

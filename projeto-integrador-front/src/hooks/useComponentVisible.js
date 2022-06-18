@@ -8,18 +8,15 @@ export default function useComponentVisible(initialIsVisible) {
   const handleClickOutside = event => {
     if (ref.current && !ref.current.contains(event.target)) {
       setIsComponentVisible(false);
-      console.log(isComponentVisible);
     }
   };
 
   const close = () => {
     setIsComponentVisible(false);
-    console.log(isComponentVisible);
   };
 
   const open = () => {
     setIsComponentVisible(true);
-    console.log(ref);
   };
 
   useEffect(() => {

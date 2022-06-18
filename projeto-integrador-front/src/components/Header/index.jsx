@@ -18,20 +18,22 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
-import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState, useContext } from 'react';
+import { BsFillFlagFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
-import logo2 from '../../assets/logo2.svg';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
+import logo2 from '../../assets/logo2.svg';
 import InputHeader from './components/InputHeader';
 import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
-import Wrapper from '../Wrapper';
 import BasicCalendar from '../Calendar';
+import Wrapper from '../Wrapper';
 import ComponentIsVisible from './utils/util.componentsVisible';
+import handleInputDateValueController from './utils/util.handleInputDateValueController';
+import handleInputCityValueController from './utils/util.handleInputCityValueController';
+import filterPlaces from '../../utils/util.filterPlaces';
 
 function Header({ data }) {
   const {
@@ -43,11 +45,15 @@ function Header({ data }) {
   const {
     setCardsRender,
     dateCheckinAndCheckout,
-    setDateCheckinAndCheckout
+    setDateCheckinAndCheckout,
+    username,
+    setUsername,
+    place,
+    setPlace,
+    localData,
   } = useContext(InfoContext);
 
   const componentsVisible = new ComponentIsVisible();
-  console.log(componentsVisible);
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -57,41 +63,24 @@ function Header({ data }) {
   // largura da viewport
   const layoutWidth = window.innerWidth;
 
-  // context para guardar o username
-  const {
-    username,
-    setUsername,
-    place,
-    setPlace,
-    localData,
-  } = useContext(InfoContext);
-
   const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
-
-  // função que filtra os lugares baseado na busca do usuário
-  function filterPlaces() {
-    if (place.city) {
-      return localData.filter(
-        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
-          el.country.toLowerCase().includes(place.city.toLowerCase())
-      );
-    }
-    return localData;
-  }
-
   // função que seta os cards a serem exibidos em tela
+  // ! ESSA FUNÇÃO VAI PARA A PÁGINA DE LISTAGEM
   function handleCardsOnDisplay() {
     setPlace(prev => ({
       ...prev,
       category: ''
     }));
-    setCardsRender(filterPlaces());
+
+    const cardsOnDisplay = filterPlaces(place, localData);
+    setCardsRender(cardsOnDisplay);
   }
 
   function handleCleanRenderStates() {
     setCardsRender(localData);
     setToRenderOnDropdown(localData);
     setPlace({ city: '', country: '', category: '' });
+    setDateCheckinAndCheckout(null);
   }
 
   // * Gerenciadores do motor de busca
@@ -99,25 +88,9 @@ function Header({ data }) {
     setPlace({ city: target.value, country: '', category: '' });
   }
 
-  function handleInputCityValueController() {
-    if (place.city && place.country) {
-      return `${place.city}, ${place.country}`;
-    }
-    return place.city;
-  }
-
-  function handleInputDateValueController(dateArray) {
-    if (dateArray !== null) {
-      const [checkin, checkout] = dateArray;
-      return `${checkin.getDate()}/${checkin.getMonth() + 1} - ${checkout.getDate()}/${checkout.getMonth() + 1}`;
-    }
-
-    return '';
-  }
-
   // seta os cards a serem renderizados no dropdown
   useEffect(() => {
-    setToRenderOnDropdown(filterPlaces());
+    setToRenderOnDropdown(filterPlaces(place, localData));
   }, [place]);
 
   // useEffect para observar a largura da viewport e identificar o
@@ -149,7 +122,8 @@ function Header({ data }) {
           right="0"
           top="0"
           w="100%"
-          py="1rem"
+          py="0.5rem"
+          maxH="56px"
           bg="var(--light-bege)"
         >
           <Wrapper
@@ -203,13 +177,13 @@ function Header({ data }) {
                       fontWeight="bold"
                       color="var(--blue)"
                     >
-                      Entrar
+                      Iniciar sessão
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbItem>
                     <Link to="/register">
                       <BreadcrumbLink fontWeight="bold" color="var(--blue)">
-                        Cadastrar
+                        Criar conta
                       </BreadcrumbLink>
                     </Link>
                   </BreadcrumbItem>
@@ -254,7 +228,7 @@ function Header({ data }) {
                   onClick={() => componentsVisible.inputCity.open()}
                   placeholder="Para onde iremos?"
                   postop="10px"
-                  value={handleInputCityValueController()}
+                  value={handleInputCityValueController(place)}
                 />
                 {componentsVisible.inputCity.isComponentVisible && (
                   <Box

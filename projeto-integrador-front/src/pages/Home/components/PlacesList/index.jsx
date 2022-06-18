@@ -1,23 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
 import {
   Navigation,
   Pagination,
   Scrollbar,
   Autoplay
 } from 'swiper';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Wrapper from '../../../../components/Wrapper';
 import PlaceCard from '../PlaceCard';
-import Wrapper from '../Wrapper';
-import { InfoContext } from '../../contexts/InfoContext';
+import { InfoContext } from '../../../../contexts/InfoContext';
+import prev from '../../../../assets/prev-galeria.svg';
+import next from '../../../../assets/next-galeria.svg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
-import prev from '../../assets/prev-galeria.svg';
-import next from '../../assets/next-galeria.svg';
 
 function PlacesList() {
   const { cardsRender } = useContext(InfoContext);
@@ -82,17 +81,3 @@ function PlacesList() {
 }
 
 export default PlacesList;
-
-/* PlacesList.propTypes = {
-  placeList: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    types: PropTypes.arrayOf(PropTypes.string).isRequired,
-    about: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    imagePath: PropTypes.string.isRequired,
-  })).isRequired,
-};
- */

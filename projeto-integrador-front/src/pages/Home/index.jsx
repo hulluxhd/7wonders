@@ -1,8 +1,8 @@
 import { Text, useMediaQuery } from '@chakra-ui/react';
 import React, { useContext } from 'react';
-import PlacesList from '../../components/PlacesList';
 import Wrapper from '../../components/Wrapper';
 import Categories from './components/Categories';
+import PlacesList from './components/PlacesList';
 
 function Home() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');

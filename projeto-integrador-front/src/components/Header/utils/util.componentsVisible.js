@@ -5,7 +5,7 @@ class ComponentsVisible {
 
   inputCalendar;
 
-  constructor(inputCity, inputCalendar) {
+  constructor() {
     this.inputCity = useComponentVisible(false);
     this.inputCalendar = useComponentVisible(false);
   }

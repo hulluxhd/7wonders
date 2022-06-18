@@ -19,7 +19,6 @@ function CategoryCard({ categoryToRender }) {
   }
 
   useEffect(() => {
-    console.log(place);
     if (place.category) {
       const filtered = localData.filter(el => el.category === place.category);
       setCardsRender(filtered);
@@ -37,7 +36,7 @@ function CategoryCard({ categoryToRender }) {
       border="1px solid var(--light-bege)"
       cursor="pointer"
       transition="transform 0.2s ease-in-out"
-      _hover={{ transform: 'scale(1.08)'}}
+      _hover={{ transform: 'scale(1.08)' }}
       onClick={() => categoryEngine(categoryToRender.category)}
     >
       <Image

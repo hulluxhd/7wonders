@@ -9,9 +9,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { AiFillHeart, AiOutlineShareAlt } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
 import { FiShare2 } from 'react-icons/fi';
-import geolocalization from '../../assets/geolocalization.svg';
+import removeWordsUntilThereIsOnlyTwo from '../../../../utils/util.removeWordsUntilThereIsOnlyTwo';
+
+//  ESTES CARDS FICARÃO APENAS NA PÁGINA PRINCIPAL.
+//  OS CARDS DE LISTAGEM SERÃO OUTROS, MAIS COMPLETOS
 
 function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
@@ -27,12 +30,6 @@ function PlaceCard({ place }) {
     name
    } =
     place;
-
-  function removeLastWord(phrase) {
-    const splited = phrase.split(' ');
-    while (splited.length > 2) splited.pop();
-    return splited.join(' ');
-  }
 
   return (
     <Box
@@ -132,7 +129,7 @@ function PlaceCard({ place }) {
               fontSize="1.2rem"
               overflow="hidden"
             >
-              {isSmallerThan606 ? name : removeLastWord(name)}
+              {isSmallerThan606 ? name : removeWordsUntilThereIsOnlyTwo(name)}
             </Heading>
           </Box>
         </Box>
@@ -140,31 +137,5 @@ function PlaceCard({ place }) {
     </Box>
   );
 }
-
-/* PlaceCard.propTypes = {
-  place: PropTypes.shape({
-    category: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    types: PropTypes.arrayOf(PropTypes.string).isRequired,
-    about: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    imagePath: PropTypes.string.isRequired,
-  }),
-};
-
-PlaceCard.defaultProps = {
-  place: PropTypes.shape({
-    category: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    types: PropTypes.arrayOf(PropTypes.string).isRequired,
-    about: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    imagePath: PropTypes.string.isRequired,
-  }),
-}; */
 
 export default PlaceCard;

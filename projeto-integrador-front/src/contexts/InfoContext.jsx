@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 import localData from '../data';
 
 export const InfoContext = createContext();
@@ -15,17 +15,30 @@ function InfoProvider({ children }) {
 
   return (
     <InfoContext.Provider
-      value={{
-        username,
-        setUsername,
-        place,
-        setPlace,
-        cardsRender,
-        setCardsRender,
-        localData,
-        dateCheckinAndCheckout,
-        setDateCheckinAndCheckout
-      }}
+      value={useMemo(
+        () => ({
+          username,
+          setUsername,
+          place,
+          setPlace,
+          cardsRender,
+          setCardsRender,
+          localData,
+          dateCheckinAndCheckout,
+          setDateCheckinAndCheckout,
+        }),
+        [
+          username,
+          setUsername,
+          place,
+          setPlace,
+          cardsRender,
+          setCardsRender,
+          localData,
+          dateCheckinAndCheckout,
+          setDateCheckinAndCheckout,
+        ]
+      )}
     >
       {children}
     </InfoContext.Provider>
