@@ -5,9 +5,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Text,
-  Flex,
   useMediaQuery,
-  useDisclosure,
   Divider,
   Icon,
   HStack,
@@ -23,7 +21,6 @@ import {
 import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar } from 'react-calendar';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
 import logo2 from '../../assets/logo2.svg';
@@ -34,6 +31,7 @@ import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import Wrapper from '../Wrapper';
 import BasicCalendar from '../Calendar';
+import componentIsVisible from './utils/util.componentsVisible';
 
 function Header({ data }) {
   const {
@@ -48,10 +46,7 @@ function Header({ data }) {
     setDateCheckinAndCheckout
   } = useContext(InfoContext);
 
-  const { ref, isComponentVisible, setIsComponentVisible } =
-    useComponentVisible(false);
-
-  const calendarComponent = useComponentVisible(false);
+  const componentsVisible = componentIsVisible();
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
@@ -111,7 +106,6 @@ function Header({ data }) {
   }
 
   function handleInputDateValueController(dateArray) {
-    console.log(dateArray);
     if (dateArray !== null) {
       const [checkin, checkout] = dateArray;
       return `${checkin.getDate()}/${checkin.getMonth() + 1} - ${checkout.getDate()}/${checkout.getMonth() + 1}`;
@@ -144,9 +138,9 @@ function Header({ data }) {
         w="100%"
         right="0"
         top="0"
-        zIndex="10"
       >
         <Box
+          zIndex={100}
           as={isSmallerThan606 ? 'header' : null}
           className={isSmallerThan606 ? 'header' : null}
           position={isSmallerThan606 ? 'fixed' : 'relative'}
@@ -246,20 +240,21 @@ function Header({ data }) {
               alignItems="center"
             >
               <GridItem
+                zIndex={99}
                 w="100%"
                 colSpan={isSmallerThan606 ? 1 : 2}
                 position="relative"
-                onClick={() => setIsComponentVisible(true)}
-                ref={ref}
+                ref={componentsVisible.inputCity.ref}
               >
                 <InputHeader
                   onChange={e => handlePlace(e)}
                   image={geolocalization}
+                  onClick={() => componentsVisible.inputCity.open()}
                   placeholder="Para onde iremos?"
                   postop="10px"
                   value={handleInputCityValueController()}
                 />
-                {isComponentVisible && (
+                {componentsVisible.inputCity.isComponentVisible && (
                   <Box
                     position="absolute"
                     top="0"
@@ -273,7 +268,9 @@ function Header({ data }) {
                     overflow="auto"
                   >
                     {toRenderOnDropdown.map((el) => (
-                      <Box key={el.city}>
+                      <Box
+                        key={el.city}
+                        >
                         <Box
                           p="0.5rem 1rem"
                           cursor="pointer"
@@ -282,7 +279,7 @@ function Header({ data }) {
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
                             setPlace({ city: el.city, country: el.country, category: '' });
-                            setIsComponentVisible(false);
+                            componentsVisible.inputCity.close();
                           }}
                         >
                           <HStack spacing={3} align="center">
@@ -320,25 +317,28 @@ function Header({ data }) {
                   </Box>
                 )}
               </GridItem>
-              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative" ref={calendarComponent.ref} onClick={() => calendarComponent.setIsComponentVisible(true)}>
+              <GridItem ref={componentsVisible.inputCalendar.ref} zIndex={98} colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative">
 
-                {calendarComponent.isComponentVisible === true && (
-                  <BasicCalendar marginTop="2.8rem">
+                {componentsVisible.inputCalendar.isComponentVisible && (
+                  <BasicCalendar marginTop="2.8rem" zIndex={98}>
                     <Grid gap="0.1rem" templateColumns="1fr 1fr">
                       <GridItem w="100%">
                         <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0 0.25rem 0.25rem 0.25rem" description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
                       </GridItem>
                       <GridItem w="100%">
-                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0.25rem 0 0.25rem 0.25rem" description="Aplicar" onClick={() => document.getElementById('btn-buscar').click()} />
+                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0.25rem 0 0.25rem 0.25rem" description="Aplicar" onClick={() => componentsVisible.inputCalendar.close()} />
                       </GridItem>
                     </Grid>
                   </BasicCalendar>
                 )}
+
                 <InputHeader
                   value={handleInputDateValueController(dateCheckinAndCheckout)}
                   placeholder="Check in - Check out"
                   image={calendar}
                   readOnly
+                  cursor="pointer"
+                  onClick={() => componentsVisible.inputCalendar.open()}
                 />
               </GridItem>
               <GridItem colSpan={1} w="100%">
