@@ -8,10 +8,6 @@ import PlacesList from './components/PlacesList';
 function Home() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
-  useEffect(() => {
-    baseApi.get('/accommodations').then((response) => console.log(response));
-  }, []);
-
   return (
     <>
       <Categories />

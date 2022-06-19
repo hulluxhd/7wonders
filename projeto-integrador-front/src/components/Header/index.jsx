@@ -30,17 +30,18 @@ import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
 import BasicCalendar from '../Calendar';
 import Wrapper from '../Wrapper';
-import ComponentIsVisible from './utils/util.componentsVisible';
+import ComponentIsVisible from './utils/util.ComponentsVisible';
 import handleInputDateValueController from './utils/util.handleInputDateValueController';
 import handleInputCityValueController from './utils/util.handleInputCityValueController';
 import filterPlaces from '../../utils/util.filterPlaces';
+import baseApi from '../../services/service.baseApi';
 
-function Header({ data }) {
+function Header({ drawerFunctions }) {
   const {
     isOpen,
     onOpen,
     onClose,
-  } = data;
+  } = drawerFunctions;
 
   const {
     setCardsRender,
@@ -60,10 +61,12 @@ function Header({ data }) {
   // state para guardar a altura do header
   const [headerHeight, setHeaderHeight] = useState(0);
 
+  const [cities, setCities] = useState([]);
+
   // largura da viewport
   const layoutWidth = window.innerWidth;
 
-  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
 
   // função que seta os cards a serem exibidos em tela -> fazer requisição ao backend?
   function handleCardsOnDisplay() {
@@ -88,11 +91,6 @@ function Header({ data }) {
     setPlace({ city: target.value, country: '', category: '' });
   }
 
-  // seta os cards a serem renderizados no dropdown
-  useEffect(() => {
-    setToRenderOnDropdown(filterPlaces(place, localData));
-  }, [place]);
-
   // useEffect para observar a largura da viewport e identificar o
   // tamanho do header em cada alteração // ! Modificar
   useEffect(() => {
@@ -101,6 +99,27 @@ function Header({ data }) {
       .getBoundingClientRect();
     setHeaderHeight(height);
   }, [layoutWidth]);
+
+  // seta os lugares a serem renderizados no dropdown de cidades
+  async function renderDropdown(_place, _cities) {
+    const citiesArray = await _cities;
+    setToRenderOnDropdown(filterPlaces(_place, citiesArray));
+  }
+
+  async function getCities() {
+    const citiesProxy = await baseApi.get('cities');
+    const { data } = citiesProxy;
+    return data;
+  }
+  useEffect(() => {
+    try {
+      const citiesArray = getCities();
+      setCities(citiesArray);
+      renderDropdown(place, citiesArray);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [place]);
 
   return (
     <>
@@ -243,9 +262,9 @@ function Header({ data }) {
                     maxH="16rem"
                     overflow="auto"
                   >
-                    {toRenderOnDropdown.map((el) => (
+                    {toRenderOnDropdown.map((city) => (
                       <Box
-                        key={el.city}
+                        key={city.cityName}
                       >
                         <Box
                           p="0.5rem 1rem"
@@ -254,7 +273,7 @@ function Header({ data }) {
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
-                            setPlace({ city: el.city, country: el.country, category: '' });
+                            setPlace({ city: city.cityName, country: city.cityCountry, category: '' });
                             componentsVisible.inputCity.close();
                           }}
                         >
@@ -271,7 +290,7 @@ function Header({ data }) {
                                 fontFamily="Poppins, sans-serif"
                                 fontSize="0.9rem"
                               >
-                                {el.city}
+                                {city.cityName}
                               </Text>
                               <HStack align="center">
                                 <Text
@@ -280,7 +299,7 @@ function Header({ data }) {
                                   fontSize="xs"
                                   as="span"
                                 >
-                                  {el.country}
+                                  {city.cityCountry}
                                 </Text>
                                 <Icon as={BsFillFlagFill} fontSize="xs" />
                               </HStack>

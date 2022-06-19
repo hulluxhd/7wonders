@@ -16,7 +16,7 @@ function App() {
     <BrowserRouter>
       <InfoProvider>
         <Header
-          data={{
+          drawerFunctions={{
             isOpen,
             onOpen,
             onClose,
