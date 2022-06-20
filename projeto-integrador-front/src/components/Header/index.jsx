@@ -35,6 +35,8 @@ import handleInputDateValueController from './utils/util.handleInputDateValueCon
 import handleInputCityValueController from './utils/util.handleInputCityValueController';
 import filterPlaces from '../../utils/util.filterPlaces';
 import baseApi from '../../services/service.baseApi';
+import renderDropdown from './utils/util.renderDropdown';
+import getCities from './utils/util.getCities';
 
 function Header({ drawerFunctions }) {
   const {
@@ -81,7 +83,7 @@ function Header({ drawerFunctions }) {
 
   function handleCleanRenderStates() {
     setCardsRender(localData);
-    setToRenderOnDropdown(localData);
+    setToRenderOnDropdown(getCities());
     setPlace({ city: '', country: '', category: '' });
     setDateCheckinAndCheckout(null);
   }
@@ -100,22 +102,11 @@ function Header({ drawerFunctions }) {
     setHeaderHeight(height);
   }, [layoutWidth]);
 
-  // seta os lugares a serem renderizados no dropdown de cidades
-  async function renderDropdown(_place, _cities) {
-    const citiesArray = await _cities;
-    setToRenderOnDropdown(filterPlaces(_place, citiesArray));
-  }
-
-  async function getCities() {
-    const citiesProxy = await baseApi.get('cities');
-    const { data } = citiesProxy;
-    return data;
-  }
   useEffect(() => {
     try {
       const citiesArray = getCities();
       setCities(citiesArray);
-      renderDropdown(place, citiesArray);
+      renderDropdown(place, citiesArray, setToRenderOnDropdown);
     } catch (e) {
       console.error(e);
     }

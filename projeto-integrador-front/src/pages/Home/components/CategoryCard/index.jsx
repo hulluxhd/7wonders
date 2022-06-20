@@ -1,29 +1,49 @@
 import { Box, Text, Image } from '@chakra-ui/react';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { InfoContext } from '../../../../contexts/InfoContext';
+import { RouteContext } from '../../../../contexts/RoutesContext';
 
 function CategoryCard({ categoryToRender }) {
   const {
-    setCardsRender,
-    place,
-    setPlace,
-    localData
-  } = useContext(InfoContext);
+    categoryName, categoryDescription, accommodationSet, id
+  } =
+    categoryToRender;
 
-  function categoryEngine(category) {
+  const {
+    setCardsRender, place, setPlace, localData
+   } =
+    useContext(InfoContext);
+
+  const { setCategoryID } = useContext(RouteContext);
+
+  const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // console.log(searchParams);
+
+  function categoryEngine(category, categoryId) {
     setPlace({
       city: '',
       country: '',
       category: category,
     });
+    setCategoryID(categoryId);
+    navigate(`/results/category/${categoryId}`);
   }
 
-  useEffect(() => {
+  // * Esse effect muda os cards que estão no slider. Não é isso que queremos.
+  // * Queremos que quando um card de categoria for clicado, sejamos direcionados a uma
+  // * página de resultado com aquela categoria
+  /* useEffect(() => {
     if (place.category) {
-      const filtered = localData.filter(el => el.category === place.category);
+      const filtered = localData.filter(
+        category => category.categoryDescription === place.category
+      );
       setCardsRender(filtered);
     }
-  }, [place.category]);
+  }, [place.category]); */
 
   return (
     <Box
@@ -37,11 +57,11 @@ function CategoryCard({ categoryToRender }) {
       cursor="pointer"
       transition="transform 0.2s ease-in-out"
       _hover={{ transform: 'scale(1.08)' }}
-      onClick={() => categoryEngine(categoryToRender.category)}
+      onClick={() => categoryEngine(categoryName, id)}
     >
       <Image
         src={categoryToRender.imagePath}
-        alt={categoryToRender.category}
+        alt="alt-image"
         borderRadius="10px 10px 0 0"
         w="100%"
         h="100%"
@@ -49,7 +69,7 @@ function CategoryCard({ categoryToRender }) {
       />
       <Box display="flex" flexDirection="column" m="0.5rem">
         <Text color="var(--hard-blue)" as="h3" fontWeight="800">
-          {categoryToRender.category}
+          {categoryName}
         </Text>
         <Text
           color="var(--light-blue)"
@@ -57,37 +77,11 @@ function CategoryCard({ categoryToRender }) {
           as="span"
           fontWeight="bold"
         >
-          {categoryToRender.quantity} {categoryToRender.category}s
+          {accommodationSet.length} {categoryName}
         </Text>
       </Box>
     </Box>
   );
 }
-
-/* CategoryCard.propTypes = {
-    categoryToRender: PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      types: PropTypes.arrayOf(PropTypes.string).isRequired,
-      about: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      imagePath: PropTypes.string.isRequired,
-    }),
-  };
-
-  CategoryCard.defaultProps = {
-    categoryToRender: PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      types: PropTypes.arrayOf(PropTypes.string).isRequired,
-      about: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-      imagePath: PropTypes.string.isRequired,
-    }),
-  }; */
 
 export default CategoryCard;

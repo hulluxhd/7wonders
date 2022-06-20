@@ -8,28 +8,34 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Calendly from './components/Calendar';
 import Results from './pages/Results';
+import RoutesProvider from './contexts/RoutesContext';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <BrowserRouter>
-      <InfoProvider>
-        <Header
-          drawerFunctions={{
-            isOpen,
-            onOpen,
-            onClose,
-          }}
-        />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register openDrawer={onOpen} />} />
-          <Route path="/results" element={<Results />} />
-          <Route path="/calendar" element={<Calendly />} />
-        </Routes>
-        <Footer />
-      </InfoProvider>
+      <RoutesProvider>
+        <InfoProvider>
+          <Header
+            drawerFunctions={{
+              isOpen,
+              onOpen,
+              onClose,
+            }}
+          />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/register"
+              element={<Register openDrawer={onOpen} />}
+            />
+            <Route path="/results/:search/:id" element={<Results />} />
+            <Route path="/calendar" element={<Calendly />} />
+          </Routes>
+          <Footer />
+        </InfoProvider>
+      </RoutesProvider>
     </BrowserRouter>
   );
 }
