@@ -312,10 +312,16 @@ function Header({ drawerFunctions }) {
                   </Box>
                 )}
               </GridItem>
-              <GridItem ref={componentsVisible.inputCalendar.ref} zIndex={98} colSpan={isSmallerThan606 ? 1 : 2} w="100%" position="relative">
+              <GridItem
+                ref={componentsVisible.inputCalendar.ref}
+                colSpan={isSmallerThan606 ? 1 : 2}
+                position="relative"
+                zIndex={98}
+                w="100%"
+                >
 
                 {componentsVisible.inputCalendar.isComponentVisible && (
-                  <BasicCalendar marginTop="2.8rem" zIndex={98}>
+                  <BasicCalendar position="absolute" marginTop="2.8rem" zIndex={98}>
                     <Grid gap="0.1rem" templateColumns="1fr 1fr">
                       <GridItem w="100%">
                         <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0 0.25rem 0.25rem 0.25rem" description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
