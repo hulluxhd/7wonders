@@ -44,6 +44,7 @@ import {
 export default function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
+  const [size, setSize] = React.useState('xl');
 
   return (
     <>
@@ -225,8 +226,17 @@ export default function Product() {
           >
           Ver mais
         </Button>
-        <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
+        <Modal
+          finalFocusRef={finalRef}
+          size={size}
+          isOpen={isOpen}
+          onClose={onClose}
+          >
+          <ModalOverlay
+            bg="none"
+            backdropFilter="auto"
+            backdropBlur="2px"
+          />
           <ModalContent>
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
