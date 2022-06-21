@@ -2,7 +2,6 @@ import { Box, Text, Image } from '@chakra-ui/react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { InfoContext } from '../../../../contexts/InfoContext';
-import { RouteContext } from '../../../../contexts/RoutesContext';
 
 function CategoryCard({ categoryToRender }) {
   const {
@@ -14,8 +13,6 @@ function CategoryCard({ categoryToRender }) {
     setCardsRender, place, setPlace, localData
    } =
     useContext(InfoContext);
-
-  const { setCategoryID } = useContext(RouteContext);
 
   const navigate = useNavigate();
 
@@ -29,8 +26,7 @@ function CategoryCard({ categoryToRender }) {
       country: '',
       category: category,
     });
-    setCategoryID(categoryId);
-    navigate(`/results/category/${categoryId}`);
+    navigate(`/results/categories/${categoryId}`);
   }
 
   // * Esse effect muda os cards que estão no slider. Não é isso que queremos.

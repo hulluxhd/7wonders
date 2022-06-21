@@ -7,7 +7,12 @@ function InfoProvider({ children }) {
   const [username, setUsername] = useState('');
   // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
   // ! as funções de renderização o utilizam
-  const [place, setPlace] = useState({ city: '', country: '', category: '' });
+  const [place, setPlace] = useState({
+    city: '',
+    cityId: null,
+    country: '',
+    category: '',
+  });
 
   const [cardsRender, setCardsRender] = useState(localData);
 

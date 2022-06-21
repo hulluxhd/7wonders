@@ -77,21 +77,32 @@ function Header({ drawerFunctions }) {
       category: ''
     }));
 
-    const cardsOnDisplay = filterPlaces(place, localData);
+    const cardsOnDisplay = filterPlaces(place, cities);
     setCardsRender(cardsOnDisplay);
   }
 
   function handleCleanRenderStates() {
     setCardsRender(localData);
     setToRenderOnDropdown(getCities());
-    setPlace({ city: '', country: '', category: '' });
+    setPlace({
+      city: '', cityId: '', country: '', category: ''
+     });
     setDateCheckinAndCheckout(null);
   }
 
   // * Gerenciadores do motor de busca
   function handlePlace({ target }) {
-    setPlace({ city: target.value, country: '', category: '' });
+    setPlace(
+      {
+        city: target.value,
+        cityId: null,
+        cityCountry: '',
+        category: ''
+      }
+    );
   }
+
+  console.log(place.cityId);
 
   // useEffect para observar a largura da viewport e identificar o
   // tamanho do header em cada alteração // ! Modificar
@@ -232,6 +243,7 @@ function Header({ drawerFunctions }) {
                 position="relative"
                 ref={componentsVisible.inputCity.ref}
               >
+
                 <InputHeader
                   onChange={e => handlePlace(e)}
                   image={geolocalization}
@@ -240,6 +252,7 @@ function Header({ drawerFunctions }) {
                   postop="10px"
                   value={handleInputCityValueController(place)}
                 />
+
                 {componentsVisible.inputCity.isComponentVisible && (
                   <Box
                     position="absolute"
@@ -253,6 +266,7 @@ function Header({ drawerFunctions }) {
                     maxH="16rem"
                     overflow="auto"
                   >
+
                     {toRenderOnDropdown.map((city) => (
                       <Box
                         key={city.cityName}
@@ -264,7 +278,12 @@ function Header({ drawerFunctions }) {
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
-                            setPlace({ city: city.cityName, country: city.cityCountry, category: '' });
+                            setPlace({
+                              city: city.cityName,
+                              cityId: city.id,
+                              country: city.cityCountry,
+                              category: ''
+                            });
                             componentsVisible.inputCity.close();
                           }}
                         >
@@ -326,9 +345,10 @@ function Header({ drawerFunctions }) {
                   cursor="pointer"
                   onClick={() => componentsVisible.inputCalendar.open()}
                 />
+
               </GridItem>
               <GridItem colSpan={1} w="100%">
-                <Link to="/results">
+                <Link to={place.city ? `/results/cities/${place.cityId}` : '/results'}>
                   <BasicButton
                     transition="all 0.2s ease-in-out"
                     _hover={{

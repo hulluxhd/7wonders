@@ -1,43 +1,32 @@
 import { Box, Text } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { InfoContext } from '../../contexts/InfoContext';
-import { RouteContext } from '../../contexts/RoutesContext';
 import baseApi from '../../services/service.baseApi';
-import PlaceCard from '../Home/components/PlaceCard';
-import PlaceList from '../Home/components/PlacesList';
+import Wrapper from '../../components/Wrapper';
 
 function Results() {
-  const { place, setCardsRender } = useContext(InfoContext);
-  const { categoryID } = useContext(RouteContext);
-  const [categoryInfo, setCategoryInfo] = useState({});
-
-  async function getCategories(id, categoryStateFn) {
-    const { data } = await baseApi.get(`categories/${id}`);
-    console.log(data);
-    await categoryStateFn(data);
-    console.log(categoryInfo);
-    return data;
-  }
+  const [accommodations, setAccommodations] = useState([]);
 
   useEffect(() => {
     try {
-      getCategories(categoryID, setCategoryInfo);
-      console.log(categoryInfo);
+      baseApi.get('accommodations').then(({ data }) => {
+        setAccommodations(data);
+      });
     } catch (e) {
       console.error(e);
     }
   }, []);
 
   return (
-    <Box>
-    <Text as="h2">Resultados da pesquisa: {place.city || place.category}</Text>
-    <Box>
-     {/*  {categoryInfo && categoryInfo.accommodationSet.map(acc => (
-        <PlaceCard place={acc} />
-      ))} */}
-    </Box>
-    </Box>
-
+    <Wrapper>
+      <Text as="h2">Resultados da pesquisa </Text>
+      <Box>
+        {accommodations?.map(acc => (
+          <Text key={acc.id}>{acc.accoName}</Text>
+        ))}
+      </Box>
+    </Wrapper>
   );
 }
 
