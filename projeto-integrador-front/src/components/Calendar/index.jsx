@@ -13,7 +13,7 @@ import { InfoContext } from '../../contexts/InfoContext';
 import './calendar.css';
 
 function BasicCalendar({
-  marginTop, showDoubleView, width, children
+  marginTop, showDoubleView, width, children, position
 }) {
   const { dateCheckinAndCheckout, setDateCheckinAndCheckout } =
     useContext(InfoContext);
@@ -25,7 +25,7 @@ function BasicCalendar({
   return (
     <Box
       className="calendar-wrapper"
-      position="absolute"
+      position={position || 'relative'}
       top={0}
       left={0}
       marginTop={marginTop}
