@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Results from './pages/Results';
 import ResultsWithId from './pages/ResultsWithId';
+// eslint-disable-next-line import/no-named-as-default
+import Product from './pages/Product';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,6 +32,7 @@ function App() {
             />
             <Route path="/results" element={<Results />} />
             <Route path="/results/:search/:searchId" element={<ResultsWithId />} />
+            <Route path="/detail/accommodations/:productId" element={<Product />} />
           </Routes>
           <Footer />
         </InfoProvider>

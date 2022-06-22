@@ -1,7 +1,6 @@
 import { Text, useMediaQuery } from '@chakra-ui/react';
 import React, { useContext, useEffect } from 'react';
 import Wrapper from '../../components/Wrapper';
-import baseApi from '../../services/service.baseApi';
 import Categories from './components/Categories';
 import PlacesList from './components/PlacesList';
 

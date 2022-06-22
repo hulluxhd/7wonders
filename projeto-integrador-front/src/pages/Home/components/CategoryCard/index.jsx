@@ -16,7 +16,7 @@ function CategoryCard({ categoryToRender }) {
 
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
 
   // console.log(searchParams);
 
@@ -28,18 +28,6 @@ function CategoryCard({ categoryToRender }) {
     });
     navigate(`/results/categories/${categoryId}`);
   }
-
-  // * Esse effect muda os cards que estão no slider. Não é isso que queremos.
-  // * Queremos que quando um card de categoria for clicado, sejamos direcionados a uma
-  // * página de resultado com aquela categoria
-  /* useEffect(() => {
-    if (place.category) {
-      const filtered = localData.filter(
-        category => category.categoryDescription === place.category
-      );
-      setCardsRender(filtered);
-    }
-  }, [place.category]); */
 
   return (
     <Box

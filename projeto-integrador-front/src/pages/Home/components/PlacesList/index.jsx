@@ -33,7 +33,6 @@ function PlacesList() {
         }}
         spaceBetween={20}
         slidesPerView={1}
-        grabCursor
         centerInsufficientSlides
         breakpoints={{
           606: {

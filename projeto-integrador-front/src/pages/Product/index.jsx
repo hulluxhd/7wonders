@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -13,22 +13,8 @@ import {
 
 import {
   Box,
-  chakra,
-  Container,
-  Stack,
   Text,
-  Image,
-  Flex,
-  VStack,
   Button,
-  Heading,
-  SimpleGrid,
-  StackDivider,
-  useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
-  Link,
   Grid,
   GridItem,
   Modal,
@@ -40,11 +26,29 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
+import baseApi from '../../services/service.baseApi';
 
-export default function Product() {
+function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [size, setSize] = React.useState('xl');
+  const [product, setProduct] = useState({});
+  const { productId } = useParams();
+
+  useEffect(() => {
+    try {
+      baseApi
+      .get(`/accommodations/${productId}`)
+      .then(({ data }) => {
+        setProduct(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  console.log(product);
 
   return (
     <>
@@ -59,17 +63,18 @@ export default function Product() {
         justifyContent="space-between"
         position="relative"
         >
-        <span>
-          <h3>Hoteis</h3>
-          <h2>Hotel EAST Miami</h2>
-        </span>
-        <button
+        <Box>
+          <Text as="h3">Hoteis</Text>
+          <Text as="h2">Hotel EAST Miami</Text>
+        </Box>
+        <Box
+          as="button"
           type="button"
           float="right"
           padding="0 0 0 1rem"
           >
             <ArrowUUpLeft size={32} color="#FFF" />
-        </button>
+        </Box>
       </Box>
       <Box
         display="flex"
@@ -96,8 +101,8 @@ export default function Product() {
           alignItems="center"
           gap="1.2rem"
         >
-          <span>
-            <p>Muito bom</p>
+          <Box>
+            <Text>Muito bom</Text>
             <Box display="flex">
               <Star size={26} color="var(--hard-blue)" />
               <Star size={26} color="var(--hard-blue)" />
@@ -105,7 +110,7 @@ export default function Product() {
               <Star size={26} color="var(--hard-blue)" />
               <Star size={26} color="var(--hard-blue)" />
             </Box>
-          </span>
+          </Box>
           <Text
             color="#FFF"
             fontWeight="bold"
@@ -305,3 +310,5 @@ export default function Product() {
     </>
   );
 }
+
+export default Product;

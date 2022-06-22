@@ -11,6 +11,7 @@ import {
 
 import { AiFillHeart } from 'react-icons/ai';
 import { FiShare2 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import removeWordsUntilThereIsOnlyTwo from '../../../../utils/util.removeWordsUntilThereIsOnlyTwo';
 
 //  ESTES CARDS FICARÃO APENAS NA PÁGINA PRINCIPAL.
@@ -20,6 +21,7 @@ function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const {
+    id,
     category,
     city,
     country,
@@ -31,6 +33,8 @@ function PlaceCard({ place }) {
    } =
     place;
 
+  const navigate = useNavigate();
+
   return (
     <Box
       borderRadius="0.25rem"
@@ -40,6 +44,8 @@ function PlaceCard({ place }) {
       w="100%"
       boxShadow="base"
       alignItems="stretch"
+      cursor="pointer"
+      onClick={() => navigate(`/detail/accommodations/${id}`)}
     >
       <Box h="100%" position="relative">
         <Image

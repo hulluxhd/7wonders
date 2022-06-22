@@ -1,5 +1,6 @@
 const data = [
   {
+    id: 1,
     category: 'Hotel',
     city: 'Miami',
     country: 'USA',
@@ -22,6 +23,7 @@ const data = [
     imagePath: 'images/EAST_Miami.jpg',
   },
   {
+    id: 2,
     category: 'Resort',
     city: 'Atol Baa',
     country: 'Maldives',
@@ -32,6 +34,7 @@ const data = [
     imagePath: 'images/Anantara_Kihavah.jpg',
   },
   {
+    id: 3,
     category: 'Hotel',
     city: 'Udaipur',
     country: 'India',
@@ -54,6 +57,7 @@ const data = [
     imagePath: 'images/Oberoi_Udaivilas.jpg',
   },
   {
+    id: 4,
     category: 'Hotel',
     city: 'Dubai',
     country: 'UAE',
@@ -76,6 +80,7 @@ const data = [
     imagePath: 'images/Burj_Al_Arab.jpg',
   },
   {
+    id: 5,
     category: 'Hotel',
     city: 'Antalya',
     country: 'Turkey',
@@ -88,6 +93,7 @@ In addition to the Ottoman-style rooms and impeccable service, the hotel's highl
     imagePath: 'images/Mardan_Palace.jpg',
   },
   {
+    id: 6,
     category: 'Hotel & Spa',
     city: 'Arenal Volcano National Park',
     country: 'Costa Rica',
@@ -102,6 +108,7 @@ In addition to the Ottoman-style rooms and impeccable service, the hotel's highl
     imagePath: 'images/Nayara.jpg',
   },
   {
+    id: 7,
     category: 'Resort',
     city: 'Soufriere',
     country: 'Santa Lúcia',
@@ -116,6 +123,7 @@ In addition to the Ottoman-style rooms and impeccable service, the hotel's highl
     imagePath: 'images/Jade_Mountain.jpg',
   },
   {
+    id: 8,
     category: 'Casino',
     city: 'Las Vegas',
     country: 'USA',
