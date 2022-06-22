@@ -1,7 +1,4 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
+import React, { useRef, useState } from 'react';
 
 import {
   ArrowUUpLeft,
@@ -17,18 +14,7 @@ import {
   Container,
   Stack,
   Text,
-  Image,
-  Flex,
-  VStack,
   Button,
-  Heading,
-  SimpleGrid,
-  StackDivider,
-  useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
-  Link,
   Grid,
   GridItem,
   Modal,
@@ -41,6 +27,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+import ModalSlide from './components/ModalSlide';
+
 export default function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
@@ -49,7 +37,6 @@ export default function Product() {
   return (
     <>
       <Box
-        w="100%"
         h="70px"
         bgColor="var(--hard-blue)"
         color="#FFF"
@@ -161,7 +148,6 @@ export default function Product() {
           bgRepeat="no-repeat"
           _hover={{
             transform: 'scale(1.01)',
-            border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
         />
@@ -175,7 +161,6 @@ export default function Product() {
           bgRepeat="no-repeat"
           _hover={{
             transform: 'scale(1.01)',
-            border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
         />
@@ -189,7 +174,6 @@ export default function Product() {
           bgSize="cover"
           _hover={{
             transform: 'scale(1.01)',
-            border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
         />
@@ -203,7 +187,6 @@ export default function Product() {
           bgSize="cover"
           _hover={{
             transform: 'scale(1.01)',
-            border: '1px solid var(--hard-blue)'
           }}
           transition="transform 0.5s ease-in-out"
         />
@@ -236,34 +219,13 @@ export default function Product() {
             bg="none"
             backdropFilter="auto"
             backdropBlur="2px"
+            width="100%"
           />
           <ModalContent>
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-            <Swiper
-              spaceBetween={50}
-              slidesPerView={3}
-              onSlideChange={() => console.log('slide change')}
-              onSwiper={(swiper) => console.log(swiper)}
-            >
-              <SwiperSlide>
-                <Box
-                  bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-                  bgPosition="center"
-                  bgSize="cover"
-                  bgRepeat="no-repeat"
-                  minHeight="550px"
-                  width="450px"
-                >
-                  Slide 1
-                </Box>
-              </SwiperSlide>
-              <SwiperSlide>Slide 2</SwiperSlide>
-              <SwiperSlide>Slide 3</SwiperSlide>
-              <SwiperSlide>Slide 4</SwiperSlide>
-              ...
-            </Swiper>
+              <ModalSlide />
             </ModalBody>
               <ModalFooter>
                 <Button colorScheme="blue" mr={3} onClick={onClose}>
