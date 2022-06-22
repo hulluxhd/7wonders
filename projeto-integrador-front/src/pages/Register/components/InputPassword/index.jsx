@@ -23,11 +23,11 @@ function InputPassword({
 }) {
   // função para exibir/ocultar password
   const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+  const handleClick = () => setShow((prevState) => !prevState);
 
   return (
     <Box display="flex" flexDirection="column">
-      <FormLabel mt={6} mb={0} htmlFor={fieldname}>
+      <FormLabel color="var(--hard-blue)" mt={6} mb={0} htmlFor={fieldname}>
         {fieldDescription}
       </FormLabel>
       <InputGroup>
@@ -38,6 +38,7 @@ function InputPassword({
           placeholder={placeholderDescription}
           type={show ? 'text' : 'password'}
           name={fieldname}
+          color="var(--light-blue)"
         />
         <InputRightElement width="4.5rem">
           <Button h="1.5rem" size="sm" onClick={handleClick}>

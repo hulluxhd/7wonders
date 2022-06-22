@@ -5,9 +5,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Text,
-  Flex,
   useMediaQuery,
-  useDisclosure,
   Divider,
   Icon,
   HStack,
@@ -20,43 +18,37 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
-import { BsFillFlagFill } from 'react-icons/bs';
 import React, { useEffect, useState, useContext } from 'react';
+import { BsFillFlagFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import useComponentVisible from '../../hooks/useComponentVisible';
 import { InfoContext } from '../../contexts/InfoContext';
-import logo from '../../assets/logo.png';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
+import logo2 from '../../assets/logo2.svg';
 import InputHeader from './components/InputHeader';
 import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
+import BasicCalendar from '../Calendar';
 import Wrapper from '../Wrapper';
+import ComponentIsVisible from './utils/util.ComponentsVisible';
+import handleInputDateValueController from './utils/util.handleInputDateValueController';
+import handleInputCityValueController from './utils/util.handleInputCityValueController';
+import filterPlaces from '../../utils/util.filterPlaces';
+import baseApi from '../../services/service.baseApi';
+import renderDropdown from './utils/util.renderDropdown';
+import getCities from './utils/util.getCities';
 
-function Header({ data }) {
+function Header({ drawerFunctions }) {
   const {
     isOpen,
     onOpen,
     onClose,
-  } = data;
+  } = drawerFunctions;
 
   const {
     setCardsRender,
-  } = useContext(InfoContext);
-
-  const { ref, isComponentVisible, setIsComponentVisible } =
-    useComponentVisible(false);
-
-  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
-
-  // state para guardar a altura do header
-  const [headerHeight, setHeaderHeight] = useState(0);
-
-  // largura da viewport
-  const layoutWidth = window.innerWidth;
-
-  // context para guardar o username
-  const {
+    dateCheckinAndCheckout,
+    setDateCheckinAndCheckout,
     username,
     setUsername,
     place,
@@ -64,50 +56,53 @@ function Header({ data }) {
     localData,
   } = useContext(InfoContext);
 
-  const [toRenderOnDropdown, setToRenderOnDropdown] = useState(localData);
+  const componentsVisible = new ComponentIsVisible();
 
-  // função que filtra os lugares baseado na busca do usuário
-  function filterPlaces() {
-    if (place.city) {
-      return localData.filter(
-        el => el.city.toLowerCase().includes(place.city.toLowerCase()) ||
-          el.country.toLowerCase().includes(place.city.toLowerCase())
-      );
-    }
-    return localData;
-}
+  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
-  // função que seta os cards a serem exibidos em tela
+  // state para guardar a altura do header
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  const [cities, setCities] = useState([]);
+
+  // largura da viewport
+  const layoutWidth = window.innerWidth;
+
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
+
+  // função que seta os cards a serem exibidos em tela -> fazer requisição ao backend?
   function handleCardsOnDisplay() {
     setPlace(prev => ({
       ...prev,
       category: ''
     }));
-    setCardsRender(filterPlaces());
+
+    const cardsOnDisplay = filterPlaces(place, cities);
+    setCardsRender(cardsOnDisplay);
   }
 
   function handleCleanRenderStates() {
     setCardsRender(localData);
-    setToRenderOnDropdown(localData);
-    setPlace({ city: '', country: '', category: '' });
+    setToRenderOnDropdown(getCities());
+    setPlace({
+      city: '', cityId: '', country: '', category: ''
+     });
+    setDateCheckinAndCheckout(null);
   }
 
   // * Gerenciadores do motor de busca
   function handlePlace({ target }) {
-    setPlace({ city: target.value, country: '', category: '' });
+    setPlace(
+      {
+        city: target.value,
+        cityId: null,
+        cityCountry: '',
+        category: ''
+      }
+    );
   }
 
-  function handleInputValueController() {
-    if (place.city && place.country) {
-      return `${place.city}, ${place.country}`;
-    }
-    return place.city;
-  }
-
-  // seta os cards a serem renderizados no dropdown
-  useEffect(() => {
-    setToRenderOnDropdown(filterPlaces());
-  }, [place]);
+  console.log(place.cityId);
 
   // useEffect para observar a largura da viewport e identificar o
   // tamanho do header em cada alteração // ! Modificar
@@ -117,6 +112,16 @@ function Header({ data }) {
       .getBoundingClientRect();
     setHeaderHeight(height);
   }, [layoutWidth]);
+
+  useEffect(() => {
+    try {
+      const citiesArray = getCities();
+      setCities(citiesArray);
+      renderDropdown(place, citiesArray, setToRenderOnDropdown);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [place]);
 
   return (
     <>
@@ -128,16 +133,18 @@ function Header({ data }) {
         w="100%"
         right="0"
         top="0"
-        zIndex="10"
+        zIndex={99}
       >
         <Box
+          zIndex={100}
           as={isSmallerThan606 ? 'header' : null}
           className={isSmallerThan606 ? 'header' : null}
           position={isSmallerThan606 ? 'fixed' : 'relative'}
           right="0"
           top="0"
           w="100%"
-          py="1rem"
+          py="0.5rem"
+          maxH="56px"
           bg="var(--light-bege)"
         >
           <Wrapper
@@ -148,7 +155,7 @@ function Header({ data }) {
               <Image
                 maxH="40px"
                 fit="contain"
-                src={logo}
+                src={logo2}
                 onClick={handleCleanRenderStates}
               />
             </Link>
@@ -191,13 +198,13 @@ function Header({ data }) {
                       fontWeight="bold"
                       color="var(--blue)"
                     >
-                      Entrar
+                      Iniciar sessão
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbItem>
                     <Link to="/register">
                       <BreadcrumbLink fontWeight="bold" color="var(--blue)">
-                        Cadastrar
+                        Criar conta
                       </BreadcrumbLink>
                     </Link>
                   </BreadcrumbItem>
@@ -230,23 +237,27 @@ function Header({ data }) {
               alignItems="center"
             >
               <GridItem
+                zIndex={99}
                 w="100%"
                 colSpan={isSmallerThan606 ? 1 : 2}
                 position="relative"
-                onClick={() => setIsComponentVisible(true)}
-                ref={ref}
+                ref={componentsVisible.inputCity.ref}
               >
+
                 <InputHeader
                   onChange={e => handlePlace(e)}
                   image={geolocalization}
+                  onClick={() => componentsVisible.inputCity.open()}
                   placeholder="Para onde iremos?"
                   postop="10px"
-                  value={handleInputValueController()}
+                  value={handleInputCityValueController(place)}
                 />
-                {isComponentVisible && (
+
+                {componentsVisible.inputCity.isComponentVisible && (
                   <Box
                     position="absolute"
-                    top="2.8rem"
+                    top="0"
+                    marginTop="2.8rem"
                     background="#FFF"
                     w="100%"
                     lineHeight="1.3rem"
@@ -255,15 +266,26 @@ function Header({ data }) {
                     maxH="16rem"
                     overflow="auto"
                   >
-                    {toRenderOnDropdown.map((el, i) => (
-                      <Box key={el.city}>
+
+                    {toRenderOnDropdown.map((city) => (
+                      <Box
+                        key={city.cityName}
+                      >
                         <Box
                           p="0.5rem 1rem"
                           cursor="pointer"
                           tabIndex={0}
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
-                          onClick={() => setPlace({ city: el.city, country: el.country, category: '' })}
+                          onClick={() => {
+                            setPlace({
+                              city: city.cityName,
+                              cityId: city.id,
+                              country: city.cityCountry,
+                              category: ''
+                            });
+                            componentsVisible.inputCity.close();
+                          }}
                         >
                           <HStack spacing={3} align="center">
                             <Image maxW="1rem" src={geolocalization} />
@@ -278,7 +300,7 @@ function Header({ data }) {
                                 fontFamily="Poppins, sans-serif"
                                 fontSize="0.9rem"
                               >
-                                {el.city}
+                                {city.cityName}
                               </Text>
                               <HStack align="center">
                                 <Text
@@ -287,38 +309,64 @@ function Header({ data }) {
                                   fontSize="xs"
                                   as="span"
                                 >
-                                  {el.country}
+                                  {city.cityCountry}
                                 </Text>
                                 <Icon as={BsFillFlagFill} fontSize="xs" />
                               </HStack>
                             </VStack>
                           </HStack>
                         </Box>
-                        <Divider borderColor="var(--blue)" w="100%" />
+                        <Divider borderColor="var(--blue)" _last={{ borderColor: 'none' }} w="100%" />
                       </Box>
                     ))}
                   </Box>
                 )}
               </GridItem>
+              <GridItem
+                ref={componentsVisible.inputCalendar.ref}
+                colSpan={isSmallerThan606 ? 1 : 2}
+                position="relative"
+                zIndex={98}
+                w="100%"
+                >
 
-              <GridItem colSpan={isSmallerThan606 ? 1 : 2} w="100%">
+                {componentsVisible.inputCalendar.isComponentVisible && (
+                  <BasicCalendar position="absolute" marginTop="2.8rem" zIndex={98}>
+                    <Grid gap="0.1rem" templateColumns="1fr 1fr">
+                      <GridItem w="100%">
+                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0 0.25rem 0.25rem 0.25rem" description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
+                      </GridItem>
+                      <GridItem w="100%">
+                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0.25rem 0 0.25rem 0.25rem" description="Aplicar" onClick={() => componentsVisible.inputCalendar.close()} />
+                      </GridItem>
+                    </Grid>
+                  </BasicCalendar>
+                )}
+
                 <InputHeader
-                  image={calendar}
+                  value={handleInputDateValueController(dateCheckinAndCheckout)}
                   placeholder="Check in - Check out"
-                  disabled
+                  image={calendar}
+                  readOnly
+                  cursor="pointer"
+                  onClick={() => componentsVisible.inputCalendar.open()}
                 />
+
               </GridItem>
               <GridItem colSpan={1} w="100%">
-                <BasicButton
-                  w="100%"
-                  description="Buscar"
-                  transition="all 0.2s ease-in-out"
-                  _hover={{
-                    background: 'var(--light-blue)',
-                    border: '2px solid var(--blue)',
-                  }}
-                  onClick={handleCardsOnDisplay}
-                />
+                <Link to={place.city ? `/results/cities/${place.cityId}` : '/results'}>
+                  <BasicButton
+                    transition="all 0.2s ease-in-out"
+                    _hover={{
+                      background: 'var(--light-blue)',
+                      border: '2px solid var(--blue)',
+                    }}
+                    onClick={handleCardsOnDisplay}
+                    id="btn-buscar"
+                    description="Buscar"
+                    w="100%"
+                  />
+                </Link>
               </GridItem>
             </Grid>
           </Wrapper>

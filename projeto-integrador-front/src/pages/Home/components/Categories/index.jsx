@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Text, useMediaQuery } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
 import CategoryCard from '../CategoryCard';
 import Wrapper from '../../../../components/Wrapper';
+import baseApi from '../../../../services/service.baseApi';
 
 function Categories() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
@@ -10,26 +10,37 @@ function Categories() {
 
   const [eachCategory, setEachCategory] = useState([
     {
-      category: 'Hotel',
+      id: 2,
+      categoryName: 'Hotel',
       imagePath: 'images/Mardan_Palace.jpg',
-      quantity: 100.031,
+      accommodationSet: []
     },
     {
-      category: 'Hotel & Spa',
+      id: 3,
+      categoryName: 'Hotel & Spa',
       imagePath: 'images/Nayara.jpg',
-      quantity: 100.031,
+      accommodationSet: []
     },
     {
-      category: 'Resort',
+      id: 4,
+      categoryName: 'Resort',
       imagePath: 'images/Jade_Mountain.jpg',
-      quantity: 100.031,
+      accommodationSet: []
     },
     {
-      category: 'Casino',
+      id: 5,
+      categoryName: 'Casino',
       imagePath: 'images/Palms_Casino_Resort.jpg',
-      quantity: 100.031,
+      accommodationSet: []
     },
   ]);
+
+  useEffect(() => {
+      baseApi.get('categories').then(({ data }) => {
+        console.log(data);
+        setEachCategory([...eachCategory, ...data]);
+    });
+  }, []);
 
   return (
     <Box background="#FFF" p="0 0 0.5rem">
@@ -65,17 +76,3 @@ function Categories() {
 }
 
 export default Categories;
-
-/* Categorys.propTypes = {
-  categoryList: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    types: PropTypes.arrayOf(PropTypes.string).isRequired,
-    about: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    imagePath: PropTypes.string.isRequired,
-  })).isRequired,
-};
- */

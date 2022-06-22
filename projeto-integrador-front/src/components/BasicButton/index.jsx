@@ -11,7 +11,7 @@ function BasicButton(props) {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       as="button"
-      w={w}
+      w={w || '100%'}
       ml={ml}
       h={h || height || '2.5rem'}
       background={(background || bgColor || backgroundColor) || 'var(--blue)'}

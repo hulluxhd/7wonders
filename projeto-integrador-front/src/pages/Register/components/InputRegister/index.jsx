@@ -14,7 +14,7 @@ function InputRegister({
 }) {
   return (
     <Box display="flex" flexDirection="column">
-      <FormLabel mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
+      <FormLabel color="var(--hard-blue)" mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
       <Input
         bgColor="#FFF"
         {...props.getFieldProps(fieldname)}
@@ -22,13 +22,14 @@ function InputRegister({
         placeholder={placeholderDescription}
         type={type}
         name={fieldname}
+        color="var(--light-blue)"
       />
       <Box>
-        {errors && touched ? (
+        {errors && touched && (
           <Text as="span" color={errorColor} size="xs" position="absolute">
             {errors}
           </Text>
-        ) : null}
+        )}
       </Box>
     </Box>
   );

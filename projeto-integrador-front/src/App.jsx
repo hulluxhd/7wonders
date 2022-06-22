@@ -1,25 +1,41 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDisclosure } from '@chakra-ui/react';
 import Footer from './components/Footer';
-import InfoProvider, { InfoContext } from './contexts/InfoContext';
+import Header from './components/Header';
+import InfoProvider from './contexts/InfoContext';
 import Home from './pages/Home';
 import Register from './pages/Register';
-import Product from './pages/Product/index';
+import Results from './pages/Results';
+import ResultsWithId from './pages/ResultsWithId';
+// eslint-disable-next-line import/no-named-as-default
+import Product from './pages/Product';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <BrowserRouter>
-      <InfoProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register openDrawer={onOpen} />} />
-          <Route path="/product" element={<Product />} />
-        </Routes>
-        <Footer />
-      </InfoProvider>
+        <InfoProvider>
+          <Header
+            drawerFunctions={{
+              isOpen,
+              onOpen,
+              onClose,
+            }}
+          />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/register"
+              element={<Register openDrawer={onOpen} />}
+            />
+            <Route path="/results" element={<Results />} />
+            <Route path="/results/:search/:searchId" element={<ResultsWithId />} />
+            <Route path="/detail/accommodations/:productId" element={<Product />} />
+          </Routes>
+          <Footer />
+        </InfoProvider>
     </BrowserRouter>
   );
 }
