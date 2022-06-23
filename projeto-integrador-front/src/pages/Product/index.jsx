@@ -26,7 +26,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import baseApi from '../../services/service.baseApi';
 
 function Product() {
@@ -274,7 +274,9 @@ function Product() {
                 <Button colorScheme="blue" mr={3} onClick={onClose}>
                   Voltar
                 </Button>
-                <Button variant="ghost">Fazer reserva</Button>
+                <Link to="/reserve">
+                  <Button variant="ghost">Fazer reserva</Button>
+                </Link>
               </ModalFooter>
           </ModalContent>
         </Modal>
