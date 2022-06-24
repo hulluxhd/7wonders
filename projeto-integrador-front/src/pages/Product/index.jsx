@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 
@@ -64,7 +63,7 @@ function Product() {
         justifyContent="space-between"
         position="relative"
         >
-        <Box>
+        <Box as="span">
           <Text as="h3">Hoteis</Text>
           <Text as="h2">Hotel EAST Miami</Text>
         </Box>
@@ -81,14 +80,15 @@ function Product() {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        padding="1rem 2rem"
+        // padding="1rem 2rem"
+        padding={{ base: '0.5rem 1rem', xl: '1rem 2rem' }}
         bg="#dbdce7"
         lineHeight="1rem"
       >
         <Box display="flex" alignItems="center" gap="1rem">
           <MapPin size={28} color="var(--hard-blue)" position="floatLeft" />
           <Text
-            w="60%"
+            maxWidth="60%"
             fontSize={{ base: '16px', lg: '18px' }}
             fontFamily="Poppins, sans-serif"
             color="var(--hard-blue)"
@@ -102,7 +102,9 @@ function Product() {
           alignItems="center"
           gap="1.2rem"
         >
-          <Box>
+          <Box
+            display={{ base: 'none', md: 'block' }}
+          >
             <Text>Muito bom</Text>
             <Box display="flex">
               <Star size={26} color="var(--hard-blue)" />
@@ -132,7 +134,6 @@ function Product() {
         alignItems="center"
         padding="0 2rem"
         gap="1rem"
-
       >
         <ShareNetwork
           size={28}
@@ -146,13 +147,13 @@ function Product() {
         />
       </Box>
       <Grid
-        h={{ base: '100%', sm: '600px', lg: '700px' }}
+        height={{ base: '400px', sm: '600px', lg: '700px' }}
         templateRows="repeat(2, 1fr)"
-        templateColumns="repeat(5, 1fr)"
-        gap={2}
-        padding="0 2rem"
+        templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: 'repeat(5, 1fr)' }}
+        gap={{ base: '0.5', md: '1', xl: 2 }}
+        padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
         position="relative"
-        ref={finalRef}
+        // ref={finalRef}
         tabIndex={-1}
       >
         <GridItem
@@ -240,7 +241,9 @@ function Product() {
             backdropBlur="2px"
             width="100%"
           />
-          <ModalContent>
+          <ModalContent
+            minW="70vw"
+          >
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -257,15 +260,16 @@ function Product() {
       </Grid>
 
       <Text
-        fontSize={{ base: '18px', lg: '22px' }}
+        fontSize={{ base: '20px', lg: '24px' }}
         fontFamily="Poppins, sans-serif"
         color="var(--hard-blue)"
+        fontWeight="600"
         padding="2rem"
       >
         Umas das melhores localizações de Miami
       </Text>
       <Text
-        w="75%"
+        width={{ base: '100%', xl: '75%' }}
         color="var(--hard-blue)"
         fontWeight="500"
         fontSize={{ base: '16px', lg: '18px' }}
