@@ -41,7 +41,7 @@ function Product() {
   const navigate = useNavigate();
   const description = document.querySelector('#description');
 
-  const handleClick = () => {
+  const goBack = () => {
     navigate('/', { replace: true });
   };
 
@@ -57,12 +57,10 @@ function Product() {
     }
   }, []);
 
-  console.log(product);
-
   return (
     <>
       <Box
-        h="70px"
+        height="4rem"
         bgColor="var(--hard-blue)"
         color="#FFF"
         display="flex"
@@ -72,11 +70,11 @@ function Product() {
         position="relative"
         >
         <Box as="span">
-          <Text as="h3">Hoteis</Text>
-          <Text as="h2">Hotel EAST Miami</Text>
+          <Text as="h4">Hoteis</Text>
+          <Text as="h2">{product.accoName}</Text>
         </Box>
         <Box
-          onClick={handleClick}
+          onClick={goBack}
           as="button"
           type="button"
           float="right"
@@ -170,7 +168,7 @@ function Product() {
           rowSpan={2}
           colSpan={1}
           cursor="pointer"
-          w={{ base: '100%', lg: '700px' }}
+          width={{ base: '100%', lg: '700px' }}
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgSize="cover"
@@ -268,16 +266,22 @@ function Product() {
         </Modal>
       </Grid>
 
+      <Box
+        padding="2rem"
+        position="relative"
+        background="blue.100"
+        display="flex"
+        flexDirection="column"
+      >
       <Text
         fontSize={{ base: '20px', lg: '24px' }}
         fontFamily="Poppins, sans-serif"
         color="var(--hard-blue)"
         fontWeight="600"
-        padding="2rem"
+        paddingBottom="1rem"
       >
         Umas das melhores localizações de Miami
       </Text>
-      <Box>
         <Text
           id="description"
           className="description hided"
@@ -285,6 +289,7 @@ function Product() {
           color="var(--hard-blue)"
           fontWeight="500"
           fontSize={{ base: '16px', lg: '18px' }}
+          lineHeight="1.6"
         >
           Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
           e fica a apenas 5 minutosde carro de Brickell City Centre.
@@ -302,7 +307,9 @@ function Product() {
           onClick={() => {
             description.classList.toggle('hided');
           }}
-          marginLeft="55%"
+          marginTop="1rem"
+          maxWidth="10rem"
+          alignSelf="center"
         >
           Ver Mais
         </Button>

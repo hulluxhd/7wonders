@@ -4,7 +4,7 @@ function GridProductItem({ bgImage, lg }, props) {
   return (
     <GridItem
       {...props}
-      rounded={ lg || 'lg'}
+      rounded={lg || 'lg'}
       colSpan={4}
       bgImage={bgImage}
       bgPosition="center"
