@@ -36,6 +36,8 @@ import {
   A11y
 } from 'swiper';
 
+import baseApi from '../../../services/service.baseApi';
+
 export default function ModalSlide() {
   return (
     <Swiper

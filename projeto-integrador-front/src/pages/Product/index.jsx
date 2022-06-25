@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+// import  from "react-router-dom";
 
 import 'swiper/css';
+import './description.css';
 
 import {
   ArrowUUpLeft,
@@ -25,7 +27,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import baseApi from '../../services/service.baseApi';
 
 import ModalSlide from './components/ModalSlide';
@@ -36,6 +38,12 @@ function Product() {
   const [size, setSize] = React.useState('xl');
   const [product, setProduct] = useState({});
   const { productId } = useParams();
+  const navigate = useNavigate();
+  const description = document.querySelector('#description');
+
+  const handleClick = () => {
+    navigate('/', { replace: true });
+  };
 
   useEffect(() => {
     try {
@@ -68,6 +76,7 @@ function Product() {
           <Text as="h2">Hotel EAST Miami</Text>
         </Box>
         <Box
+          onClick={handleClick}
           as="button"
           type="button"
           float="right"
@@ -147,7 +156,7 @@ function Product() {
         />
       </Box>
       <Grid
-        height={{ base: '400px', sm: '600px', lg: '700px' }}
+        height={{ base: '25rem', sm: '25rem', lg: '28rem' }}
         templateRows="repeat(2, 1fr)"
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: 'repeat(5, 1fr)' }}
         gap={{ base: '0.5', md: '1', xl: 2 }}
@@ -268,25 +277,48 @@ function Product() {
       >
         Umas das melhores localizações de Miami
       </Text>
-      <Text
-        width={{ base: '100%', xl: '75%' }}
-        color="var(--hard-blue)"
-        fontWeight="500"
-        fontSize={{ base: '16px', lg: '18px' }}
-        padding="0 2rem 1rem"
+      <Box>
+        <Text
+          id="description"
+          className="description hided"
+          width={{ base: '100%', xl: '60%' }}
+          color="var(--hard-blue)"
+          fontWeight="500"
+          fontSize={{ base: '16px', lg: '18px' }}
+        >
+          Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
+          e fica a apenas 5 minutosde carro de Brickell City Centre.
+          Os hóspedes podem aproveitar massagens. Quinto La Huella,
+          um dos 2 restaurantes, serve café da manhã, almoço e jantar.
+          Este hotel de luxo possui 4 piscinas externas, 2 bares/lounges.
+          os quartos oferecem comodidades como roupas de cama premium e
+          chuveiros com efeito de chuva. Os viajantes costumam elogiar
+          as boas condições da propriedade e a localização. A propriedade
+          também tem acesso fácil aos meios de transporte público: Estação de
+          Metromover Eighth Street fica a 2 minutos e Estação de Metromover Fifth
+          Street fica a 4 minutos de caminhada do local.
+        </Text>
+        <Button
+          onClick={() => {
+            description.classList.toggle('hided');
+          }}
+          marginLeft="55%"
+        >
+          Ver Mais
+        </Button>
+      </Box>
+      <Box
+        display="flex"
       >
-        Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
-        e fica a apenas 5 minutosde carro de Brickell City Centre.
-        Os hóspedes podem aproveitar massagens. Quinto La Huella,
-        um dos 2 restaurantes, serve café da manhã, almoço e jantar.
-        Este hotel de luxo possui 4 piscinas externas, 2 bares/lounges.
-        os quartos oferecem comodidades como roupas de cama premium e
-        chuveiros com efeito de chuva. Os viajantes costumam elogiar
-        as boas condições da propriedade e a localização. A propriedade
-        também tem acesso fácil aos meios de transporte público: Estação de
-        Metromover Eighth Street fica a 2 minutos e Estação de Metromover Fifth
-        Street fica a 4 minutos de caminhada do local.
-      </Text>
+        <Button
+          width="90%"
+          maxWidth="35rem"
+          margin="1rem auto"
+          border="1px solid green"
+          >
+          RESERVAR AGORA
+        </Button>
+      </Box>
     </>
   );
 }
