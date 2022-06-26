@@ -5,7 +5,6 @@ import {
     Image,
     Text
     } from '@chakra-ui/react';
-import React from 'react';
 
 function DetailsCard() {
     /* const {
@@ -28,7 +27,7 @@ function DetailsCard() {
           /* src={imagePath}
           alt={name} */
           w="100%"
-          h="15rem"
+          h="20rem"
           fit="cover"
           borderRadius="0.25rem 0.25rem 0 0"
         />
@@ -66,7 +65,7 @@ function DetailsCard() {
               fontSize="1.2rem"
               overflow="hidden"
             >
-              {/* {isSmallerThan606 ? name : removeWordsUntilThereIsOnlyTwo(name)} */}
+              Hotel EAST Miami
             </Heading>
           </Box>
         </Box>

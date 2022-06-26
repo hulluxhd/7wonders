@@ -16,17 +16,25 @@ import {
     shadow,
 } from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
-import React from 'react';
+import { useContext } from 'react';
 import BasicButton from '../../components/BasicButton';
 import Calendar from '../../components/Calendar';
+import InputHeader from '../../components/Header/components/InputHeader';
+import handleInputDateValueController from '../../components/Header/utils/util.handleInputDateValueController';
+import { InfoContext } from '../../contexts/InfoContext';
 import DetailsCard from './DetailsCard';
 import FormReserve from './FormReserve';
+import Wrapper from '../../components/Wrapper';
 
 function ReservePage() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
+  const {
+    dateCheckinAndCheckout,
+  } = useContext(InfoContext);
+
   return (
-    <>
+    <Wrapper>
         <Box
           w="100%"
           h="70px"
@@ -94,6 +102,10 @@ function ReservePage() {
                         Datalhe da reserva
                     </Text>
                     <DetailsCard />
+                    <InputHeader
+                      value={handleInputDateValueController(dateCheckinAndCheckout)}
+                      placeholder="Check in - Check out"
+                    />
                     <BasicButton
                       type="submit"
                       description="Reservar"
@@ -305,7 +317,7 @@ function ReservePage() {
                   </Box>
             </GridItem>
         </Grid>
-    </>
+    </Wrapper>
   );
 }
 

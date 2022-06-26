@@ -1,11 +1,13 @@
 import {
-    Box,
-    FormControl,
-    FormLabel,
-    HStack,
-    VStack,
-    Radio,
-    RadioGroup,
+  Box,
+  FormControl,
+  FormLabel,
+  HStack,
+  VStack,
+  Radio,
+  RadioGroup,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react';
 import React from 'react';
 import { Formik, Form } from 'formik';
@@ -15,37 +17,38 @@ function FormReserve() {
   return (
     <Formik
       initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
-          city: '',
-        }}
-      >
-        {props => (
-          <Box
-            padding="4"
-            borderRadius="lg"
-            bgColor="#fff"
-            shadow="lg"
-          >
-            <Form>
-              <FormControl>
-                <FormLabel
-                  color="var(--hard-blue)"
-                  lineHeight="1.75rem"
-                  fontWeight="600"
-                  fontSize="lg"
-                  p="1"
-                >
-                  Para quem é esta reserva?
-                </FormLabel>
-                  <RadioGroup>
-                    <VStack spacing="1" align="flex-start" fontWeight="100">
-                      <Radio value="usuario" shadow="lg">Eu sou o hóspede principal</Radio>
-                      <Radio value="visitante">Reservando para outra pessoa</Radio>
-                    </VStack>
-                  </RadioGroup>
-                <Box display="flex" flexDirection="row" gap={4}>
+        firstName: '',
+        lastName: '',
+        email: '',
+        city: '',
+      }}
+    >
+      {props => (
+        <Box
+          padding="4"
+          borderRadius="lg"
+          bgColor="#fff"
+          shadow="lg"
+        >
+          <Form>
+            <FormControl>
+              <FormLabel
+                color="var(--hard-blue)"
+                lineHeight="1.75rem"
+                fontWeight="600"
+                fontSize="lg"
+                p="1"
+              >
+                Para quem é esta reserva?
+              </FormLabel>
+              <RadioGroup>
+                <VStack spacing="1" align="flex-start" fontWeight="100">
+                  <Radio size="sm" value="usuario">Eu sou o hóspede principal</Radio>
+                  <Radio size="sm" value="visitante">Reservando para outra pessoa</Radio>
+                </VStack>
+              </RadioGroup>
+              <Grid display="grid" gridTemplateColumns="4" gap={4}>
+                <GridItem colSpan="2">
                   <InputRegister
                     fieldDescription="Nome"
                     props={props}
@@ -54,6 +57,8 @@ function FormReserve() {
                     touched={props.touched.firstName}
                     type="text"
                     errorColor="var(--red)" />
+                </GridItem>
+                <GridItem>
                   <InputRegister
                     fieldDescription="Sobrenome"
                     props={props}
@@ -62,8 +67,8 @@ function FormReserve() {
                     touched={props.touched.lastName}
                     type="text"
                     errorColor="var(--red)" />
-                </Box>
-                <Box display="flex" flexDirection="row" gap={4}>
+                </GridItem>
+                <GridItem>
                   <InputRegister
                     fieldDescription="Email"
                     props={props}
@@ -72,6 +77,8 @@ function FormReserve() {
                     touched={props.touched.email}
                     type="text"
                     errorColor="var(--red)" />
+                </GridItem>
+                <GridItem>
                   <InputRegister
                     fieldDescription="Cidade"
                     props={props}
@@ -80,11 +87,12 @@ function FormReserve() {
                     touched={props.touched.city}
                     type="text"
                     errorColor="var(--red)" />
-                </Box>
-              </FormControl>
-            </Form>
-          </Box>
-        )}
+                </GridItem>
+              </Grid>
+            </FormControl>
+          </Form>
+        </Box>
+      )}
     </Formik>
   );
 }
