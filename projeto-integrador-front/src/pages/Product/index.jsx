@@ -40,6 +40,7 @@ function Product() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const description = document.querySelector('#description');
+  const descriptionButton = document.querySelector('#description-button');
 
   const goBack = () => {
     navigate('/', { replace: true });
@@ -68,6 +69,7 @@ function Product() {
         padding="0 2rem"
         justifyContent="space-between"
         position="relative"
+        marginTop="-2px"
         >
         <Box as="span">
           <Text as="h4">Hoteis</Text>
@@ -81,57 +83,6 @@ function Product() {
           padding="0 0 0 1rem"
           >
             <ArrowUUpLeft size={32} color="#FFF" />
-        </Box>
-      </Box>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        // padding="1rem 2rem"
-        padding={{ base: '0.5rem 1rem', xl: '1rem 2rem' }}
-        bg="#dbdce7"
-        lineHeight="1rem"
-      >
-        <Box display="flex" alignItems="center" gap="1rem">
-          <MapPin size={28} color="var(--hard-blue)" position="floatLeft" />
-          <Text
-            maxWidth="60%"
-            fontSize={{ base: '16px', lg: '18px' }}
-            fontFamily="Poppins, sans-serif"
-            color="var(--hard-blue)"
-            fontWeight="500"
-            >
-            Miami, Estados Unidos, a 940m para o centro.
-          </Text>
-        </Box>
-        <Box
-          display="flex"
-          alignItems="center"
-          gap="1.2rem"
-        >
-          <Box
-            display={{ base: 'none', md: 'block' }}
-          >
-            <Text>Muito bom</Text>
-            <Box display="flex">
-              <Star size={26} color="var(--hard-blue)" />
-              <Star size={26} color="var(--hard-blue)" />
-              <Star size={26} color="var(--hard-blue)" />
-              <Star size={26} color="var(--hard-blue)" />
-              <Star size={26} color="var(--hard-blue)" />
-            </Box>
-          </Box>
-          <Text
-            color="#FFF"
-            fontWeight="bold"
-            p="1rem 0.75rem"
-            background="var(--hard-blue)"
-            borderRadius="0.25rem"
-            textAlign="center"
-            maxW="100%"
-          >
-            4.5
-          </Text>
         </Box>
       </Box>
       <Box
@@ -206,7 +157,20 @@ function Product() {
         />
         <GridItem
           rounded="lg"
-          colSpan={4}
+          colSpan={2}
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          cursor="pointer"
+          bgSize="cover"
+          _hover={{
+            transform: 'scale(1.01)',
+          }}
+          transition="transform 0.5s ease-in-out"
+        />
+        <GridItem
+          rounded="lg"
+          colSpan={2}
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgRepeat="no-repeat"
@@ -265,11 +229,9 @@ function Product() {
           </ModalContent>
         </Modal>
       </Grid>
-
       <Box
         padding="2rem"
         position="relative"
-        background="blue.100"
         display="flex"
         flexDirection="column"
       >
@@ -285,7 +247,7 @@ function Product() {
         <Text
           id="description"
           className="description hided"
-          width={{ base: '100%', xl: '60%' }}
+          width={{ base: '100%', xl: '50%' }}
           color="var(--hard-blue)"
           fontWeight="500"
           fontSize={{ base: '16px', lg: '18px' }}
@@ -306,7 +268,12 @@ function Product() {
         <Button
           onClick={() => {
             description.classList.toggle('hided');
+            descriptionButton.innerText === 'Ver Mais' ?
+            descriptionButton.innerText = 'Ver Menos' :
+            descriptionButton.innerText = 'Ver Mais';
           }}
+          id="description-button"
+          value="true"
           marginTop="1rem"
           maxWidth="10rem"
           alignSelf="center"
@@ -321,7 +288,6 @@ function Product() {
           width="90%"
           maxWidth="35rem"
           margin="1rem auto"
-          border="1px solid green"
           >
           RESERVAR AGORA
         </Button>
