@@ -105,21 +105,23 @@ function Product() {
         />
       </Box>
       <Grid
-        height={{ base: '25rem', sm: '25rem', lg: '28rem' }}
+        height={{ base: '25rem', lg: '28rem', '2xl': '32rem' }}
         templateRows="repeat(2, 1fr)"
-        templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: 'repeat(5, 1fr)' }}
+        templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: '2fr repeat(2, 1fr)' }}
         gap={{ base: '0.5', md: '1', xl: 2 }}
         padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
+        maxWidth="1520px"
         position="relative"
+        margin="0 auto"
         // ref={finalRef}
-        tabIndex={-1}
+        // tabIndex={-1}
       >
         <GridItem
           rounded="lg"
-          rowSpan={2}
-          colSpan={1}
+          gridArea="1 / 1 / 3 / 2"
           cursor="pointer"
-          width={{ base: '100%', lg: '700px' }}
+          margin="0 auto"
+          width={{ base: '95%', md: '100%' }}
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgSize="cover"
@@ -131,7 +133,7 @@ function Product() {
         />
         <GridItem
           rounded="lg"
-          colSpan={2}
+          gridArea="1 / 2 / 2 / 3"
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgSize="cover"
@@ -144,7 +146,7 @@ function Product() {
         />
         <GridItem
           rounded="lg"
-          colSpan={2}
+          gridArea="1 / 3 / 2 / 4"
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26544b9f.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgRepeat="no-repeat"
@@ -157,7 +159,7 @@ function Product() {
         />
         <GridItem
           rounded="lg"
-          colSpan={2}
+          gridArea="2 / 2 / 3 / 3"
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgRepeat="no-repeat"
@@ -170,8 +172,8 @@ function Product() {
         />
         <GridItem
           rounded="lg"
-          colSpan={2}
-          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          gridArea="2 / 3 / 3 / 4"
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
           bgRepeat="no-repeat"
           cursor="pointer"
@@ -230,67 +232,83 @@ function Product() {
         </Modal>
       </Grid>
       <Box
-        padding="2rem"
-        position="relative"
+        className="description-section"
         display="flex"
-        flexDirection="column"
+        flexDirection={{ base: 'column', lg: 'row' }}
       >
-      <Text
-        fontSize={{ base: '20px', lg: '24px' }}
-        fontFamily="Poppins, sans-serif"
-        color="var(--hard-blue)"
-        fontWeight="600"
-        paddingBottom="1rem"
-      >
-        Umas das melhores localizações de Miami
-      </Text>
-        <Text
-          id="description"
-          className="description hided"
+        <Box
+          padding="2rem"
+          position="relative"
+          display="flex"
+          flexDirection="column"
           width={{ base: '100%', xl: '50%' }}
+          border="1px solid green"
+        >
+        <Text
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontFamily="Poppins, sans-serif"
           color="var(--hard-blue)"
-          fontWeight="500"
-          fontSize={{ base: '16px', lg: '18px' }}
-          lineHeight="1.6"
+          fontWeight="600"
+          paddingBottom="1rem"
         >
-          Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
-          e fica a apenas 5 minutosde carro de Brickell City Centre.
-          Os hóspedes podem aproveitar massagens. Quinto La Huella,
-          um dos 2 restaurantes, serve café da manhã, almoço e jantar.
-          Este hotel de luxo possui 4 piscinas externas, 2 bares/lounges.
-          os quartos oferecem comodidades como roupas de cama premium e
-          chuveiros com efeito de chuva. Os viajantes costumam elogiar
-          as boas condições da propriedade e a localização. A propriedade
-          também tem acesso fácil aos meios de transporte público: Estação de
-          Metromover Eighth Street fica a 2 minutos e Estação de Metromover Fifth
-          Street fica a 4 minutos de caminhada do local.
+          Umas das melhores localizações de Miami
         </Text>
-        <Button
-          onClick={() => {
-            description.classList.toggle('hided');
-            descriptionButton.innerText === 'Ver Mais' ?
-            descriptionButton.innerText = 'Ver Menos' :
-            descriptionButton.innerText = 'Ver Mais';
-          }}
-          id="description-button"
-          value="true"
-          marginTop="1rem"
-          maxWidth="10rem"
-          alignSelf="center"
-        >
-          Ver Mais
-        </Button>
-      </Box>
-      <Box
-        display="flex"
-      >
-        <Button
-          width="90%"
-          maxWidth="35rem"
-          margin="1rem auto"
+          <Text
+            id="description"
+            className="description hided"
+            // width={{ base: '100%', xl: '50%' }}
+            color="var(--hard-blue)"
+            fontWeight="500"
+            fontSize={{ base: '16px', lg: '18px' }}
+            lineHeight="1.6"
           >
-          RESERVAR AGORA
-        </Button>
+            Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
+            e fica a apenas 5 minutosde carro de Brickell City Centre.
+            Os hóspedes podem aproveitar massagens. Quinto La Huella,
+            um dos 2 restaurantes, serve café da manhã, almoço e jantar.
+            Este hotel de luxo possui 4 piscinas externas, 2 bares/lounges.
+            os quartos oferecem comodidades como roupas de cama premium e
+            chuveiros com efeito de chuva. Os viajantes costumam elogiar
+            as boas condições da propriedade e a localização. A propriedade
+            também tem acesso fácil aos meios de transporte público: Estação de
+            Metromover Eighth Street fica a 2 minutos e Estação de Metromover Fifth
+            Street fica a 4 minutos de caminhada do local.
+          </Text>
+          <Button
+            onClick={() => {
+              description.classList.toggle('hided');
+              descriptionButton.innerText === 'Ver Mais' ?
+              descriptionButton.innerText = 'Ver Menos' :
+              descriptionButton.innerText = 'Ver Mais';
+            }}
+            id="description-button"
+            value="true"
+            marginTop="1rem"
+            maxWidth="10rem"
+            alignSelf="center"
+          >
+            Ver Mais
+          </Button>
+        </Box>
+        <Box
+          className="accHighlights"
+          border="1px solid green"
+          width={{ base: '100%', xl: '50%' }}
+          display="flex"
+          padding={{ base: '1rem', lg: '1.5', xl: '2rem' }}
+        >
+          <Box>
+            LISTA DE ATRIBUTOS
+            <Button
+              width="90%"
+              maxWidth="35rem"
+              margin="1rem auto"
+              border="1px solid green"
+              >
+              RESERVAR AGORA
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </>
   );
