@@ -7,7 +7,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 export default function Map() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyD70a-GCHov2z7jSC2t8ivF0_drRNVbv84'
+    googleMapsApiKey: 'AIzaSyBha6bbcPqbLjNHuJdRMpm5eENNi-e7fH4'
     });
 
     const accPosition = {
@@ -18,17 +18,24 @@ export default function Map() {
   return (
     <div>
       <Box
-        width={{ base: '90vw', xl: '75vw' }}
-        height={{ base: '60vh', xl: '60vh' }}
-        margin="0 auto"
+        className="container"
+        width="100%"
+        height={{ base: '60vh', xl: '70vh' }}
       >
         { isLoaded ? (
           <GoogleMap
             mapContainerStyle={{ width: '100%', height: '100%' }}
-            center={accPosition}// accomodation location
-            zoom={10}
+            center={accPosition}
+            zoom={15}
           >
-            <Marker position={accPosition} />
+            <Marker
+              position={accPosition}
+              options={{
+                label: {
+                  text: 'NOME DA ACC',
+                  className: 'map-marker',
+              }
+            }} />
           {/* <></> */}
           </GoogleMap>
           ) : <div><h4>Erro ao carregar o mapa</h4></div>};

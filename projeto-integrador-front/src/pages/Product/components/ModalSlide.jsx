@@ -57,9 +57,21 @@ export default function ModalSlide() {
           margin="0 auto"
           height="70vh"
           width="80vw"
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <Box
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          bgPosition="center"
+          bgSize="cover"
+          bgRepeat="no-repeat"
+          margin="0 auto"
+          height="70vh"
+          width="80vw"
         >
           Slide 1
         </Box>
+
       </SwiperSlide>
       <SwiperSlide>
         <Box
@@ -87,20 +99,6 @@ export default function ModalSlide() {
           Slide 1
         </Box>
       </SwiperSlide>
-      <SwiperSlide>
-        <Box
-          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgSize="cover"
-          bgRepeat="no-repeat"
-          margin="0 auto"
-          height="70vh"
-          width="80vw"
-        >
-          Slide 1
-        </Box>
-      </SwiperSlide>
-      Fotos de ...
     </Swiper>
   );
 }

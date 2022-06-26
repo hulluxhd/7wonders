@@ -5,14 +5,6 @@ import 'swiper/css';
 import './description.css';
 
 import {
-  ArrowUUpLeft,
-  Heart,
-  MapPin,
-  ShareNetwork,
-  Star
-} from 'phosphor-react';
-
-import {
   Box,
   Text,
   Button,
@@ -32,20 +24,18 @@ import baseApi from '../../services/service.baseApi';
 
 import ModalSlide from './components/ModalSlide';
 import Map from './components/Map/Map';
+import GridProductItem from './components/GridIProductItem';
+import DetailPageHeader from './components/DetailPageHeader';
+import ShareFavIcons from './components/ShareFavIcons';
 
 function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
-  const [size, setSize] = React.useState('xl');
   const [product, setProduct] = useState({});
   const { productId } = useParams();
   const navigate = useNavigate();
   const description = document.querySelector('#description');
   const descriptionButton = document.querySelector('#description-button');
-
-  const goBack = () => {
-    navigate('/', { replace: true });
-  };
 
   useEffect(() => {
     try {
@@ -61,50 +51,8 @@ function Product() {
 
   return (
     <>
-      <Box
-        height="4rem"
-        bgColor="var(--hard-blue)"
-        color="#FFF"
-        display="flex"
-        alignItems="center"
-        padding="0 2rem"
-        justifyContent="space-between"
-        position="relative"
-        marginTop="-2px"
-        >
-        <Box as="span">
-          <Text as="h4">Hoteis</Text>
-          <Text as="h2">{product.accoName}</Text>
-        </Box>
-        <Box
-          onClick={goBack}
-          as="button"
-          type="button"
-          float="right"
-          padding="0 0 0 1rem"
-          >
-            <ArrowUUpLeft size={32} color="#FFF" />
-        </Box>
-      </Box>
-      <Box
-        h="60px"
-        w="100%"
-        display="flex"
-        alignItems="center"
-        padding="0 2rem"
-        gap="1rem"
-      >
-        <ShareNetwork
-          size={28}
-          color="var(--hard-blue)"
-          cursor="pointer"
-        />
-        <Heart
-          size={30}
-          color="var(--hard-blue)"
-          cursor="pointer"
-        />
-      </Box>
+      <DetailPageHeader />
+      <ShareFavIcons />
       <Grid
         className="container"
         height={{ base: '25rem', lg: '28rem', '2xl': '32rem' }}
@@ -112,75 +60,29 @@ function Product() {
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: '2fr repeat(2, 1fr)' }}
         gap={{ base: '0.5', md: '1', xl: 2 }}
         padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
+        position="relative"
         // ref={finalRef}
         // tabIndex={-1}
       >
-        <GridItem
-          rounded="lg"
-          gridArea="1 / 1 / 3 / 2"
-          cursor="pointer"
-          margin="0 auto"
-          width={{ base: '95%', md: '100%' }}
-          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgSize="cover"
-          bgRepeat="no-repeat"
-          _hover={{
-            transform: 'scale(1.01)',
-          }}
-          transition="transform 0.5s ease-in-out"
-        />
-        <GridItem
-          rounded="lg"
-          gridArea="1 / 2 / 2 / 3"
+        <GridProductItem
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgSize="cover"
-          cursor="pointer"
-          bgRepeat="no-repeat"
-          _hover={{
-            transform: 'scale(1.01)',
-          }}
-          transition="transform 0.5s ease-in-out"
+          gridArea="1 / 1 / 3 / 2"
         />
-        <GridItem
-          rounded="lg"
+        <GridProductItem
+          bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
+          gridArea="1 / 2 / 2 / 3"
+        />
+        <GridProductItem
           gridArea="1 / 3 / 2 / 4"
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26544b9f.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgRepeat="no-repeat"
-          cursor="pointer"
-          bgSize="cover"
-          _hover={{
-            transform: 'scale(1.01)',
-          }}
-          transition="transform 0.5s ease-in-out"
         />
-        <GridItem
-          rounded="lg"
+        <GridProductItem
           gridArea="2 / 2 / 3 / 3"
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgRepeat="no-repeat"
-          cursor="pointer"
-          bgSize="cover"
-          _hover={{
-            transform: 'scale(1.01)',
-          }}
-          transition="transform 0.5s ease-in-out"
         />
-        <GridItem
-          rounded="lg"
+        <GridProductItem
           gridArea="2 / 3 / 3 / 4"
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgRepeat="no-repeat"
-          cursor="pointer"
-          bgSize="cover"
-          _hover={{
-            transform: 'scale(1.01)',
-          }}
-          transition="transform 0.5s ease-in-out"
         />
         <Button
           position="absolute"
@@ -203,7 +105,7 @@ function Product() {
         </Button>
         <Modal
           finalFocusRef={finalRef}
-          size={size}
+          size="xl"
           isOpen={isOpen}
           onClose={onClose}
           >
