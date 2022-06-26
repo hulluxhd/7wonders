@@ -134,15 +134,15 @@ function Product() {
           </Modal>
         </Grid>
 
-        <Divider borderWidth="1px" borderColor="var(--hard-blue)" margin="2rem auto" />
+        <Divider borderWidth="-1px" borderColor="var(--light-blue)" margin="2rem auto" />
 
         <DescriptionSection />
 
-        <Divider borderWidth="1px" borderColor="var(--hard-blue)" margin="2rem auto" />
+        <Divider borderWidth="-1px" borderColor="var(--light-blue)" margin="2rem auto" />
 
         <Map />
 
-        <Divider borderWidth="1px" borderColor="var(--hard-blue)" margin="2rem auto" />
+        <Divider borderWidth="-1px" borderColor="var(--light-blue)" margin="2rem auto" />
 
         <Box
           className="container"

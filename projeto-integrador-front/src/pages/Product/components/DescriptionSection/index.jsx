@@ -1,8 +1,13 @@
 import {
   Box,
   Button,
-  ListIcon,
-  ListItem,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Text,
   UnorderedList
 } from '@chakra-ui/react';
@@ -79,9 +84,9 @@ export default function DescriptionSection() {
         </Box>
         <Box
           className="accHighlights"
-          width={{ base: '100%', xl: '50%' }}
+          width={{ base: '90%', xl: '50%' }}
           display="flex"
-          margin={{ base: '1rem', lg: '1.5', xl: '2rem' }}
+          margin={{ base: '1rem auto', lg: '1.5 auto', xl: '0 auto' }}
           boxShadow="2px 6px 20px var(--hard-blue)"
           borderRadius="10px"
           height="350px"
@@ -95,24 +100,31 @@ export default function DescriptionSection() {
             padding="1rem"
             className="card-attributes"
           >
-            <Text as="h2">
-              Lista de atributos
+            <Text as="h2" paddingBottom="1rem">
+              Esta acomodação oferece:
             </Text>
 
-            <UnorderedList>
-              <ListItem display="flex" alignItens="center">
-                <ListIcon as={MdPets} color="green.500" />
-                Aceita pets
-              </ListItem>
-              <ListItem display="flex" alignItens="center">
-                <ListIcon as={MdAcUnit} color="green.500" />
-                Ar condicionado
-              </ListItem>
-              <ListItem>Integer molestie lorem at massa</ListItem>
-              <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-            </UnorderedList>
+            <Box
+              display="flex"
+              gap="1rem"
+            >
+              <Popover>
+                <PopoverTrigger>
+                  <Button padding="2rem 0.5rem" borderRadius="25%">
+                    <MdAcUnit fontSize="3.5rem" color="var(--light-blue)" />
+                  </Button>
+                </PopoverTrigger>
 
-            <Text as="h2">
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <PopoverHeader>Permite pets</PopoverHeader>
+                  <PopoverBody>Esta acomodação está preparada</PopoverBody>
+                </PopoverContent>
+              </Popover>
+            </Box>
+
+            <Text as="h1" padding="2rem 0">
               A partir de R$299,00
             </Text>
 

@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+} from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
 import { Navigate, useParams } from 'react-router-dom';
 import baseApi from '../../../../services/service.baseApi';
@@ -33,8 +45,8 @@ export default function DetailPageHeader() {
       marginTop="-2px"
       >
         <Box
-          width="100%"
-          maxWidth="1500px"
+          width="90%"
+          maxWidth="1440px"
           margin="0 auto"
           display="flex"
           alignItems="center"
