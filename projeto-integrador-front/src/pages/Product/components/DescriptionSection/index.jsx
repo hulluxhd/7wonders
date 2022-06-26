@@ -9,7 +9,7 @@ import {
 // import { PawPrint } from 'phosphor-react';
 // import { FontsAwesome } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
-import { MdPets } from 'react-icons/md';
+import { MdPets, MdAcUnit } from 'react-icons/md';
 
 import React from 'react';
 import { List } from 'phosphor-react';
@@ -105,12 +105,16 @@ export default function DescriptionSection() {
                 Aceita pets
               </ListItem>
               <ListItem display="flex" alignItens="center">
-                <ListIcon as={MdPets} color="green.500" />
-                Aceita pets
+                <ListIcon as={MdAcUnit} color="green.500" />
+                Ar condicionado
               </ListItem>
               <ListItem>Integer molestie lorem at massa</ListItem>
               <ListItem>Facilisis in pretium nisl aliquet</ListItem>
             </UnorderedList>
+
+            <Text as="h2">
+              A partir de R$299,00
+            </Text>
 
             <Box display="flex" className="button-container">
               <Button
