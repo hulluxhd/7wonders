@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
@@ -17,10 +17,14 @@ export default function Map() {
 
   return (
     <div>
+      <Text as="h2" padding="1rem" color="var(--hard-blue)">
+        Onde você vai estar
+      </Text>
       <Box
         className="container"
         width="100%"
         height={{ base: '60vh', xl: '70vh' }}
+        position="relative"
       >
         { isLoaded ? (
           <GoogleMap
@@ -36,9 +40,8 @@ export default function Map() {
                   className: 'map-marker',
               }
             }} />
-          {/* <></> */}
           </GoogleMap>
-          ) : <div><h4>Erro ao carregar o mapa</h4></div>};
+          ) : <div><h4>Erro ao carregar o mapa</h4></div>}
       </Box>
     </div>
   );
