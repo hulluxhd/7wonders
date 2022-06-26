@@ -47,7 +47,7 @@ function FormReserve() {
                   <Radio size="sm" value="visitante">Reservando para outra pessoa</Radio>
                 </VStack>
               </RadioGroup>
-              <Grid display="grid" gridTemplateColumns="4" gap={4}>
+              <Grid templateColumns="repeat(4, 1fr)" gap={4}>
                 <GridItem colSpan="2">
                   <InputRegister
                     fieldDescription="Nome"
@@ -58,7 +58,7 @@ function FormReserve() {
                     type="text"
                     errorColor="var(--red)" />
                 </GridItem>
-                <GridItem>
+                <GridItem colSpan="2">
                   <InputRegister
                     fieldDescription="Sobrenome"
                     props={props}
@@ -68,7 +68,7 @@ function FormReserve() {
                     type="text"
                     errorColor="var(--red)" />
                 </GridItem>
-                <GridItem>
+                <GridItem colSpan="2">
                   <InputRegister
                     fieldDescription="Email"
                     props={props}
@@ -78,7 +78,7 @@ function FormReserve() {
                     type="text"
                     errorColor="var(--red)" />
                 </GridItem>
-                <GridItem>
+                <GridItem colSpan="2">
                   <InputRegister
                     fieldDescription="Cidade"
                     props={props}
