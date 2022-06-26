@@ -11,9 +11,10 @@ function InputRegister({
   props,
   errors,
   touched,
+  colSpan,
 }) {
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" colSpan={colSpan}>
       <FormLabel color="var(--hard-blue)" mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
       <Input
         bgColor="#FFF"
