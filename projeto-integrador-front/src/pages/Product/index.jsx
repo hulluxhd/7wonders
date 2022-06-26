@@ -31,6 +31,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import baseApi from '../../services/service.baseApi';
 
 import ModalSlide from './components/ModalSlide';
+import Map from './components/Map/Map';
 
 function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -105,14 +106,12 @@ function Product() {
         />
       </Box>
       <Grid
+        className="container"
         height={{ base: '25rem', lg: '28rem', '2xl': '32rem' }}
         templateRows="repeat(2, 1fr)"
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: '2fr repeat(2, 1fr)' }}
         gap={{ base: '0.5', md: '1', xl: 2 }}
         padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
-        maxWidth="1520px"
-        position="relative"
-        margin="0 auto"
         // ref={finalRef}
         // tabIndex={-1}
       >
@@ -232,7 +231,7 @@ function Product() {
         </Modal>
       </Grid>
       <Box
-        className="description-section"
+        className="description-section container"
         display="flex"
         flexDirection={{ base: 'column', lg: 'row' }}
       >
@@ -310,6 +309,7 @@ function Product() {
           </Box>
         </Box>
       </Box>
+      <Map />
     </>
   );
 }

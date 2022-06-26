@@ -5,3 +5,8 @@
   overflow: hidden;
   margin: 0;
 }
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+}
