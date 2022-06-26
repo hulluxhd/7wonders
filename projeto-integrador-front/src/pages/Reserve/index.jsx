@@ -13,11 +13,13 @@ import {
     GridItem,
     Grid,
     Divider,
+    shadow,
 } from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
 import React from 'react';
 import BasicButton from '../../components/BasicButton';
 import Calendar from '../../components/Calendar';
+import DetailsCard from './DetailsCard';
 import FormReserve from './FormReserve';
 
 function ReservePage() {
@@ -52,7 +54,7 @@ function ReservePage() {
         <Grid
           templateRows="repeat(, 1fr)"
           templateColumns="repeat(5, 1fr)"
-          gap={6}
+          gap={4}
           p="1rem"
         >
             <GridItem colSpan={3}>
@@ -65,7 +67,7 @@ function ReservePage() {
                   p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
                   mb="2"
                 >
-                    Complete seus dados
+                    Insira seus dados
                 </Text>
                   <FormReserve />
             </GridItem>
@@ -75,6 +77,7 @@ function ReservePage() {
                   marginTop="14"
                   borderRadius="lg"
                   bgColor="#fff"
+                  shadow="lg"
                   w="100%"
                   h="94%"
                 >
@@ -90,6 +93,19 @@ function ReservePage() {
                     >
                         Datalhe da reserva
                     </Text>
+                    <DetailsCard />
+                    <BasicButton
+                      type="submit"
+                      description="Reservar"
+                      w="100%"
+                      my={isSmallerThan606 ? null : '1rem'}
+                      transition="all 0.2s ease-in-out"
+                      _hover={{
+                        background: 'transparent',
+                        color: 'var(--hard-blue)',
+                        border: '2px solid var(--blue)',
+                      }}
+                    />
                 </Box>
             </GridItem>
             <GridItem colSpan={3}>
@@ -124,6 +140,7 @@ function ReservePage() {
                   padding="4"
                   borderRadius="lg"
                   bgColor="#fff"
+                  shadow="lg"
                   h="32"
                 >
                     <Text
@@ -169,6 +186,7 @@ function ReservePage() {
                     padding="4"
                     borderRadius="lg"
                     bgColor="#fff"
+                    shadow="lg"
                     mt="2"
                   >
                     <Text

@@ -1,6 +1,11 @@
 import {
     Box,
     FormControl,
+    FormLabel,
+    HStack,
+    VStack,
+    Radio,
+    RadioGroup,
 } from '@chakra-ui/react';
 import React from 'react';
 import { Formik, Form } from 'formik';
@@ -21,9 +26,25 @@ function FormReserve() {
             padding="4"
             borderRadius="lg"
             bgColor="#fff"
+            shadow="lg"
           >
             <Form>
               <FormControl>
+                <FormLabel
+                  color="var(--hard-blue)"
+                  lineHeight="1.75rem"
+                  fontWeight="600"
+                  fontSize="lg"
+                  p="1"
+                >
+                  Para quem é esta reserva?
+                </FormLabel>
+                  <RadioGroup>
+                    <VStack spacing="1" align="flex-start" fontWeight="100">
+                      <Radio value="usuario" shadow="lg">Eu sou o hóspede principal</Radio>
+                      <Radio value="visitante">Reservando para outra pessoa</Radio>
+                    </VStack>
+                  </RadioGroup>
                 <Box display="flex" flexDirection="row" gap={4}>
                   <InputRegister
                     fieldDescription="Nome"
