@@ -20,7 +20,7 @@ import {
   useDisclosure,
   Divider,
 } from '@chakra-ui/react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import baseApi from '../../services/service.baseApi';
 
 import ModalSlide from './components/ModalSlide';
@@ -128,7 +128,9 @@ function Product() {
                   <Button colorScheme="blue" mr={3} onClick={onClose}>
                     Voltar
                   </Button>
+                  <Link to="/reserve">
                   <Button variant="ghost">Fazer reserva</Button>
+                  </Link>
                 </ModalFooter>
             </ModalContent>
           </Modal>
