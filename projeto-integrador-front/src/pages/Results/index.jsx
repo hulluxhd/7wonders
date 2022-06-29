@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { InfoContext } from '../../contexts/InfoContext';
 import baseApi from '../../services/service.baseApi';
 import Wrapper from '../../components/Wrapper';
+import HorizontalCard from '../../components/HorizontalCard';
 
 function Results() {
   const [accommodations, setAccommodations] = useState([]);
@@ -23,7 +24,7 @@ function Results() {
       <Text as="h2">Resultados da pesquisa </Text>
       <Box>
         {accommodations?.map(acc => (
-          <Text key={acc.id}>{acc.accoName}</Text>
+          <HorizontalCard cardInfo={acc} key={acc.id} />
         ))}
       </Box>
     </Wrapper>
