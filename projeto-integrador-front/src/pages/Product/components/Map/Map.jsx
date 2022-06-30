@@ -11,8 +11,8 @@ export default function Map() {
     });
 
     const accPosition = {
-      lat: -19.391205,
-      lng: -40.049750,
+      lat: 29.97724366857695,
+      lng: 31.13394399260171,
     };
 
   return (
@@ -36,7 +36,7 @@ export default function Map() {
               position={accPosition}
               options={{
                 label: {
-                  text: 'NOME DA ACC',
+                  text: 'Piramides de Gize',
                   className: 'map-marker',
               }
             }} />

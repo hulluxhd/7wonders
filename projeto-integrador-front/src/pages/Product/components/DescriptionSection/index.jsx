@@ -18,6 +18,7 @@ import { MdPets, MdAcUnit } from 'react-icons/md';
 
 import React from 'react';
 import { List } from 'phosphor-react';
+import AttributeIcon from '../AttributeIcon';
 
 export default function DescriptionSection() {
   const description = document.querySelector('#description-text');
@@ -84,7 +85,7 @@ export default function DescriptionSection() {
         </Box>
         <Box
           className="accHighlights"
-          width={{ base: '90%', xl: '50%' }}
+          width={{ base: '90%', xl: '40%' }}
           display="flex"
           margin={{ base: '1rem auto', lg: '1.5 auto', xl: '0 auto' }}
           boxShadow="2px 6px 20px var(--hard-blue)"
@@ -93,11 +94,10 @@ export default function DescriptionSection() {
           color="var(--hard-blue)"
         >
           <Box
-            // border="1px solid var(--hard-blue)"
             display="flex"
             flexDirection="column"
             width="100%"
-            padding="1rem"
+            padding="2rem"
             className="card-attributes"
           >
             <Text as="h2" paddingBottom="1rem">
@@ -105,23 +105,11 @@ export default function DescriptionSection() {
             </Text>
 
             <Box
+              className="attribute-icons-container"
               display="flex"
               gap="1rem"
             >
-              <Popover>
-                <PopoverTrigger>
-                  <Button padding="2rem 0.5rem" borderRadius="25%">
-                    <MdAcUnit fontSize="3.5rem" color="var(--light-blue)" />
-                  </Button>
-                </PopoverTrigger>
-
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader>Permite pets</PopoverHeader>
-                  <PopoverBody>Esta acomodação está preparada</PopoverBody>
-                </PopoverContent>
-              </Popover>
+              <AttributeIcon />
             </Box>
 
             <Text as="h1" padding="2rem 0">
