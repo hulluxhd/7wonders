@@ -13,65 +13,88 @@ import {
   Text,
 } from '@chakra-ui/react';
 import {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
+ useCallback, useContext, useEffect, useRef, useState
 } from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { InfoContext } from '../../../../contexts/InfoContext';
 import BasicButton from '../../../BasicButton';
+import baseApi from '../../../../services/service.baseApi';
 
 function DrawerLogin({ isOpen, onClose, breakpoint }) {
-  const mockupInfo = {
-    name: 'Denny Ribeiro',
-    email: 'denny.ribeiro@outlook.com',
-    password: '123456',
-  };
-
   const inputNick = useRef();
 
   const [errors, setErrors] = useState('');
 
-  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [usersInfo, setUsersInfo] = useState([]);
 
-  const { setUsername } = useContext(InfoContext);
+  const [userInfoForm, setUserInfoForm] = useState({ email: '', password: '' });
 
-  const validateEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const { user, setUser } = useContext(InfoContext);
+
+  function verifyLogin(array, email, password) {
+    const findEmail = array.find(_user => _user.userEmail === email);
+    if (!findEmail) return setErrors('Usuário não encontrado');
+    if (findEmail.userPassword !== password) return setErrors('Senha inválida');
+
+    return {
+      ...findEmail,
+      token: 'authorized',
+    };
+  }
+
+  const validateEmailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const handleChangeLogin = useCallback(
     ({ target }) => {
-      setLoginData(prev => ({
+      setUserInfoForm(prev => ({
         ...prev,
         [target.name]: target.value, // entre [] pois é um atributo do input
       }));
     },
-    [setLoginData]
+    [setUserInfoForm]
   );
 
   async function handleSubmit(e) {
     e.preventDefault();
     const schema = yup.object().shape({
-      email: yup
-        .string()
-        .email()
-        .matches(validateEmailRegex)
-        .matches(mockupInfo.email)
-        .required(),
-      password: yup.string().min(6).matches(mockupInfo.password).required(),
+      email: yup.string().email().matches(validateEmailRegex).required(),
+      password: yup.string().min(6).required(),
     });
 
     try {
-      await schema.validate(loginData);
-      setUsername(mockupInfo.name);
+      const { email, password } = userInfoForm;
+      await schema.validate(userInfoForm);
+      const loggedUser = verifyLogin(usersInfo, email, password);
+      if (!loggedUser) throw new Error();
+      setUser(loggedUser);
       onClose();
       setErrors('');
     } catch (err) {
       setErrors(err.errors[0]);
+      setUser({});
+      console.error(errors);
     }
   }
+
+  useEffect(() => {
+    try {
+      baseApi.get('/users').then(({ data, status }) => {
+        if (status === 200) {
+          setUsersInfo(data);
+        }
+        if (status === 201) {
+          // ! implementar toastify ou modal
+          /* Se o endpoint não retornar o status 201, o bloco de login deverá exibir
+          uma mensagem de erro no formulário informando ao usuário:
+          "Infelizmente, você não pôde efetuar login. Por favor, tente novamente mais tarde." */
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   return (
     <Drawer
@@ -84,8 +107,15 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
       <DrawerContent bg="#FFF">
         <DrawerCloseButton />
 
-        <DrawerBody display="flex" flexDir="column" justifyContent="center" color="var(--hard-blue)">
-          <Text as="h2" mb="2rem">Entre com a sua conta</Text>
+        <DrawerBody
+          display="flex"
+          flexDir="column"
+          justifyContent="center"
+          color="var(--hard-blue)"
+        >
+          <Text as="h2" mb="2rem">
+            Entre com a sua conta
+          </Text>
           <Box>
             <form
               onSubmit={handleSubmit}
@@ -98,7 +128,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
             >
               <Box>
                 <label
-                  style={{ fontFamily: 'Poppins, sans-serif', color: 'var(--hard-blue)' }}
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    color: 'var(--hard-blue)',
+                  }}
                 >
                   E-mail
                   <Input
@@ -112,7 +145,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               </Box>
               <Box>
                 <label
-                  style={{ fontFamily: 'Poppins, sans-serif', color: 'var(--hard-blue)' }}
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    color: 'var(--hard-blue)',
+                  }}
                 >
                   Senha
                   <Input
@@ -124,29 +160,25 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                     name="password"
                   />
                 </label>
-                {errors.password &&
-                  (
-                    <Text as="span" fontSize="xs" color="gray.600">
-                      {errors.password}
-                    </Text>
-                  )}
+                {errors.password && (
+                  <Text as="span" fontSize="xs" color="gray.600">
+                    {errors.password}
+                  </Text>
+                )}
               </Box>
             </form>
           </Box>
-          {
-            errors &&
-            (
-              <Text
-                textAlign="left"
-                fontFamily="'Poppins', sans-serif"
-                fontSize="sm"
-                as="span"
-                color="red.500"
-              >
-                Credenciais inválidas, por favor tente novamente.
-              </Text>
-            )
-          }
+          {errors && (
+            <Text
+              textAlign="left"
+              fontFamily="'Poppins', sans-serif"
+              fontSize="sm"
+              as="span"
+              color="red.500"
+            >
+              {errors}
+            </Text>
+          )}
 
           <Box
             display="flex"
@@ -177,7 +209,11 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 borderRadius="0.25rem"
                 form="login-form"
                 transition="all 0.2s ease-in-out"
-                _hover={{ border: '1px solid var(--blue)', color: 'var(--blue)', bgColor: '#FFF' }}
+                _hover={{
+                  border: '1px solid var(--blue)',
+                  color: 'var(--blue)',
+                  bgColor: '#FFF',
+                }}
               />
             </Stack>
             <Stack pt="10px" alignItems="center">

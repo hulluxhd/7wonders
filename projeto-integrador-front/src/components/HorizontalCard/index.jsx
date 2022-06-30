@@ -35,8 +35,6 @@ function HorizontalCard({ cardInfo }) {
 
   const rating = 5;
 
-  console.log(id);
-
   return (
     <Box
       maxHeight={isSmallerThan606 ? 'auto' : '300px'}

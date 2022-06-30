@@ -8,7 +8,6 @@ import HorizontalCard from '../../components/HorizontalCard';
 
 async function getData(_id, _search, _cb) {
   const { data } = await baseApi.get(`${_search}/${_id}`);
-  console.log(data);
   return data;
 }
 
@@ -18,10 +17,6 @@ function Results({ informations }) {
   const {
     place: { city, category },
   } = useContext(InfoContext);
-
-  console.log(city);
-
-  console.log(accommodations);
 
   if (informations) {
     const {

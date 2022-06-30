@@ -19,7 +19,6 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import React, { useEffect, useState, useContext } from 'react';
-import { BsFillFlagFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { InfoContext } from '../../contexts/InfoContext';
 import geolocalization from '../../assets/geolocalization.svg';
@@ -33,7 +32,6 @@ import Wrapper from '../Wrapper';
 import ComponentIsVisible from './utils/util.ComponentsVisible';
 import handleInputDateValueController from './utils/util.handleInputDateValueController';
 import handleInputCityValueController from './utils/util.handleInputCityValueController';
-import filterPlaces from '../../utils/util.filterPlaces';
 import baseApi from '../../services/service.baseApi';
 import renderDropdown from './utils/util.renderDropdown';
 import getCities from './utils/util.getCities';
@@ -49,8 +47,8 @@ function Header({ drawerFunctions }) {
     setCardsRender,
     dateCheckinAndCheckout,
     setDateCheckinAndCheckout,
-    username,
-    setUsername,
+    user,
+    setUser,
     setPlace,
     localData,
   } = useContext(InfoContext);
@@ -84,12 +82,14 @@ function Header({ drawerFunctions }) {
     setCardsRender(localData);
     setDateCheckinAndCheckout(null);
     setToRenderOnDropdown(getCities());
+
     setPlace({
       city: '',
       cityId: '',
       country: '',
       category: ''
      });
+
      setTemporaryPlace({
        city: '',
       cityId: '',
@@ -109,8 +109,6 @@ function Header({ drawerFunctions }) {
       }
     );
   }
-
-  console.log(temporaryPlace.city);
 
   // useEffect para observar a largura da viewport e identificar o
   // tamanho do header em cada alteração // ! Modificar
@@ -167,19 +165,19 @@ function Header({ drawerFunctions }) {
                 onClick={handleCleanRenderStates}
               />
             </Link>
-            {username ? (
+            {user.token ? (
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Menu>
                   <MenuButton>
                     <Avatar
-                      name={username}
+                      name={`${user.userName} ${user.userSurname}`}
                       size="sm"
                       bgColor="var(--hard-blue)"
                       color="#FFF"
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem onClick={() => setUsername('')}>
+                    <MenuItem onClick={() => setUser({})}>
                       Encerrar sessão
                     </MenuItem>
                   </MenuList>
@@ -193,7 +191,7 @@ function Header({ drawerFunctions }) {
                     Olá,{' '}
                   </Text>
                   <Text fontFamily="Poppins, sans-serif" color="var(--blue)">
-                    {username}
+                    {user.userName}
                   </Text>
                 </Box>
               </Box>

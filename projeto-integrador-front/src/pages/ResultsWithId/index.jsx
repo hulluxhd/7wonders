@@ -17,8 +17,6 @@ function ResultsWithId() {
     },
   };
 
-  console.log(informations);
-
   return (
       <Box>
         <Results informations={informations} />
