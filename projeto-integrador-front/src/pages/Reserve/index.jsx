@@ -13,7 +13,15 @@ import {
     GridItem,
     Grid,
     Divider,
+    useDisclosure,
     shadow,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    ModalFooter,
 } from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
 import { useContext } from 'react';
@@ -25,8 +33,11 @@ import { InfoContext } from '../../contexts/InfoContext';
 import DetailsCard from './DetailsCard';
 import FormReserve from './FormReserve';
 import Wrapper from '../../components/Wrapper';
+import ModalSlide from '../Product/components/ModalSlide';
 
 function ReservePage() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
   const {
@@ -107,6 +118,7 @@ function ReservePage() {
                       placeholder="Check in - Check out"
                     />
                     <BasicButton
+                      onClick={onOpen}
                       type="submit"
                       description="Reservar"
                       w="100%"
@@ -317,6 +329,39 @@ function ReservePage() {
                   </Box>
             </GridItem>
         </Grid>
+
+        <Modal
+            // finalFocusRef={finalRef}
+          isCentered
+          // size="xl"
+          isOpen={isOpen}
+          onClose={onClose}
+            >
+            <ModalOverlay
+              // bg="none"
+              // backdropFilter="auto"
+              // backdropBlur="2px"
+              // width="30%"
+            />
+            <ModalContent
+              // minW="70vw"
+            >
+              <ModalCloseButton />
+              <ModalBody flexDirection="column" display="flex">
+              <Text fontWeight="700" fontSize="23px" mb="1rem" display="flex" justifyContent="center">
+              Muito obrigado!
+              </Text>
+              <Text fontWeight="bold" mb="1rem" display="flex" justifyContent="center">
+              Reserva realizada com sucesso.
+              </Text>
+              </ModalBody>
+                <ModalFooter display="flex" justifyContent="center">
+                  <Button width="50%" colorScheme="blue" mr={3} onClick={onClose}>
+                   Ok
+                  </Button>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     </Wrapper>
   );
 }
