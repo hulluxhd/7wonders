@@ -6,22 +6,64 @@ import baseApi from '../../services/service.baseApi';
 import Wrapper from '../../components/Wrapper';
 import HorizontalCard from '../../components/HorizontalCard';
 
-function Results() {
+async function getData(_id, _search, _cb) {
+  const { data } = await baseApi.get(`${_search}/${_id}`);
+  console.log(data);
+  return data;
+}
+
+function Results({ informations }) {
   const [accommodations, setAccommodations] = useState([]);
 
-  useEffect(() => {
-    try {
-      baseApi.get('accommodations').then(({ data }) => {
-        setAccommodations(data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+  const {
+    place: { city, category },
+  } = useContext(InfoContext);
+
+  console.log(city);
+
+  console.log(accommodations);
+
+  if (informations) {
+    const {
+      params: { id, endpoint },
+    } = informations;
+
+    useEffect(() => {
+      try {
+        getData(id, endpoint).then(resp => {
+          if (!resp.accommodations) {
+            const { accommodationSet } = resp;
+
+            setAccommodations(accommodationSet);
+          } else {
+            const { accommodations: accommodation } = resp;
+
+            setAccommodations(accommodation);
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }, [city]);
+  } else {
+    useEffect(() => {
+      try {
+        baseApi.get('accommodations').then(({ data }) => {
+          setAccommodations(data);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }, []);
+  }
 
   return (
     <Wrapper>
-      <Text as="h2">Resultados da pesquisa </Text>
+      <Text as="h2">
+        {`Resultados da pesquisa${
+          (city || category) && `: ${city || category}`
+        }`}
+      </Text>
       <Box>
         {accommodations?.map(acc => (
           <HorizontalCard cardInfo={acc} key={acc.id} />

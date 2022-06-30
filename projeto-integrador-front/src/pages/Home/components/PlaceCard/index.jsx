@@ -17,6 +17,8 @@ import removeWordsUntilThereIsOnlyTwo from '../../../../utils/util.removeWordsUn
 //  ESTES CARDS FICARÃO APENAS NA PÁGINA PRINCIPAL.
 //  OS CARDS DE LISTAGEM SERÃO OUTROS, MAIS COMPLETOS
 
+// * Mudar nome do componente para HOMECARD
+
 function PlaceCard({ place }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
