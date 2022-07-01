@@ -11,21 +11,38 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import InputRegister from '../../Register/components/InputRegister';
+
+// regras  e errors para validação dos inputs
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, 'Muito curto!')
+    .max(15, 'Muito longo!')
+    .required('Obrigatório'),
+  lastName: Yup.string()
+    .min(2, 'Muito curto!')
+    .max(40, 'Muito longo!')
+    .required('Obrigatório'),
+  email: Yup.string().email('Email invalido!').required('Obrigatório'),
+  city: Yup.string()
+    .required('Obrigatório'),
+});
 
 function FormReserve() {
   return (
     <Formik
+      validationSchema={SignupSchema}
       initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        city: '',
-      }}
+      firstName: '',
+      lastName: '',
+      email: '',
+      city: '',
+    }}
     >
       {props => (
         <Box
-          padding="4"
+          padding="6"
           borderRadius="lg"
           bgColor="#fff"
           shadow="lg"
@@ -47,8 +64,8 @@ function FormReserve() {
                   <Radio size="sm" value="visitante">Reservando para outra pessoa</Radio>
                 </VStack>
               </RadioGroup>
-              <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-                <GridItem colSpan="2">
+              <Grid templateColumns="repeat(4, 1fr)" gap={{ base: '1', md: '4' }}>
+                <GridItem colSpan={{ base: '4', md: '2' }}>
                   <InputRegister
                     fieldDescription="Nome"
                     props={props}
@@ -58,7 +75,7 @@ function FormReserve() {
                     type="text"
                     errorColor="var(--red)" />
                 </GridItem>
-                <GridItem colSpan="2">
+                <GridItem colSpan={{ base: '4', md: '2' }}>
                   <InputRegister
                     fieldDescription="Sobrenome"
                     props={props}
@@ -68,7 +85,7 @@ function FormReserve() {
                     type="text"
                     errorColor="var(--red)" />
                 </GridItem>
-                <GridItem colSpan="2">
+                <GridItem colSpan={{ base: '4', md: '2' }}>
                   <InputRegister
                     fieldDescription="Email"
                     props={props}
@@ -78,7 +95,7 @@ function FormReserve() {
                     type="text"
                     errorColor="var(--red)" />
                 </GridItem>
-                <GridItem colSpan="2">
+                <GridItem colSpan={{ base: '4', md: '2' }}>
                   <InputRegister
                     fieldDescription="Cidade"
                     props={props}

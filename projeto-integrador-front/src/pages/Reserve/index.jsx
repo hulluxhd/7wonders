@@ -3,17 +3,9 @@ import {
     Box,
     useMediaQuery,
     Text,
-    useToast,
-    InputGroup,
-    InputRightElement,
-    Button,
-    Icon,
-    FormLabel,
     Select,
     GridItem,
     Grid,
-    Divider,
-    shadow,
 } from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
 import { useContext } from 'react';
@@ -35,17 +27,17 @@ function ReservePage() {
   } = useContext(InfoContext);
 
   return (
-    <Wrapper>
-        <Box
-          w="100%"
-          h="70px"
-          bgColor="var(--hard-blue)"
-          color="#FFF"
-          display="flex"
-          alignItems="center"
-          padding="0 2rem"
-          justifyContent="space-between"
-          position="relative"
+    <>
+    <Box
+      w="100%"
+      h="70px"
+      bgColor="var(--hard-blue)"
+      color="#FFF"
+      display="flex"
+      alignItems="center"
+      padding="0 2rem"
+      justifyContent="space-between"
+      position="relative"
       >
           <Box>
               <Text as="h3">Hoteis</Text>
@@ -59,14 +51,15 @@ function ReservePage() {
           >
               <ArrowUUpLeft size={32} color="#FFF" />
           </Box>
-        </Box>
+    </Box>
+    <Wrapper>
         <Grid
-          templateRows="repeat(, 1fr)"
+          templateRows="repeat(1, 1fr)"
           templateColumns="repeat(5, 1fr)"
-          gap={4}
+          gap={{ base: '1', md: '4' }}
           p="1rem"
         >
-            <GridItem colSpan={3}>
+            <GridItem colSpan={{ base: '5', lg: '3' }}>
                 <Text
                   as="h2"
                   color="var(--hard-blue)"
@@ -80,7 +73,7 @@ function ReservePage() {
                 </Text>
                   <FormReserve />
             </GridItem>
-            <GridItem rowSpan={3} colSpan={2}>
+            <GridItem rowSpan={{ base: '0', lg: '3' }} colSpan={{ base: '5', lg: '2' }}>
                 <Box
                   padding="4"
                   marginTop="14"
@@ -121,7 +114,7 @@ function ReservePage() {
                     />
                 </Box>
             </GridItem>
-            <GridItem colSpan={3}>
+            <GridItem colSpan={{ base: '5', lg: '3' }}>
                 <Text
                   as="h2"
                   color="var(--hard-blue)"
@@ -136,7 +129,7 @@ function ReservePage() {
                 </Text>
                 <Calendar showDoubleView />
             </GridItem>
-            <GridItem colSpan={3}>
+            <GridItem colSpan={{ base: '5', lg: '3' }}>
                 <Text
                   as="h2"
                   color="var(--hard-blue)"
@@ -151,6 +144,7 @@ function ReservePage() {
                 </Text>
                 <Box
                   padding="4"
+                  pt={{ base: '1', md: '4' }}
                   borderRadius="lg"
                   bgColor="#fff"
                   shadow="lg"
@@ -199,6 +193,7 @@ function ReservePage() {
             </GridItem>
         </Grid>
     </Wrapper>
+    </>
   );
 }
 
