@@ -4,7 +4,8 @@ import localData from '../data';
 export const InfoContext = createContext();
 
 function InfoProvider({ children }) {
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState({});
+
   // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
   // ! as funções de renderização o utilizam
   const [place, setPlace] = useState({
@@ -22,8 +23,8 @@ function InfoProvider({ children }) {
     <InfoContext.Provider
       value={useMemo(
         () => ({
-          username,
-          setUsername,
+          user,
+          setUser,
           place,
           setPlace,
           cardsRender,
@@ -33,8 +34,8 @@ function InfoProvider({ children }) {
           setDateCheckinAndCheckout,
         }),
         [
-          username,
-          setUsername,
+          user,
+          setUser,
           place,
           setPlace,
           cardsRender,

@@ -37,7 +37,6 @@ function Categories() {
 
   useEffect(() => {
       baseApi.get('categories').then(({ data }) => {
-        console.log(data);
         setEachCategory([...eachCategory, ...data]);
     });
   }, []);

@@ -19,7 +19,6 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import React, { useEffect, useState, useContext } from 'react';
-import { BsFillFlagFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { InfoContext } from '../../contexts/InfoContext';
 import geolocalization from '../../assets/geolocalization.svg';
@@ -33,7 +32,6 @@ import Wrapper from '../Wrapper';
 import ComponentIsVisible from './utils/util.ComponentsVisible';
 import handleInputDateValueController from './utils/util.handleInputDateValueController';
 import handleInputCityValueController from './utils/util.handleInputCityValueController';
-import filterPlaces from '../../utils/util.filterPlaces';
 import baseApi from '../../services/service.baseApi';
 import renderDropdown from './utils/util.renderDropdown';
 import getCities from './utils/util.getCities';
@@ -49,9 +47,8 @@ function Header({ drawerFunctions }) {
     setCardsRender,
     dateCheckinAndCheckout,
     setDateCheckinAndCheckout,
-    username,
-    setUsername,
-    place,
+    user,
+    setUser,
     setPlace,
     localData,
   } = useContext(InfoContext);
@@ -65,34 +62,45 @@ function Header({ drawerFunctions }) {
 
   const [cities, setCities] = useState([]);
 
+  const [temporaryPlace, setTemporaryPlace] = useState({});
+
   // largura da viewport
   const layoutWidth = window.innerWidth;
 
   const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
 
-  // função que seta os cards a serem exibidos em tela -> fazer requisição ao backend?
+  // função que seta os cards a serem exibidos
+  // em tela na página de resultados
   function handleCardsOnDisplay() {
-    setPlace(prev => ({
-      ...prev,
-      category: ''
-    }));
-
-    const cardsOnDisplay = filterPlaces(place, cities);
-    setCardsRender(cardsOnDisplay);
+    setPlace({
+        ...temporaryPlace,
+        category: '',
+    });
   }
 
   function handleCleanRenderStates() {
     setCardsRender(localData);
-    setToRenderOnDropdown(getCities());
-    setPlace({
-      city: '', cityId: '', country: '', category: ''
-     });
     setDateCheckinAndCheckout(null);
+    setToRenderOnDropdown(getCities());
+
+    setPlace({
+      city: '',
+      cityId: '',
+      country: '',
+      category: ''
+     });
+
+     setTemporaryPlace({
+       city: '',
+      cityId: '',
+      country: '',
+      category: ''
+    });
   }
 
   // * Gerenciadores do motor de busca
   function handlePlace({ target }) {
-    setPlace(
+    setTemporaryPlace(
       {
         city: target.value,
         cityId: null,
@@ -101,8 +109,6 @@ function Header({ drawerFunctions }) {
       }
     );
   }
-
-  console.log(place.cityId);
 
   // useEffect para observar a largura da viewport e identificar o
   // tamanho do header em cada alteração // ! Modificar
@@ -117,11 +123,11 @@ function Header({ drawerFunctions }) {
     try {
       const citiesArray = getCities();
       setCities(citiesArray);
-      renderDropdown(place, citiesArray, setToRenderOnDropdown);
+      renderDropdown(temporaryPlace, citiesArray, setToRenderOnDropdown);
     } catch (e) {
       console.error(e);
     }
-  }, [place]);
+  }, [temporaryPlace]);
 
   return (
     <>
@@ -159,19 +165,19 @@ function Header({ drawerFunctions }) {
                 onClick={handleCleanRenderStates}
               />
             </Link>
-            {username ? (
+            {user.token ? (
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Menu>
                   <MenuButton>
                     <Avatar
-                      name={username}
+                      name={`${user.userName} ${user.userSurname}`}
                       size="sm"
                       bgColor="var(--hard-blue)"
                       color="#FFF"
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem onClick={() => setUsername('')}>
+                    <MenuItem onClick={() => setUser({})}>
                       Encerrar sessão
                     </MenuItem>
                   </MenuList>
@@ -185,7 +191,7 @@ function Header({ drawerFunctions }) {
                     Olá,{' '}
                   </Text>
                   <Text fontFamily="Poppins, sans-serif" color="var(--blue)">
-                    {username}
+                    {user.userName}
                   </Text>
                 </Box>
               </Box>
@@ -250,7 +256,7 @@ function Header({ drawerFunctions }) {
                   onClick={() => componentsVisible.inputCity.open()}
                   placeholder="Para onde iremos?"
                   postop="10px"
-                  value={handleInputCityValueController(place)}
+                  value={handleInputCityValueController(temporaryPlace)}
                 />
 
                 {componentsVisible.inputCity.isComponentVisible && (
@@ -278,7 +284,7 @@ function Header({ drawerFunctions }) {
                           borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
-                            setPlace({
+                            setTemporaryPlace({
                               city: city.cityName,
                               cityId: city.id,
                               country: city.cityCountry,
@@ -311,12 +317,11 @@ function Header({ drawerFunctions }) {
                                 >
                                   {city.cityCountry}
                                 </Text>
-                                <Icon as={BsFillFlagFill} fontSize="xs" />
                               </HStack>
                             </VStack>
                           </HStack>
                         </Box>
-                        <Divider borderColor="var(--blue)" _last={{ borderColor: 'none' }} w="100%" />
+                        <Divider borderColor="var(--blue)" _last={{ borderColor: 'transparent' }} w="100%" />
                       </Box>
                     ))}
                   </Box>
@@ -354,16 +359,16 @@ function Header({ drawerFunctions }) {
 
               </GridItem>
               <GridItem colSpan={1} w="100%">
-                <Link to={place.city ? `/results/cities/${place.cityId}` : '/results'}>
+                <Link to={temporaryPlace.city ? `/results/cities/${temporaryPlace.cityId}` : '/results'}>
                   <BasicButton
-                    transition="all 0.2s ease-in-out"
                     _hover={{
                       background: 'var(--light-blue)',
                       border: '2px solid var(--blue)',
                     }}
+                    transition="all 0.2s ease-in-out"
                     onClick={handleCardsOnDisplay}
-                    id="btn-buscar"
                     description="Buscar"
+                    id="btn-buscar"
                     w="100%"
                   />
                 </Link>
