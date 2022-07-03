@@ -40,7 +40,7 @@ export default function DetailPageHeader() {
     <Box
       className="detail-header"
       // height="4rem"
-      bgColor="var(--hard-blue)"
+      bgColor="#3F0D0C"
       color="#FFF"
       marginTop="-2px"
       >
