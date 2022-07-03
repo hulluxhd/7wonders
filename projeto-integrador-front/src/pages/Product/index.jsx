@@ -28,6 +28,7 @@ import Map from './components/Map/Map';
 import GridProductItem from './components/GridIProductItem';
 import DetailPageHeader from './components/DetailPageHeader';
 import ShareFavIcons from './components/ShareFavIcons';
+import MoreInfo from './components/MoreInfo';
 import DescriptionSection from './components/DescriptionSection';
 
 function Product() {

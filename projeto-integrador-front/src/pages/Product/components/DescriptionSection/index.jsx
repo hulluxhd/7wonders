@@ -1,13 +1,5 @@
 import {
   Box,
-  Button,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
   Text,
   UnorderedList,
 } from '@chakra-ui/react';
@@ -52,7 +44,6 @@ export default function DescriptionSection() {
         <Text
           as="h2"
           fontFamily="Poppins, sans-serif"
-          color="var(--hard-blue)"
           fontWeight="600"
           paddingBottom="1rem"
         >
