@@ -73,7 +73,10 @@ function ReservePage() {
                 </Text>
                   <FormReserve />
             </GridItem>
-            <GridItem rowSpan={{ base: '0', lg: '3' }} colSpan={{ base: '5', lg: '2' }}>
+            <GridItem
+              colSpan={{ base: '5', lg: '2' }}
+              rowStart={{ base: '4', lg: '0' }}
+              rowSpan={{ base: '0', lg: '3' }}>
                 <Box
                   padding="4"
                   marginTop="14"
