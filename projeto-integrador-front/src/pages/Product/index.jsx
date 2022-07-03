@@ -30,6 +30,7 @@ import DetailPageHeader from './components/DetailPageHeader';
 import ShareFavIcons from './components/ShareFavIcons';
 import MoreInfo from './components/MoreInfo';
 import DescriptionSection from './components/DescriptionSection';
+import InfosRules from '../Reserve/InfosRules';
 
 function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -149,7 +150,7 @@ function Product() {
         <Divider
           borderWidth="-1px"
           borderColor="var(--light-blue)"
-          margin="2rem auto"
+          margin="2rem auto 1rem"
         />
 
         <Map />
@@ -157,13 +158,11 @@ function Product() {
         <Divider
           borderWidth="-1px"
           borderColor="var(--light-blue)"
-          margin="2rem auto"
+          margin="1rem auto"
         />
 
-        <Box className="container" height="300px" border="1px solid red">
-          <Text textAlign="center" marginTop="5rem">
-            FALTA ADICIONAR COMPONENT DO DOUG
-          </Text>
+        <Box className="container">
+          <InfosRules />
         </Box>
       </Box>
     </>
