@@ -29,6 +29,7 @@ import GridProductItem from './components/GridIProductItem';
 import DetailPageHeader from './components/DetailPageHeader';
 import ShareFavIcons from './components/ShareFavIcons';
 import DescriptionSection from './components/DescriptionSection';
+import MoreInfo from './components/MoreInfo';
 
 function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,10 +41,10 @@ function Product() {
   useEffect(() => {
     try {
       baseApi
-      .get(`/accommodations/${productId}`)
-      .then(({ data }) => {
-        setProduct(data);
-      });
+        .get(`/accommodations/${productId}`)
+        .then(({ data }) => {
+          setProduct(data);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -62,8 +63,8 @@ function Product() {
           gap={{ base: '0.5', md: '1', xl: 2 }}
           padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
           position="relative"
-          // ref={finalRef}
-          // tabIndex={-1}
+        // ref={finalRef}
+        // tabIndex={-1}
         >
           <GridProductItem
             bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
@@ -91,17 +92,17 @@ function Product() {
             bottom="1rem"
             mt={4}
             onClick={onOpen}
-            color="var(--hard-blue)"
-            bg="lightblue"
+            color="#fff"
+            bg="#8D6F57"
             padding="0.5rem 1rem"
             borderRadius="8px"
             _hover={{
-              color: '#FFF',
-              bg: 'var(--hard-blue)',
+              color: '#D9B061',
+              bg: '#3F0D0C',
               letterSpacing: '1.1px'
             }}
             transition="all 0.3s ease-in"
-            >
+          >
             Ver mais
           </Button>
           <Modal
@@ -109,7 +110,7 @@ function Product() {
             size="xl"
             isOpen={isOpen}
             onClose={onClose}
-            >
+          >
             <ModalOverlay
               bg="none"
               backdropFilter="auto"
@@ -119,42 +120,46 @@ function Product() {
             <ModalContent
               minW="70vw"
             >
-              <ModalHeader>Modal Title</ModalHeader>
+              <ModalHeader color="#3F0D0C">{product.accoName}</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <ModalSlide />
               </ModalBody>
-                <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
-                    Voltar
+              <ModalFooter>
+                <Button colorScheme="red" mr={3} onClick={onClose}>
+                  Voltar
+                </Button>
+                <Link to="/reserve">
+                  <Button
+                    variant="ghost"
+                    backgroundColor="#8D6F57"
+                    border="none"
+                    color="#FFF"
+                    _hover={{
+                      color: '#D9B061',
+                      bg: '#3F0D0C',
+                      letterSpacing: '1.1px'
+                    }}
+                    transition="all 0.3s ease-in"
+                    >Fazer reserva
                   </Button>
-                  <Link to="/reserve">
-                  <Button variant="ghost">Fazer reserva</Button>
-                  </Link>
-                </ModalFooter>
+                </Link>
+              </ModalFooter>
             </ModalContent>
           </Modal>
         </Grid>
 
-        <Divider borderWidth="-1px" borderColor="var(--light-blue)" margin="2rem auto" />
+        <Divider borderWidth="-1px" borderColor="#D9B061" margin="2rem auto" />
 
         <DescriptionSection />
 
-        <Divider borderWidth="-1px" borderColor="var(--light-blue)" margin="2rem auto" />
+        <Divider borderWidth="-1px" borderColor="#D9B061" margin="2rem auto" />
 
         <Map />
 
-        <Divider borderWidth="-1px" borderColor="var(--light-blue)" margin="2rem auto" />
+        <Divider borderWidth="-1px" borderColor="#D9B061" margin="2rem auto" />
 
-        <Box
-          className="container"
-          height="300px"
-          border="1px solid red"
-        >
-          <Text textAlign="center" marginTop="5rem">
-            FALTA ADICIONAR COMPONENT DO DOUG
-          </Text>
-        </Box>
+        <MoreInfo />
       </Box>
     </>
   );

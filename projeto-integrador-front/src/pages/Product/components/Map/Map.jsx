@@ -11,8 +11,8 @@ export default function Map() {
     });
 
     const accPosition = {
-      lat: 29.97724366857695,
-      lng: 31.13394399260171,
+      lat: 25.759848017292736,
+      lng: -80.19208362173622,
     };
 
   return (
