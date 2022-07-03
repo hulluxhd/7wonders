@@ -16,9 +16,10 @@ import React from 'react';
 export default function AttributeIcon() {
   return (
     <Popover>
+
       <PopoverTrigger>
-        <Button padding="2rem 0.5rem" borderRadius="25%">
-          <MdPets fontSize="3.5rem" color="var(--light-blue)" />
+        <Button padding="2rem 0.5rem" borderRadius="0.25rem">
+          <MdPets fontSize="2.5rem" color="var(--hard-blue)" />
         </Button>
       </PopoverTrigger>
 
@@ -26,8 +27,8 @@ export default function AttributeIcon() {
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverHeader>Permite pets</PopoverHeader>
-        <PopoverBody>Esta acomodação está preparada</PopoverBody>
       </PopoverContent>
+
     </Popover>
   );
 }

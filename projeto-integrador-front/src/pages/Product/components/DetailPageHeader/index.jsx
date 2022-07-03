@@ -13,12 +13,13 @@ import {
   PopoverAnchor,
 } from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import baseApi from '../../../../services/service.baseApi';
 
 export default function DetailPageHeader() {
   const [product, setProduct] = useState({});
   const { productId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -33,7 +34,7 @@ export default function DetailPageHeader() {
   }, []);
 
   const goBack = () => {
-    Navigate('/', { replace: true });
+    navigate(-1, { replace: true });
   };
 
   return (

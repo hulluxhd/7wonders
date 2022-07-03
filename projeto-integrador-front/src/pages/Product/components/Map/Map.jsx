@@ -16,13 +16,13 @@ export default function Map() {
     };
 
   return (
-    <div>
+    <Box>
       <Text as="h2" padding="1rem" color="var(--hard-blue)">
         Onde você vai estar
       </Text>
       <Box
         className="container"
-        width="100%"
+        width="75%"
         height={{ base: '60vh', xl: '70vh' }}
         position="relative"
       >
@@ -41,8 +41,8 @@ export default function Map() {
               }
             }} />
           </GoogleMap>
-          ) : <div><h4>Erro ao carregar o mapa</h4></div>}
+          ) : (<Text as="h4">Erro ao carregar o mapa</Text>)}
       </Box>
-    </div>
+    </Box>
   );
 }

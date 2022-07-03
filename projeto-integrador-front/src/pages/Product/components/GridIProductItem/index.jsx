@@ -11,9 +11,6 @@ function GridProductItem({ bgImage, gridArea }, props) {
       cursor="pointer"
       bgSize="cover"
       gridArea={gridArea || '1 / 2 / 2 / 3'}
-      _hover={{
-        transform: 'scale(1.01)',
-      }}
       transition="transform 0.5s ease-in-out"
     />
   );
