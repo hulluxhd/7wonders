@@ -23,7 +23,7 @@ import { Link } from 'react-router-dom';
 import { InfoContext } from '../../contexts/InfoContext';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
-import logo2 from '../../assets/logo2.svg';
+import logo5 from '../../assets/logo5.png';
 import InputHeader from './components/InputHeader';
 import DrawerLogin from './components/DrawerLogin';
 import BasicButton from '../BasicButton';
@@ -36,7 +36,7 @@ import baseApi from '../../services/service.baseApi';
 import renderDropdown from './utils/util.renderDropdown';
 import getCities from './utils/util.getCities';
 
-function Header({ drawerFunctions }) {
+function Header({ drawerFunctions, children }) {
   const {
     isOpen,
     onOpen,
@@ -91,7 +91,7 @@ function Header({ drawerFunctions }) {
      });
 
      setTemporaryPlace({
-       city: '',
+      city: '',
       cityId: '',
       country: '',
       category: ''
@@ -132,37 +132,38 @@ function Header({ drawerFunctions }) {
   return (
     <>
       <Box
-        as={isSmallerThan606 ? null : 'header'}
-        className={isSmallerThan606 ? null : 'header'}
         position={isSmallerThan606 ? 'relative' : 'fixed'}
         pt={isSmallerThan606 ? `${headerHeight}px` : null}
-        w="100%"
+        className={isSmallerThan606 ? null : 'header'}
+        as={isSmallerThan606 ? null : 'header'}
+        zIndex={99}
         right="0"
         top="0"
-        zIndex={99}
+        w="100%"
       >
         <Box
-          zIndex={100}
-          as={isSmallerThan606 ? 'header' : null}
-          className={isSmallerThan606 ? 'header' : null}
           position={isSmallerThan606 ? 'fixed' : 'relative'}
-          right="0"
-          top="0"
-          w="100%"
+          className={isSmallerThan606 ? 'header' : null}
+          as={isSmallerThan606 ? 'header' : null}
+          bg="var(--light-bege)"
+          zIndex={100}
           py="0.5rem"
           maxH="56px"
-          bg="var(--light-bege)"
+          right="0"
+          w="100%"
+          top="0"
         >
           <Wrapper
-            display="flex"
             justifyContent="space-between"
-            alignItems="center">
+            alignItems="center"
+            display="flex">
             <Link to="/">
               <Image
-                maxH="40px"
-                fit="contain"
-                src={logo2}
                 onClick={handleCleanRenderStates}
+                borderRadius="0.25rem"
+                fit="contain"
+                src={logo5}
+                maxH="40px"
               />
             </Link>
             {user.token ? (
@@ -171,9 +172,9 @@ function Header({ drawerFunctions }) {
                   <MenuButton>
                     <Avatar
                       name={`${user.userName} ${user.userSurname}`}
-                      size="sm"
                       bgColor="var(--hard-blue)"
                       color="#FFF"
+                      size="sm"
                     />
                   </MenuButton>
                   <MenuList>
@@ -185,8 +186,8 @@ function Header({ drawerFunctions }) {
                 <Box p="0 0.5rem" lineHeight="1rem">
                   <Text
                     fontFamily="Poppins, sans-serif"
-                    as="span"
                     display="block"
+                    as="span"
                   >
                     Olá,{' '}
                   </Text>
@@ -200,9 +201,9 @@ function Header({ drawerFunctions }) {
                 <Breadcrumb separator="|" fontSize="0.8rem">
                   <BreadcrumbItem>
                     <BreadcrumbLink
-                      onClick={onOpen}
-                      fontWeight="bold"
                       color="var(--blue)"
+                      fontWeight="bold"
+                      onClick={onOpen}
                     >
                       Iniciar sessão
                     </BreadcrumbLink>
@@ -220,18 +221,18 @@ function Header({ drawerFunctions }) {
           </Wrapper>
         </Box>
         <Box
-          display="flex"
-          flexWrap="wrap"
           background="var(--light-blue)"
           flexDirection="column"
           paddingBottom="1rem"
+          flexWrap="wrap"
+          display="flex"
         >
           <Text
-            p="1rem"
-            w="100%"
-            color="#FFF"
             textAlign="center"
             fontSize="1.75rem"
+            color="#FFF"
+            p="1rem"
+            w="100%"
             as="h1"
           >
             Buscar ofertas em hóteis, casas e muito mais
@@ -243,34 +244,34 @@ function Header({ drawerFunctions }) {
               alignItems="center"
             >
               <GridItem
-                zIndex={99}
-                w="100%"
+                ref={componentsVisible.inputCity.ref}
                 colSpan={isSmallerThan606 ? 1 : 2}
                 position="relative"
-                ref={componentsVisible.inputCity.ref}
+                zIndex={99}
+                w="100%"
               >
 
                 <InputHeader
-                  onChange={e => handlePlace(e)}
-                  image={geolocalization}
+                  value={handleInputCityValueController(temporaryPlace)}
                   onClick={() => componentsVisible.inputCity.open()}
                   placeholder="Para onde iremos?"
+                  onChange={e => handlePlace(e)}
+                  image={geolocalization}
                   postop="10px"
-                  value={handleInputCityValueController(temporaryPlace)}
                 />
 
                 {componentsVisible.inputCity.isComponentVisible && (
                   <Box
+                    borderRadius="0.25rem"
                     position="absolute"
-                    top="0"
+                    lineHeight="1.3rem"
                     marginTop="2.8rem"
                     background="#FFF"
-                    w="100%"
-                    lineHeight="1.3rem"
                     fontSize="1rem"
-                    borderRadius="0.25rem"
-                    maxH="16rem"
                     overflow="auto"
+                    maxH="16rem"
+                    w="100%"
+                    top="0"
                   >
 
                     {toRenderOnDropdown.map((city) => (
@@ -278,10 +279,6 @@ function Header({ drawerFunctions }) {
                         key={city.cityName}
                       >
                         <Box
-                          p="0.5rem 1rem"
-                          cursor="pointer"
-                          tabIndex={0}
-                          borderRadius="0.25rem"
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
                             setTemporaryPlace({
@@ -292,26 +289,30 @@ function Header({ drawerFunctions }) {
                             });
                             componentsVisible.inputCity.close();
                           }}
+                          borderRadius="0.25rem"
+                          cursor="pointer"
+                          p="0.5rem 1rem"
+                          tabIndex={0}
                         >
                           <HStack spacing={3} align="center">
                             <Image maxW="1rem" src={geolocalization} />
                             <VStack
-                              spacing={0}
-                              justify="center"
                               align="flex-start"
+                              justify="center"
+                              spacing={0}
                             >
                               <Text
+                                fontFamily="Poppins, sans-serif"
                                 color="var(--hard-blue)"
                                 fontWeight="bold"
-                                fontFamily="Poppins, sans-serif"
                                 fontSize="0.9rem"
                               >
                                 {city.cityName}
                               </Text>
                               <HStack align="center">
                                 <Text
-                                  color="gray.500"
                                   fontWeight="bold"
+                                  color="gray.500"
                                   fontSize="xs"
                                   as="span"
                                 >
@@ -350,11 +351,11 @@ function Header({ drawerFunctions }) {
 
                 <InputHeader
                   value={handleInputDateValueController(dateCheckinAndCheckout)}
+                  onClick={() => componentsVisible.inputCalendar.open()}
                   placeholder="Check in - Check out"
                   image={calendar}
-                  readOnly
                   cursor="pointer"
-                  onClick={() => componentsVisible.inputCalendar.open()}
+                  readOnly
                 />
 
               </GridItem>
@@ -380,10 +381,11 @@ function Header({ drawerFunctions }) {
 
       <DrawerLogin
         breakpoint={isSmallerThan606}
-        isOpen={isOpen}
         onClose={onClose}
+        isOpen={isOpen}
       />
       <Box pt={isSmallerThan606 ? null : `${headerHeight + 23.2}px`} />
+      {children}
     </>
   );
 }
