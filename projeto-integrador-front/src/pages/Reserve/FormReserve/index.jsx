@@ -46,11 +46,11 @@ function FormReserve() {
           borderRadius="lg"
           bgColor="#fff"
           shadow="lg"
+          color="#3F0D0C"
         >
           <Form>
             <FormControl>
               <FormLabel
-                color="var(--hard-blue)"
                 lineHeight="1.75rem"
                 fontWeight="600"
                 fontSize="lg"
@@ -59,13 +59,32 @@ function FormReserve() {
                 Para quem é esta reserva?
               </FormLabel>
               <RadioGroup>
-                <VStack spacing="1" align="flex-start" fontWeight="100">
-                  <Radio size="sm" value="usuario">Eu sou o hóspede principal</Radio>
-                  <Radio size="sm" value="visitante">Reservando para outra pessoa</Radio>
+                <VStack
+                  spacing="1"
+                  align="flex-start"
+                  fontWeight="100"
+                >
+                  <Radio
+                    size="sm"
+                    value="usuario"
+                  >
+                    Eu sou o hóspede principal
+                  </Radio>
+                  <Radio
+                    size="sm"
+                    value="visitante"
+                  >
+                    Reservando para outra pessoa
+                  </Radio>
                 </VStack>
               </RadioGroup>
-              <Grid templateColumns="repeat(4, 1fr)" gap={{ base: '1', md: '4' }}>
-                <GridItem colSpan={{ base: '4', md: '2' }}>
+              <Grid
+                templateColumns="repeat(4, 1fr)"
+                gap={{ base: '1', md: '4' }}
+              >
+                <GridItem
+                  colSpan={{ base: '4', md: '2' }}
+                >
                   <InputRegister
                     fieldDescription="Nome"
                     props={props}
@@ -73,9 +92,12 @@ function FormReserve() {
                     errors={props.errors.firstName}
                     touched={props.touched.firstName}
                     type="text"
-                    errorColor="var(--red)" />
+                    errorColor="var(--red)"
+                  />
                 </GridItem>
-                <GridItem colSpan={{ base: '4', md: '2' }}>
+                <GridItem
+                  colSpan={{ base: '4', md: '2' }}
+                >
                   <InputRegister
                     fieldDescription="Sobrenome"
                     props={props}
@@ -83,9 +105,12 @@ function FormReserve() {
                     errors={props.errors.lastName}
                     touched={props.touched.lastName}
                     type="text"
-                    errorColor="var(--red)" />
+                    errorColor="var(--red)"
+                  />
                 </GridItem>
-                <GridItem colSpan={{ base: '4', md: '2' }}>
+                <GridItem
+                  colSpan={{ base: '4', md: '2' }}
+                >
                   <InputRegister
                     fieldDescription="Email"
                     props={props}
@@ -93,9 +118,12 @@ function FormReserve() {
                     errors={props.errors.email}
                     touched={props.touched.email}
                     type="text"
-                    errorColor="var(--red)" />
+                    errorColor="var(--red)"
+                  />
                 </GridItem>
-                <GridItem colSpan={{ base: '4', md: '2' }}>
+                <GridItem
+                  colSpan={{ base: '4', md: '2' }}
+                >
                   <InputRegister
                     fieldDescription="Cidade"
                     props={props}
@@ -103,7 +131,8 @@ function FormReserve() {
                     errors={props.errors.city}
                     touched={props.touched.city}
                     type="text"
-                    errorColor="var(--red)" />
+                    errorColor="var(--red)"
+                  />
                 </GridItem>
               </Grid>
             </FormControl>

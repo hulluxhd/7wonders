@@ -17,7 +17,11 @@ export default function MoreInfo() {
       >
         O que você precisa saber:
       </Text>
-      <Divider borderWidth="-2px" borderColor="#D9B061" margin="1rem auto" />
+      <Divider
+        borderWidth="-2px"
+        borderColor="#D9B061"
+        margin="1rem auto"
+      />
       <Box
         className="infos-container"
         display="flex"

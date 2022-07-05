@@ -18,6 +18,8 @@ import DetailsCard from './DetailsCard';
 import FormReserve from './FormReserve';
 import Wrapper from '../../components/Wrapper';
 import InfosRules from './InfosRules';
+import MoreInfo from '../Product/components/MoreInfo';
+import DetailPageHeader from '../Product/components/DetailPageHeader';
 
 function ReservePage() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
@@ -26,36 +28,20 @@ function ReservePage() {
 
   return (
     <>
-      <Box
-        w="100%"
-        h="70px"
-        bgColor="var(--hard-blue)"
-        color="#FFF"
-        display="flex"
-        alignItems="center"
-        padding="0 2rem"
-        justifyContent="space-between"
-        position="relative"
-      >
-        <Box>
-          <Text as="h3">Hoteis</Text>
-          <Text as="h2">Hotel EAST Miami</Text>
-        </Box>
-        <Box as="button" type="button" float="right" padding="0 0 0 1rem">
-          <ArrowUUpLeft size={32} color="#FFF" />
-        </Box>
-      </Box>
+      <DetailPageHeader />
       <Wrapper>
         <Grid
           templateRows="repeat(1, 1fr)"
           templateColumns="repeat(5, 1fr)"
           gap={{ base: '2', md: '4' }}
           p="1rem"
+          color="#3F0D0C"
         >
-          <GridItem colSpan={{ base: '5', lg: '3' }}>
+          <GridItem
+            colSpan={{ base: '5', lg: '3' }}
+          >
             <Text
               as="h2"
-              color="var(--hard-blue)"
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
               lineHeight="1.75rem"
               fontWeight="700"
@@ -68,8 +54,8 @@ function ReservePage() {
           </GridItem>
           <GridItem
             colSpan={{ base: '5', lg: '2' }}
-            rowStart={{ base: '5', lg: '0' }}
-            rowSpan={{ base: '0', lg: '2' }}
+            rowStart={{ base: '4', lg: '0' }}
+            rowSpan={{ base: '0', lg: '3' }}
           >
             <Box
               padding="4"
@@ -81,7 +67,6 @@ function ReservePage() {
             >
               <Text
                 as="h2"
-                color="var(--hard-blue)"
                 fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
                 lineHeight="1.75rem"
                 fontWeight="700"
@@ -102,18 +87,21 @@ function ReservePage() {
                 w="100%"
                 my="1rem"
                 transition="all 0.2s ease-in-out"
+                backgroundColor="#8D6F57"
+                border="none"
                 _hover={{
-                  background: 'transparent',
-                  color: 'var(--hard-blue)',
-                  border: '2px solid var(--blue)',
+                  background: '#3F0D0C',
+                  color: '#D9B061',
+                  border: '#8D6F57',
                 }}
               />
             </Box>
           </GridItem>
-          <GridItem colSpan={{ base: '5', lg: '3' }}>
+          <GridItem
+            colSpan={{ base: '5', lg: '3' }}
+          >
             <Text
               as="h2"
-              color="var(--hard-blue)"
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
               lineHeight="1.75rem"
               fontWeight="700"
@@ -125,10 +113,11 @@ function ReservePage() {
             </Text>
             <Calendar showDoubleView={!isSmallerThan606} />
           </GridItem>
-          <GridItem colSpan={{ base: '5', lg: '3' }}>
+          <GridItem
+            colSpan={{ base: '5', lg: '3' }}
+          >
             <Text
               as="h2"
-              color="var(--hard-blue)"
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
               lineHeight="1.75rem"
               fontWeight="700"
@@ -146,11 +135,12 @@ function ReservePage() {
               shadow="lg"
               h="32"
             >
-              <Text color="var(--hard-blue)" fontWeight="bold">
+              <Text
+                fontWeight="bold"
+              >
                 Seu quarto estará pronto para check-in entre 10hs e 23hs
               </Text>
               <Text
-                color="var(--hard-blue)"
                 fontSize="small"
                 fontWeight="medium"
                 mt="1"
@@ -162,7 +152,6 @@ function ReservePage() {
                   id="hr"
                   placeholder="Selecione a hora de chegada"
                   fontSize="smaller"
-                  color="var(--hard-blue)"
                 >
                   <option>10:00 - 11:00</option>
                   <option>11:00 - 12:00</option>
@@ -181,8 +170,10 @@ function ReservePage() {
               </FormControl>
             </Box>
           </GridItem>
-          <GridItem colSpan={5}>
-            <InfosRules />
+          <GridItem
+            colSpan={5}
+          >
+            <MoreInfo />
           </GridItem>
         </Grid>
       </Wrapper>

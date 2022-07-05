@@ -21,8 +21,12 @@ function DetailsCard() {
       w="100%"
       boxShadow="base"
       alignItems="stretch"
+      color="#3F0D0C"
     >
-      <Box h="100%" position="relative">
+      <Box
+        h="100%"
+        position="relative"
+      >
         <Image
           /* src={imagePath}
           alt={name} */
@@ -33,12 +37,19 @@ function DetailsCard() {
         />
       </Box>
       <Box p="1rem 1rem">
-        <Box display="flex" alignItems="start" gap={2}>
-          <Badge background="green.200" borderRadius="base" pr="2">
+        <Box
+          display="flex"
+          alignItems="start"
+          gap={2}
+        >
+          <Badge
+            background="green.200"
+            borderRadius="base"
+            pr="2"
+          >
             Novo
           </Badge>
           <Box
-            color="var(--light-blue)"
             fontWeight="semibold"
             letterSpacing="wide"
             fontSize="xs"
@@ -47,19 +58,25 @@ function DetailsCard() {
             1 Quarto &bull; 3 camas
           </Box>
         </Box>
-        <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Box>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
             >
-              <Text color="var(--light-blue)" fontSize="sm" as="span">
+              <Text
+                fontSize="sm"
+                as="span"
+              >
                 {/* {category} */} Categoria
               </Text>
             </Box>
             <Heading
-              color="var(--hard-blue)"
               mt="10px"
               lineHeight="1.5rem"
               fontSize="1.2rem"
