@@ -18,6 +18,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 
+// * Mudar o nome do componente para RECOMMENDATIONS
+
 function PlacesList() {
   const { cardsRender } = useContext(InfoContext);
   const [swiperProxy, setSwiperProxy] = useState({});

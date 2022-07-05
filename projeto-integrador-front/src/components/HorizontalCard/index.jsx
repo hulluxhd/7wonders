@@ -18,40 +18,41 @@ import { MdPool } from 'react-icons/md';
 import { IoMdWine } from 'react-icons/io';
 import { FaUmbrellaBeach } from 'react-icons/fa';
 import { GiMedievalGate } from 'react-icons/gi';
+import { useNavigate } from 'react-router-dom';
 import geolocalization from '../../assets/geolocalization.svg';
 
 function HorizontalCard({ cardInfo }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const {
- accoDescription, accoName, accoRoomGuests, accoRoomNumber, imagens
+ accoDescription, accoName, accoRoomGuests, accoRoomNumber, imagens, id
 } =
     cardInfo;
 
-  const rating = 5;
+  const navigate = useNavigate();
 
-  console.log(accoDescription);
+  const route = () => navigate(`/detail/accommodations/${id}`);
+
+  const rating = 5;
 
   return (
     <Box
       maxHeight={isSmallerThan606 ? 'auto' : '300px'}
       flexDir={isSmallerThan606 ? 'column' : 'row'}
-      border="1px solid var(--blue)"
-      _last={{ margin: '0 auto' }}
+      boxShadow="2px 2px 8px var(--light-blue)"
       borderRadius="0.25rem"
       alignItems="stretch"
       margin="1rem auto"
       background="#FFF"
       overflow="hidden"
-      boxShadow="base"
       display="flex"
       width="100%"
     >
       <Box
-        maxWidth={isSmallerThan606 ? '100%' : '25%'}
         minWidth={
           isSmallerThan606 ? '100%' : isSmallerThan800 ? '42.5%' : '35%'
         }
+        maxWidth={isSmallerThan606 ? '100%' : '25%'}
         height="300px"
       >
         <Image
@@ -60,6 +61,8 @@ function HorizontalCard({ cardInfo }) {
             'https://yt3.ggpht.com/a/AATXAJwDd0Kc2XYZQMWmcNrZHyEZmJHIUVYbiDJkftDVpg=s900-c-k-c0xffffffff-no-rj-mo'
           }
           objectPosition="center center"
+          cursor="pointer"
+          onClick={route}
           fit="cover"
           alt="meh"
           w="100%"
@@ -201,6 +204,8 @@ function HorizontalCard({ cardInfo }) {
               lineHeight="1.5rem"
               fontSize="1.2rem"
               overflow="hidden"
+              cursor="pointer"
+              onClick={route}
               maxH="72px"
               pr="1rem"
             >
@@ -213,7 +218,7 @@ function HorizontalCard({ cardInfo }) {
               p="1rem 0"
             >
               {accoDescription.slice(0, 500)}
-              <Text as="span" color="var(--blue)">
+              <Text as="span" color="var(--blue)" onClick={route} cursor="pointer">
                 ... see more
               </Text>
             </Text>

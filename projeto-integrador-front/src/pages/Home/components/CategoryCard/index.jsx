@@ -18,8 +18,6 @@ function CategoryCard({ categoryToRender }) {
 
   // const [searchParams, setSearchParams] = useSearchParams();
 
-  // console.log(searchParams);
-
   function categoryEngine(category, categoryId) {
     setPlace({
       city: '',
