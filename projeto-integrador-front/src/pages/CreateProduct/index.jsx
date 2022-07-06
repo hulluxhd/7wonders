@@ -1,11 +1,30 @@
 import {
- Box, Grid, GridItem, Text
+ Box, FormControl, Grid, GridItem, Text
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
 import Wrapper from '../../components/Wrapper';
-import Input from './components';
+import Input from './components/Input';
+import BasicButton from '../../components/BasicButton';
+import baseApi from '../../services/service.baseApi';
 
 function CreateProduct() {
+  const [categories, setCategories] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  const [..._categories] = categories.map(cat => cat.categoryName);
+  const [..._cities] = cities.map(city => city.cityName);
+  console.log(_cities);
+
+  useEffect(() => {
+    try {
+      baseApi.get('/cities').then(({ data }) => setCities(data));
+      baseApi.get('/categories').then(({ data }) => setCategories(data));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
   return (
     <Wrapper>
       <Text as="h1" color="var(--light-blue)">
@@ -13,10 +32,10 @@ function CreateProduct() {
       </Text>
       <Formik
         initialValues={{
-          productName: '',
-          category: '',
-          city: '',
+          productName: _cities[0],
+          category: _categories[0],
           description: '',
+          city: '',
         }}
         onSubmit={async values => {
           // eslint-disable-next-line no-promise-executor-return
@@ -26,44 +45,74 @@ function CreateProduct() {
       >
         {formik => (
           <Form>
-            <Grid gap="4rem">
-              <GridItem gridColumn="1/2" display="flex" flexDir="column" gap="1rem">
-                <Input
-                  htmlFor="productName"
-                  id="productName"
-                  name="productName"
-                  inputLabel="Nome da acomodação"
-                />
-                <label htmlFor="category">Last Name</label>
-                <Field id="category" name="category" placeholder="Doe" />
+            <FormControl isRequired>
+              <Grid gap="4rem">
+                <GridItem
+                  flexDir="column"
+                  gridColumn="1/2"
+                  display="flex"
+                  gap="1rem"
+                >
+                <Text as="h2">Criar acomodação</Text>
+                  <Input
+                    value={formik.values.productName}
+                    inputLabel="Nome da acomodação"
+                    htmlFor="productName"
+                    name="productName"
+                    id="productName"
+                  />
+                  <Input
+                    inputLabel="Categoria"
+                    htmlFor="category"
+                    name="category"
+                    id="category"
+                    as="select"
+                  >
+                    {_categories.map(cat => (
+                      <option key={cat} value={cat.toLowerCase()}>{cat}</option>
+                    ))}
 
-                <label htmlFor="city">Email</label>
-                <Field id="city" name="city" type="city" />
-                <button type="submit">Submit</button>
-              </GridItem>
-              <GridItem gridColumn="2/3" display="flex" flexDir="column">
-                <label htmlFor="productName">First Name</label>
-                <Field id="productName" name="productName" placeholder="Jane" />
+                  </Input>
+                  <Input
+                    value={formik.values.city}
+                    inputLabel="Cidade"
+                    htmlFor="city"
+                    name="city"
+                    as="select"
+                    id="city"
+                   >
+                     {_cities.map(city => (
+                      <option key={city} value={city.toLowerCase()}>{city}</option>
+                    ))}
+                  </Input>
+                  <Input
+                    value={formik.values.description}
+                    inputLabel="Descrição"
+                    htmlFor="description"
+                    name="description"
+                    id="description"
+                    as="textarea"
+                    rows="15"
+                    disabled
+                  />
+                </GridItem>
+                <GridItem gridColumn="2/3" display="flex" flexDir="column">
+                  <label htmlFor="productName">First Name</label>
+                  <Field
+                    id="productName"
+                    name="productName"
+                    placeholder="Jane"
+                  />
 
-                <label htmlFor="category">Last Name</label>
-                <Field id="category" name="category" placeholder="Doe" />
+                  <label htmlFor="category">Last Name</label>
+                  <Field id="category" name="category" placeholder="Doe" />
 
-                <label htmlFor="city">Email</label>
-                <Field id="city" name="city" type="city" />
-                <button type="submit">Submit</button>
-              </GridItem>
-              <GridItem gridColumn="3/4" display="flex" flexDir="column">
-                <label htmlFor="productName">First Name</label>
-                <Field id="productName" name="productName" placeholder="Jane" />
-
-                <label htmlFor="category">Last Name</label>
-                <Field id="category" name="category" placeholder="Doe" />
-
-                <label htmlFor="city">Email</label>
-                <Field id="city" name="city" type="city" />
-                <button type="submit">Submit</button>
-              </GridItem>
-            </Grid>
+                  <label htmlFor="city">Email</label>
+                  <Field id="city" name="city" type="city" />
+                  <button type="submit">Submit</button>
+                </GridItem>
+              </Grid>
+            </FormControl>
           </Form>
         )}
       </Formik>
