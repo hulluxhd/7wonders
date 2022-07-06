@@ -26,7 +26,6 @@ import {
 } from '@chakra-ui/react';
 import { ArrowUUpLeft } from 'phosphor-react';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import BasicButton from '../../components/BasicButton';
 import Calendar from '../../components/Calendar';
 import InputHeader from '../../components/Header/components/InputHeader';
@@ -36,11 +35,9 @@ import DetailsCard from './DetailsCard';
 import FormReserve from './FormReserve';
 import Wrapper from '../../components/Wrapper';
 import ModalSlide from '../Product/components/ModalSlide';
-import success from '../../assets/success.png';
+import ModalSuccess from '../../components/ModalSuccess';
 
 function ReservePage() {
-  const navigate = useNavigate();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
@@ -334,41 +331,12 @@ function ReservePage() {
           </Box>
         </GridItem>
       </Grid>
-
       <Modal
-        // finalFocusRef={finalRef}
         isCentered
-        // size="xl"
         isOpen={isOpen}
         onClose={onClose}
       >
-        <ModalOverlay
-        // bg="none"
-        // backdropFilter="auto"
-        // backdropBlur="2px"
-        // width="30%"
-        />
-        <ModalContent
-          minW="45vw"
-        >
-          <ModalCloseButton />
-          <ModalBody flexDirection="column" display="flex">
-            <Box display="flex" justifyContent="center" paddingTop="20px" paddingBottom="20px">
-              <Image maxW="20" src={success} />
-            </Box>
-            <Text fontWeight="700" color="#3f0d0c" fontSize="22px" display="flex" justifyContent="center">
-              Muito obrigado!
-            </Text>
-            <Text fontWeight="700" fontSize="20px" display="flex" justifyContent="center">
-            Sua reserva foi feita com sucesso
-            </Text>
-          </ModalBody>
-          <ModalFooter display="flex" justifyContent="center">
-            <Button width="230px" backgroundColor="#3f0d0c" color="#fff" mb="25px" onClick={() => navigate('/')}>
-              Ok
-            </Button>
-          </ModalFooter>
-        </ModalContent>
+        <ModalSuccess msg="Sua reserva foi feita com sucesso" />
       </Modal>
     </Wrapper>
   );
