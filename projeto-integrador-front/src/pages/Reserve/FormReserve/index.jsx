@@ -8,6 +8,7 @@ import {
   RadioGroup,
   Grid,
   GridItem,
+  Button,
 } from '@chakra-ui/react';
 import React from 'react';
 import { Formik, Form } from 'formik';
@@ -38,7 +39,14 @@ function FormReserve() {
       lastName: '',
       email: '',
       city: '',
-    }}
+      }}
+
+      // eslint-disable-next-line react/jsx-props-no-multi-spaces
+      onSubmit={values => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+        });
+      }}
     >
       {props => (
         <Box
@@ -48,7 +56,7 @@ function FormReserve() {
           shadow="lg"
           color="#3F0D0C"
         >
-          <Form>
+          <Form onSubmit={props.handleSubmit}>
             <FormControl>
               <FormLabel
                 lineHeight="1.75rem"
