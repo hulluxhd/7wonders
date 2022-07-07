@@ -7,20 +7,22 @@ const fieldStyle = {
   width: '100%',
 };
 
-function Input({
-  htmlFor,
-  id,
-  name,
-  placeholder,
-  inputLabel,
-  value,
-  children,
-  as,
-}, props) {
+function Input(props) {
+  const {
+    placeholder,
+    inputlabel,
+    children,
+    htmlFor,
+    value,
+    name,
+    id,
+    as,
+  } = props;
+
   return (
-    <Box bgColor="gray.300" padding="1rem" borderRadius="0.5rem" w="100%">
+    <Box padding="1rem" borderRadius="0.5rem" w="100%">
       <FormLabel w="100%" htmlFor={htmlFor}>
-        {inputLabel}
+        {inputlabel}
       </FormLabel>
       <Field
         placeholder={placeholder}
