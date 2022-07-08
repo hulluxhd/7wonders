@@ -25,11 +25,11 @@ function Footer() {
       alignItems="center"
       flexDir={isSmallerThan606 ? 'column' : 'row'}
       as="footer"
-      bgColor="var(--blue)"
+      bgColor="#d8d0c5"
       p="1rem 3rem"
     >
       <Text
-        color="#FFF"
+        color="var(--hard-blue)"
         fontWeight="bold"
         fontFamily="'Poppins', sans-serif"
         fontSize="1rem"
@@ -42,10 +42,10 @@ function Footer() {
         gap="1.25rem"
         mt={isSmallerThan606 ? '0.8rem' : null}
       >
-        <Icon color="#FFF" fontSize="1.75rem" as={FaFacebook} />
-        <Icon color="#FFF" fontSize="1.75rem" as={FaLinkedinIn} />
-        <Icon color="#FFF" fontSize="1.75rem" as={FaTwitter} />
-        <Icon color="#FFF" fontSize="1.75rem" as={FaInstagram} />
+        <Icon color="var(--hard-blue)" fontSize="1.75rem" as={FaFacebook} />
+        <Icon color="var(--hard-blue)" fontSize="1.75rem" as={FaLinkedinIn} />
+        <Icon color="var(--hard-blue)" fontSize="1.75rem" as={FaTwitter} />
+        <Icon color="var(--hard-blue)" fontSize="1.75rem" as={FaInstagram} />
       </Box>
     </Box>
   );

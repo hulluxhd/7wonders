@@ -39,12 +39,10 @@ function PlaceCard({ place }) {
 
   return (
     <Box
-      borderRadius="0.25rem"
       background="#FFF"
       display="flex"
       flexDir="column"
       w="100%"
-      boxShadow="base"
       alignItems="stretch"
       cursor="pointer"
       onClick={() => navigate(`/detail/accommodations/${id}`)}
@@ -56,7 +54,7 @@ function PlaceCard({ place }) {
           w="100%"
           h="15rem"
           fit="cover"
-          borderRadius="0.25rem 0.25rem 0 0"
+          borderRadius="0.25rem"
         />
         <VStack
           position="absolute"
@@ -104,9 +102,9 @@ function PlaceCard({ place }) {
         </VStack>
       </Box>
 
-      <Box p="1rem 1rem">
+      <Box p="1rem 1rem" borderRadius="0 0 0.25rem 0.25rem" borderX="1px solid var(--blue)" borderBottom="1px solid var(--blue)">
         <Box display="flex" alignItems="start" gap={2}>
-          <Badge background="green.200" borderRadius="base" pr="2">
+          <Badge background="var(--blue)" color="#FFF" borderRadius="base" pr="2">
             Novo
           </Badge>
           <Box
