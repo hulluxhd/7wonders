@@ -21,7 +21,6 @@ function App() {
   return (
     <BrowserRouter>
       <InfoProvider>
-        {window.location.pathname !== '/register-product' && (
         <Header
           drawerFunctions={{
             isOpen,
@@ -29,7 +28,6 @@ function App() {
             onClose,
           }}
         />
-      )}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

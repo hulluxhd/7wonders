@@ -13,11 +13,13 @@ import {
   Flex,
   IconButton,
   Divider,
+  Image,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { IoMdCloseCircle } from 'react-icons/io';
 import Wrapper from '../../components/Wrapper';
+import AtributeIcon from './components/Icon';
 import Input from './components/Input';
 import BasicButton from '../../components/BasicButton';
 import baseApi from '../../services/service.baseApi';
@@ -47,11 +49,14 @@ function CreateProduct() {
     ]);
   }
 
-  function removeIcon(icon) {
-    setSelectedAtributes(prev => prev.filter(arrayDeIcones => arrayDeIcones.icon !== icon));
-    const atributeList = atributes?.find(atrib => atrib?.icon === icon);
-    atributeList.selected = false;
-  }
+  const removeIcon = useCallback(
+    icon => {
+      setSelectedAtributes(prev => prev.filter(arrayDeIcones => arrayDeIcones.icon !== icon));
+      const atributeList = atributes?.find(atrib => atrib?.icon === icon);
+      atributeList.selected = false;
+    },
+    [setSelectedAtributes]
+  );
 
   useEffect(() => {
     try {
@@ -79,8 +84,10 @@ function CreateProduct() {
           productName: '',
           safetyRules: '',
           houseRules: '',
+          atributes: [],
           policies: '',
           category: '',
+          images: [],
           city: '',
         }}
         onSubmit={async values => {
@@ -123,10 +130,10 @@ function CreateProduct() {
                       </Box>
                       {_categories.map(cat => (
                         <Box
-                          as="option"
-                          key={cat}
                           {...formik.getFieldProps}
                           value={cat.toLowerCase()}
+                          as="option"
+                          key={cat}
                         >
                           {cat}
                         </Box>
@@ -159,6 +166,19 @@ function CreateProduct() {
                     as="textarea"
                     rows="4"
                   />
+                  <Input
+                    value={formik.values.images}
+                    inputlabel="Imagens"
+                    htmlFor="images"
+                    name="images"
+                    id="images"
+                    as="input"
+                    type="file"
+                    onChange={(e) => console.log(e.target.files)}
+                  />
+                  <Box>
+                    {console.log(formik.values.images)}
+                  </Box>
                 </GridItem>
                 <GridItem
                   borderRadius="0.25rem"
@@ -177,29 +197,12 @@ function CreateProduct() {
                     gap="1rem"
                   >
                     {selectedAtributes.map(({ icon, name }, index) => (
-                      <Box
-                        key={`${name}${index.toString()}`}
-                        justifyContent="center"
-                        position="relative"
-                        alignItems="center"
-                        flexDir="column"
-                        display="flex"
-                      >
-                        <Icon boxSize="2rem" as={icon} display="block" />
-                        <IconButton
-                          _hover={{ background: 'transparent' }}
-                          onClick={() => removeIcon(icon)}
-                          background="transparent"
-                          as={IoMdCloseCircle}
-                          position="absolute"
-                          cursor="pointer"
-                          color="red.400"
-                          boxSize="1rem"
-                          right={-2}
-                          top={-1}
-                        />
-                        <Text as="span">{name}</Text>
-                      </Box>
+                      <AtributeIcon
+                        name={name}
+                        icon={icon}
+                        index={index}
+                        onClick={() => removeIcon(icon)}
+                      />
                     ))}
                   </Box>
                   <Menu w="100%">
@@ -215,9 +218,11 @@ function CreateProduct() {
                       {atributes.map(({ icon, name, selected }, index) => (
                         <MenuItem
                           onClick={() => addIcon(selectedAtributes, icon, name)}
+                          key={`${index.toString()} + ${icon.toString()}`}
+                          _hover={{ bgColor: 'var(--blue)' }}
                           bgColor={selected && 'green.200'}
                           justifyContent="space-between"
-                          key={index.toString() + icon}
+                          _focus={{ bgColor: 'none' }}
                           display="flex"
                           width="100%"
                         >
