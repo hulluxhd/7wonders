@@ -16,7 +16,9 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
+import {
+ useCallback, useEffect, useRef, useState
+} from 'react';
 import { IoMdCloseCircle } from 'react-icons/io';
 import Wrapper from '../../components/Wrapper';
 import AtributeIcon from './components/Icon';
@@ -26,9 +28,37 @@ import baseApi from '../../services/service.baseApi';
 import atributes from './atributes';
 
 function CreateProduct() {
+  const teste = useRef(null);
   const [selectedAtributes, setSelectedAtributes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
+
+  const [images, setImages] = useState([]);
+
+  function handleImage({ values }) {
+    const imagesTemp = values.images.slice(0);
+    const url = values.imageURL;
+
+    const category = values.imageCategory;
+
+    const find = (el) => el.category === category;
+
+    if (imagesTemp.findIndex(find) !== -1) {
+      const found = imagesTemp.find(imageObj => imageObj.category === category);
+      if (found) {
+        found.url.push(url);
+        return imagesTemp;
+      }
+    }
+
+    return [
+      ...imagesTemp,
+      {
+        title: category,
+        links: [url],
+      }
+    ];
+  }
 
   const [..._categories] = categories.map(cat => cat.categoryName);
   const [..._cities] = cities.map(city => city.cityName);
@@ -83,6 +113,8 @@ function CreateProduct() {
           description: '',
           productName: '',
           safetyRules: '',
+          imageCategory: '',
+          imageURL: '',
           houseRules: '',
           atributes: [],
           policies: '',
@@ -91,9 +123,7 @@ function CreateProduct() {
           city: '',
         }}
         onSubmit={async values => {
-          // eslint-disable-next-line no-promise-executor-return
-          await new Promise(r => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
+          console.log(JSON.stringify(values, false, 2));
         }}
       >
         {formik => (
@@ -125,7 +155,7 @@ function CreateProduct() {
                       id="category"
                       as="select"
                     >
-                      <Box as="option" _readOnly>
+                      <Box as="option" value="default" _readOnly>
                         Selecione uma opção
                       </Box>
                       {_categories.map(cat => (
@@ -166,18 +196,86 @@ function CreateProduct() {
                     as="textarea"
                     rows="4"
                   />
-                  <Input
-                    value={formik.values.images}
-                    inputlabel="Imagens"
-                    htmlFor="images"
-                    name="images"
-                    id="images"
-                    as="input"
-                    type="file"
-                    onChange={(e) => console.log(e.target.files)}
-                  />
-                  <Box>
-                    {console.log(formik.values.images)}
+                  <Text p="1rem" as="h2">
+                    Imagens
+                  </Text>
+                  <Box display="grid" gridTemplateColumns="repeat(5, 1fr)">
+                    <GridItem colSpan={2}>
+                      <Input
+                        grid
+                        inputlabel="Categoria"
+                        htmlFor="imageCategory"
+                        name="imageCategory"
+                        id="imageCategory"
+                        as="select"
+                        type="text"
+                        placeholder="Selecione um item"
+                        {...formik.getFieldProps}
+                      >
+                        <Box as="option" value="default" _readOnly>
+                          Selecione uma categoria
+                        </Box>
+                        <Box as="option" value="header">
+                          Imagem principal
+                        </Box>
+                        <Box as="option" value="jardins">
+                          Jardins
+                        </Box>
+                        <Box as="option" value="piscinas">
+                          Piscinas
+                        </Box>
+                      </Input>
+                    </GridItem>
+                    <GridItem colSpan="2">
+                      <Input
+                        inputlabel="Imagem URL"
+                        htmlFor="imageURL"
+                        name="imageURL"
+                        value={formik.values.imageURL}
+                        {...formik.getFieldProps}
+                        id="imageURL"
+                        as="input"
+                        type="text"
+                      />
+                    </GridItem>
+                    <GridItem alignSelf="end" colSpan={1}>
+                      <Tooltip label="Salvar">
+                        <Text as="span">
+                          <BasicButton
+                            description="Salvar"
+                            onClick={() => {
+                            formik.setFieldValue(
+                            'images',
+                            handleImage(formik)
+                          );
+                          formik.setFieldValue(
+                            'imageURL',
+                            ''
+                          );
+                          formik.setFieldValue(
+                            'imageCategory',
+                            'default'
+                          );
+}} />
+                        </Text>
+                      </Tooltip>
+                    </GridItem>
+                  </Box>
+                  <Box
+                    w="100%"
+                    display="flex"
+                    gap="20px"
+                    p="15px"
+                    border="1px dashed blue"
+                  >
+                    {images.map((image, index) => (
+                      <Image
+                        key={`${index.toString()}a`}
+                        w="200px"
+                        h="200px"
+                        src={image.path}
+                      />
+                    ))}
                   </Box>
                 </GridItem>
                 <GridItem
@@ -197,12 +295,14 @@ function CreateProduct() {
                     gap="1rem"
                   >
                     {selectedAtributes.map(({ icon, name }, index) => (
-                      <AtributeIcon
-                        name={name}
-                        icon={icon}
-                        index={index}
-                        onClick={() => removeIcon(icon)}
-                      />
+                      <Text as="span">
+                        <AtributeIcon
+                          name={name}
+                          icon={icon}
+                          index={index}
+                          onClick={() => removeIcon(icon)}
+                        />
+                      </Text>
                     ))}
                   </Box>
                   <Menu w="100%">

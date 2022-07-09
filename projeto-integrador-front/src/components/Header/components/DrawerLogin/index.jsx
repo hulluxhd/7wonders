@@ -95,7 +95,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
       console.error(e);
     }
   }, []);
-
+  console.log(usersInfo);
   return (
     <Drawer
       size={breakpoint ? 'full' : 'xs'}

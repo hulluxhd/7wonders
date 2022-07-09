@@ -1,5 +1,6 @@
 import { Box, FormLabel } from '@chakra-ui/react';
 import { Field } from 'formik';
+import { forwardRef } from 'react';
 
 const fieldStyle = {
   padding: '5px 0 5px 15px',
@@ -7,7 +8,7 @@ const fieldStyle = {
   width: '100%',
 };
 
-function Input(props) {
+const Input = forwardRef((props, ref) => {
   const {
     placeholder,
     inputlabel,
@@ -31,12 +32,13 @@ function Input(props) {
         name={name}
         id={id}
         as={as}
+        ref={ref}
         {...props}
       >
         {children}
       </Field>
     </Box>
   );
-}
+});
 
 export default Input;
