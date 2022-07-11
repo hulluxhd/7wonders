@@ -10,16 +10,14 @@ import {
   MenuList,
   MenuItem,
   Tooltip,
-  Flex,
-  IconButton,
-  Divider,
   Image,
+  IconButton,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import {
  useCallback, useEffect, useRef, useState
 } from 'react';
-import { IoMdCloseCircle } from 'react-icons/io';
+import { GiSaveArrow } from 'react-icons/gi';
 import Wrapper from '../../components/Wrapper';
 import AtributeIcon from './components/Icon';
 import Input from './components/Input';
@@ -28,12 +26,25 @@ import baseApi from '../../services/service.baseApi';
 import atributes from './atributes';
 
 function CreateProduct() {
-  const teste = useRef(null);
-  const [selectedAtributes, setSelectedAtributes] = useState([]);
+  const [selectedAttributes, setSelectedAttributes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cities, setCities] = useState([]);
 
   const [images, setImages] = useState([]);
+  console.log(images);
+
+  const attributes = atributes.slice(0);
+  console.log(attributes);
+
+  function handleAttributes() {
+    const [...selectedAttributesName] = selectedAttributes.map(
+      attrib => attrib.name
+    );
+    console.log(selectedAttributesName);
+    return selectedAttributesName;
+  }
+
+  const selectedAttributesName = handleAttributes();
 
   function handleImage({ values }) {
     const imagesTemp = values.images.slice(0);
@@ -41,51 +52,62 @@ function CreateProduct() {
 
     const category = values.imageCategory;
 
-    const find = (el) => el.category === category;
-
-    if (imagesTemp.findIndex(find) !== -1) {
-      const found = imagesTemp.find(imageObj => imageObj.category === category);
-      if (found) {
-        found.url.push(url);
-        return imagesTemp;
-      }
+    const find = imageObj => imageObj.title === category;
+    const found = imagesTemp.find(find);
+    if (found) {
+      found.links.push(url);
+      setImages(imagesTemp);
+      return imagesTemp;
     }
 
-    return [
+    const newImages = [
       ...imagesTemp,
       {
         title: category,
         links: [url],
-      }
+      },
     ];
+
+    setImages(newImages);
+
+    return newImages;
   }
 
   const [..._categories] = categories.map(cat => cat.categoryName);
   const [..._cities] = cities.map(city => city.cityName);
 
-  function addIcon(selected, newIcon, name) {
-    const found = selected.find(({ icon }) => icon === newIcon);
+  function addIcon({ values: { attributes: attr } }, newIcon, _name) {
+    const found = attr.find(({ name }) => name === _name);
+
     if (found) return null;
 
-    const atributeList = atributes?.find(atrib => atrib?.icon === newIcon);
-    atributeList.selected = true;
-    return setSelectedAtributes(prev => [
-      ...prev,
-      {
-        name: name,
-        icon: newIcon,
-        selected: true,
-      },
-    ]);
+    const attributeList = attributes?.find(attrib => attrib?.icon === newIcon);
+    attributeList.selected = true;
+
+    const newAtt = {
+      name: _name,
+      icon: newIcon,
+      selected: true,
+    };
+
+    setSelectedAttributes([...attr, newAtt]);
+
+    return newAtt;
   }
+  console.log(...selectedAttributes);
 
   const removeIcon = useCallback(
-    icon => {
-      setSelectedAtributes(prev => prev.filter(arrayDeIcones => arrayDeIcones.icon !== icon));
-      const atributeList = atributes?.find(atrib => atrib?.icon === icon);
-      atributeList.selected = false;
+    // eslint-disable-next-line no-shadow
+    (icon, { values }) => {
+      const attributeList = attributes?.find(attrib => attrib?.icon === icon);
+      attributeList.selected = false;
+      const newAttrib = values.attributes.filter(
+        arrayDeIcones => arrayDeIcones.icon !== icon
+      );
+      setSelectedAttributes(newAttrib);
+      return newAttrib;
     },
-    [setSelectedAtributes]
+    [setSelectedAttributes]
   );
 
   useEffect(() => {
@@ -93,14 +115,24 @@ function CreateProduct() {
       baseApi.get('/cities').then(({ data }) => setCities(data));
       baseApi.get('/categories').then(({ data }) => setCategories(data));
     } catch (e) {
-      console.error(e);
+      console.error(`Erro: ${e}`);
     }
   }, []);
+
+  function generateNumbersArray(number) {
+    const array = [];
+    for (let i = 1; i <= number; i += 1) {
+      array.push(i);
+    }
+    return array;
+  }
+
+  console.log(generateNumbersArray(3));
 
   return (
     <Wrapper
       justifyContent="center"
-      bgColor="gray.100"
+      bgColor="gray.300"
       flexDir="column"
       display="flex"
       padding="2rem 1rem"
@@ -116,23 +148,43 @@ function CreateProduct() {
           imageCategory: '',
           imageURL: '',
           houseRules: '',
-          atributes: [],
+          attributes: [],
           policies: '',
-          category: '',
+          category: 'default',
           images: [],
-          city: '',
+          price: '',
+          street: '',
+          adressNumber: '',
+          zipcode: '',
+          state: '',
+          country: '',
+          rooms: '',
+          beds: '',
+          guests: '',
+          city: 'default',
         }}
         onSubmit={async values => {
-          console.log(JSON.stringify(values, false, 2));
+          console.log(
+            JSON.stringify(
+              { ...values, attributes: selectedAttributesName },
+              false,
+              2
+            )
+          );
         }}
       >
         {formik => (
           <Form>
             <FormControl isRequired>
-              <Grid gap="4rem">
+              <Grid
+                gap="4rem"
+                templateColumns={{
+                  lg: 'repeat(2, 1fr)',
+                  base: 'repeat(1, 1fr)',
+                }}
+              >
                 <GridItem
                   borderRadius="0.25rem"
-                  gridColumn="1/2"
                   flexDir="column"
                   display="flex"
                   gap="1rem"
@@ -149,13 +201,20 @@ function CreateProduct() {
                   />
                   <Box display="grid" gridTemplateColumns="1fr 1fr" gap="1rem">
                     <Input
+                      {...formik.getFieldProps}
                       inputlabel="Categoria"
                       htmlFor="category"
                       name="category"
                       id="category"
                       as="select"
                     >
-                      <Box as="option" value="default" _readOnly>
+                      <Box
+                        as="option"
+                        value="default"
+                        disabled
+                        defaultValue
+                        _readOnly
+                      >
                         Selecione uma opção
                       </Box>
                       {_categories.map(cat => (
@@ -166,23 +225,6 @@ function CreateProduct() {
                           key={cat}
                         >
                           {cat}
-                        </Box>
-                      ))}
-                    </Input>
-                    <Input
-                      value={formik.values.city}
-                      inputlabel="Cidade"
-                      htmlFor="city"
-                      name="city"
-                      as="select"
-                      id="city"
-                    >
-                      <Box as="option" _readOnly>
-                        Selecione uma opção
-                      </Box>
-                      {_cities.map(city => (
-                        <Box as="option" key={city} value={city.toLowerCase()}>
-                          {city}
                         </Box>
                       ))}
                     </Input>
@@ -212,7 +254,13 @@ function CreateProduct() {
                         placeholder="Selecione um item"
                         {...formik.getFieldProps}
                       >
-                        <Box as="option" value="default" _readOnly>
+                        <Box
+                          as="option"
+                          value="defaultValue"
+                          disabled
+                          defaultValue
+                          _readOnly
+                        >
                           Selecione uma categoria
                         </Box>
                         <Box as="option" value="header">
@@ -228,60 +276,62 @@ function CreateProduct() {
                     </GridItem>
                     <GridItem colSpan="2">
                       <Input
+                        value={formik.values.imageURL}
+                        {...formik.getFieldProps}
                         inputlabel="Imagem URL"
                         htmlFor="imageURL"
                         name="imageURL"
-                        value={formik.values.imageURL}
-                        {...formik.getFieldProps}
                         id="imageURL"
-                        as="input"
                         type="text"
+                        as="input"
                       />
                     </GridItem>
-                    <GridItem alignSelf="end" colSpan={1}>
+                    <GridItem alignSelf="center" colSpan={1}>
                       <Tooltip label="Salvar">
-                        <Text as="span">
-                          <BasicButton
-                            description="Salvar"
+                        <Text as="span" p="1rem">
+                          <IconButton
+                            bgColor="transparent"
+                            cursor="pointer"
+                            as={GiSaveArrow}
+                            fontSize="2rem"
                             onClick={() => {
-                            formik.setFieldValue(
-                            'images',
-                            handleImage(formik)
-                          );
-                          formik.setFieldValue(
-                            'imageURL',
-                            ''
-                          );
-                          formik.setFieldValue(
-                            'imageCategory',
-                            'default'
-                          );
-}} />
+                              formik.setFieldValue(
+                                'images',
+                                handleImage(formik)
+                              );
+                              formik.setFieldValue('imageURL', '');
+                              formik.setFieldValue(
+                                'imageCategory',
+                                'defaultValue'
+                              );
+                            }}
+                          />
                         </Text>
                       </Tooltip>
                     </GridItem>
                   </Box>
-                  <Box
-                    w="100%"
-                    display="flex"
-                    gap="20px"
-                    p="15px"
-                    border="1px dashed blue"
-                  >
-                    {images.map((image, index) => (
-                      <Image
-                        key={`${index.toString()}a`}
-                        w="200px"
-                        h="200px"
-                        src={image.path}
-                      />
-                    ))}
+                  <Box p="0 1rem">
+                    <Box
+                      border="1px dashed blue"
+                      flexWrap="wrap"
+                      display="flex"
+                      m="0 0 1rem"
+                      gap="20px"
+                      w="100%"
+                      p="1rem"
+                    >
+                      {images.map((image, { image: { links } }) => links.map((link, index) => (
+                          <Box key={`${index.toString()}a`}>
+                            <Image w="100px" h="100px" src={link} />
+                            <Text as="span">{image.title}</Text>
+                          </Box>
+                        )))}
+                    </Box>
                   </Box>
                 </GridItem>
                 <GridItem
                   borderRadius="0.25rem"
                   flexDir="column"
-                  gridColumn="2/3"
                   display="flex"
                   gap="1rem"
                 >
@@ -289,20 +339,31 @@ function CreateProduct() {
                     Quais são as características dessa acomodação?
                   </Text>
                   <Box
+                    justifyContent="center"
+                    bgColor="var(--blue)"
                     position="relative"
                     flexWrap="wrap"
                     display="flex"
-                    gap="1rem"
+                    padding="10px"
+                    gap="2rem"
                   >
-                    {selectedAtributes.map(({ icon, name }, index) => (
-                      <Text as="span">
+                    {selectedAttributes.map(({ icon, name }, index) => (
+                      <Tooltip
+                        key={`${index.toString()}${name}`}
+                        placement="left-start"
+                        shouldWrapChildren
+                        label={name}
+                      >
                         <AtributeIcon
                           name={name}
                           icon={icon}
                           index={index}
-                          onClick={() => removeIcon(icon)}
+                          onClick={() => formik.setFieldValue(
+                              'attributes',
+                              removeIcon(icon, formik)
+                            )}
                         />
-                      </Text>
+                      </Tooltip>
                     ))}
                   </Box>
                   <Menu w="100%">
@@ -315,9 +376,16 @@ function CreateProduct() {
                       Selecione os atributos
                     </MenuButton>
                     <MenuList>
-                      {atributes.map(({ icon, name, selected }, index) => (
+                      {attributes.map(({ icon, name, selected }, index) => (
                         <MenuItem
-                          onClick={() => addIcon(selectedAtributes, icon, name)}
+                          onClick={() => {
+                            formik.setFieldValue(
+                              'attributes',
+                              formik.values.attributes.concat(
+                                addIcon(formik, icon, name)
+                              )
+                            );
+                          }}
                           key={`${index.toString()} + ${icon.toString()}`}
                           _hover={{ bgColor: 'var(--blue)' }}
                           bgColor={selected && 'green.200'}
@@ -350,9 +418,111 @@ function CreateProduct() {
                     inputlabel="Política de cancelamento"
                     name="policies"
                     id="policies"
-                    as="textarea"
                     {...formik.getFieldProps}
                   />
+                  <Grid>
+                    <GridItem>
+                      <Input
+                        inputlabel="Quartos"
+                        name="policies"
+                        id="policies"
+                        as="select"
+                        {...formik.getFieldProps}
+                       />
+                    </GridItem>
+                    <GridItem>
+                      <Input
+                        inputlabel="Camas"
+                        name="policies"
+                        id="policies"
+                        {...formik.getFieldProps}
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <Input
+                        inputlabel="Capacidade"
+                        name="policies"
+                        id="policies"
+                        as="textarea"
+                        {...formik.getFieldProps}
+                      />
+                    </GridItem>
+                  </Grid>
+                </GridItem>
+                <GridItem colSpan={{ base: '1', lg: '2' }}>
+                  <Text p="0 1rem" as="h2">
+                    Informações de endereço
+                  </Text>
+                  <Grid templateColumns="repeat(4, 1fr)">
+                    <GridItem colStart={1}>
+                      <Input
+                        value={formik.values.zipcode}
+                        {...formik.getFieldProps}
+                        inputlabel="CEP"
+                        htmlFor="zipcode"
+                        name="zipcode"
+                        type="text"
+                        id="zipcode"
+                      />
+                    </GridItem>
+                    <GridItem colStart={2} colSpan={3}>
+                      <Input
+                        value={formik.values.street}
+                        {...formik.getFieldProps}
+                        inputlabel="Rua/Avenida"
+                        htmlFor="street"
+                        name="street"
+                        type="text"
+                        id="street"
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <Input
+                        value={formik.values.city}
+                        {...formik.getFieldProps}
+                        inputlabel="Cidade"
+                        htmlFor="city"
+                        name="city"
+                        as="select"
+                        id="city"
+                      >
+                        <Box as="option" _readOnly disabled defaultValue>
+                          Selecione uma opção
+                        </Box>
+                        {_cities.map(city => (
+                          <Box
+                            as="option"
+                            key={city}
+                            value={city.toLowerCase()}
+                          >
+                            {city}
+                          </Box>
+                        ))}
+                      </Input>
+                    </GridItem>
+                    <GridItem colSpan={2}>
+                      <Input
+                        value={formik.values.state}
+                        {...formik.getFieldProps}
+                        inputlabel="Estado"
+                        htmlFor="state"
+                        name="state"
+                        type="text"
+                        id="state"
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <Input
+                        value={formik.values.adressNumber}
+                        {...formik.getFieldProps}
+                        inputlabel="Número"
+                        htmlFor="number"
+                        name="number"
+                        type="text"
+                        id="number"
+                      />
+                    </GridItem>
+                  </Grid>
                 </GridItem>
               </Grid>
               <BasicButton description="Submit" />

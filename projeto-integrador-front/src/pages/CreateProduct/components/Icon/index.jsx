@@ -25,10 +25,9 @@ function AtributeIcon({
         cursor="pointer"
         color="red.400"
         boxSize="1rem"
-        right={-2}
+        right={-6}
         top={-1}
       />
-      <Text as="span">{name}</Text>
     </Box>
   );
 }
