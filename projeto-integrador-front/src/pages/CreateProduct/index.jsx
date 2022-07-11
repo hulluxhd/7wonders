@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import {
- useCallback, useEffect, useRef, useState
+  useCallback, useEffect, useRef, useState
 } from 'react';
 import { GiSaveArrow } from 'react-icons/gi';
 import Wrapper from '../../components/Wrapper';
@@ -321,11 +321,11 @@ function CreateProduct() {
                       p="1rem"
                     >
                       {images.map((image, { image: { links } }) => links.map((link, index) => (
-                          <Box key={`${index.toString()}a`}>
-                            <Image w="100px" h="100px" src={link} />
-                            <Text as="span">{image.title}</Text>
-                          </Box>
-                        )))}
+                        <Box key={`${index.toString()}a`}>
+                          <Image w="100px" h="100px" src={link} />
+                          <Text as="span">{image.title}</Text>
+                        </Box>
+                      )))}
                     </Box>
                   </Box>
                 </GridItem>
@@ -359,9 +359,9 @@ function CreateProduct() {
                           icon={icon}
                           index={index}
                           onClick={() => formik.setFieldValue(
-                              'attributes',
-                              removeIcon(icon, formik)
-                            )}
+                            'attributes',
+                            removeIcon(icon, formik)
+                          )}
                         />
                       </Tooltip>
                     ))}
@@ -429,10 +429,10 @@ function CreateProduct() {
                         id="policies"
                         as="select"
                         {...formik.getFieldProps}
-                       >
-                         {generateNumbersArray(5).map((el) => (
-                           <Box key={el.toString()} as="option">{el}</Box>
-                         ))}
+                      >
+                        {generateNumbersArray(5).map((el) => (
+                          <Box key={el.toString()} as="option">{el}</Box>
+                        ))}
                       </Input>
                     </GridItem>
                     <GridItem>
@@ -443,9 +443,9 @@ function CreateProduct() {
                         as="select"
                         {...formik.getFieldProps}
                       >
-                      {generateNumbersArray(15).map((el) => (
-                           <Box key={el.toString()} as="option">{el}</Box>
-                         ))}
+                        {generateNumbersArray(15).map((el) => (
+                          <Box key={el.toString()} as="option">{el}</Box>
+                        ))}
                       </Input>
                     </GridItem>
                     <GridItem colSpan={1}>
@@ -456,19 +456,19 @@ function CreateProduct() {
                         as="select"
                         {...formik.getFieldProps}
                       >
-                      {generateNumbersArray(30).map((el) => (
-                           <Box key={el.toString()} as="option">{el} {el !== 1 ? 'pessoas' : 'pessoa'}</Box>
-                         ))}
+                        {generateNumbersArray(30).map((el) => (
+                          <Box key={el.toString()} as="option">{el} {el !== 1 ? 'pessoas' : 'pessoa'}</Box>
+                        ))}
                       </Input>
                     </GridItem>
-                      <GridItem>
+                    <GridItem>
                       <Input
-                        inputlabel="Valor por noite"
+                        inputlabel="Valor/noite"
                         name="price"
                         id="price"
                         type="number"
                         {...formik.getFieldProps} />
-                      </GridItem>
+                    </GridItem>
                   </Grid>
                 </GridItem>
                 <GridItem colSpan={{ base: '1', lg: '2' }}>
