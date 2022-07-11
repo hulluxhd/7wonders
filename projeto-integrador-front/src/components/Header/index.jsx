@@ -128,6 +128,8 @@ function Header({ drawerFunctions, children }) {
     }
   }, [temporaryPlace]);
 
+  localStorage.setItem('token', user.token);
+
   return (
     <>
       <Box

@@ -217,10 +217,10 @@ function CreateProduct() {
                       >
                         Selecione uma opção
                       </Box>
-                      {_categories.map(cat => (
+                      {_categories.map((cat, index) => (
                         <Box
                           {...formik.getFieldProps}
-                          value={cat.toLowerCase()}
+                          value={`${cat}${index.toString()}`}
                           as="option"
                           key={cat}
                         >
@@ -515,7 +515,7 @@ function CreateProduct() {
                           <Box
                             as="option"
                             key={city}
-                            value={city.toLowerCase()}
+                            value={city}
                           >
                             {city}
                           </Box>

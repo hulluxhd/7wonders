@@ -46,10 +46,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     };
   }
 
-  useEffect(() => {
-    setUser(usersInfo);
-  }, [usersInfo]);
-
   console.log(user);
 
   const validateEmailRegex =
@@ -88,9 +84,12 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               headers: {
                 Authorization: `Bearer ${token}`,
               }
-            }).then((resp) => setUsersInfo({
-              name: resp.data.name, surname: resp.data.surname, token: token
-            }));
+            }).then((resp) => {
+              setUser({
+                name: resp.data.name, surname: resp.data.surname, token: token
+              });
+              localStorage.setItem('token', token);
+            });
             console.log('passou');
             onClose();
           } catch (eol) {
