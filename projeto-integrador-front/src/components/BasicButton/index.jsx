@@ -14,7 +14,12 @@ function BasicButton(props) {
       w={w || '100%'}
       ml={ml}
       h={h || height || '2.5rem'}
-      background={(background || bgColor || backgroundColor) || 'var(--blue)'}
+      background="var(--blue)"
+      _hover={{
+        background: '#3F0D0C',
+        color: '#D9B061',
+        border: '#8D6F57',
+      }}
       border={border || '2px solid var(--blue)'}
       borderRadius={borderRadius || '0.25rem'}
       color={color || '#FFF'}

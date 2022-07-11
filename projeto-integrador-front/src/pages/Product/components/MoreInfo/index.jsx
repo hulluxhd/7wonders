@@ -75,6 +75,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Diretrizes de distanciamento social e outras regulamentações
             relacionadas ao novo coronovírus se aplicam
@@ -83,6 +84,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Detector de fumaça
           </Text>
@@ -90,6 +92,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Depósito de segurança
           </Text>
@@ -106,6 +109,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Adicione as datas da viagem para obter detalhes de cancelamento
             para esta estadia.
