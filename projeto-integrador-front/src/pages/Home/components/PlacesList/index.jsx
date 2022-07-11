@@ -50,26 +50,27 @@ function PlacesList() {
       >
         {/* Controladores do carrossel  */}
         <Image
+          onClick={() => swiperProxy.slidePrev()}
           position="absolute"
+          cursor="pointer"
+          color="yellow"
+          mt="-1.5rem"
           zIndex={10}
-          top="50%"
           left="10px"
           src={prev}
+          top="50%"
           w="3rem"
-          cursor="pointer"
-          mt="-1.5rem"
-          onClick={() => swiperProxy.slidePrev()}
         />
         <Image
+          onClick={() => swiperProxy.slideNext()}
           position="absolute"
-          zIndex={10}
-          top="50%"
-          right="10px"
-          src={next}
-          w="3rem"
           cursor="pointer"
           mt="-1.5rem"
-          onClick={() => swiperProxy.slideNext()}
+          right="10px"
+          zIndex={10}
+          src={next}
+          top="50%"
+          w="3rem"
         />
         {cardsRender.map(card => (
           <SwiperSlide key={card.name}>

@@ -5,10 +5,10 @@ const theme = {
     global: {
       html: {},
       ':root': {
-        '--blue': '#1DBEB4',
-        '--hard-blue': '#383B58',
-        '--light-blue': '#545776',
-        '--light-bege': '#F3F1ED',
+        '--blue': '#d9b061',
+        '--hard-blue': '#3f0d0c',
+        '--light-blue': '#633a39',
+        '--light-bege': '#FFF',
         '--red': '#e06141',
         fontSize: '16px',
       },

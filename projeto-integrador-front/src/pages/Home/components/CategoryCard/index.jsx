@@ -33,7 +33,7 @@ function CategoryCard({ categoryToRender }) {
       background="#FFF"
       display="flex"
       flexDir="column"
-      boxShadow="2px 6px 2px var(--light-bege)"
+      boxShadow="1px 2px 1px var(--blue)"
       w="100%"
       border="1px solid var(--light-bege)"
       cursor="pointer"
