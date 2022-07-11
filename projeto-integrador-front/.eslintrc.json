@@ -37,6 +37,7 @@
         "react/jsx-props-no-spreading": "off",
         "react/jsx-one-expression-per-line": "off",
         "object-shorthand": "off",
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "no-undef": "off"
     }
 }

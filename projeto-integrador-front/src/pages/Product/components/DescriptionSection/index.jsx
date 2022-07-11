@@ -7,27 +7,16 @@ import {
 // import { FontsAwesome } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
 import { MdPets, MdAcUnit } from 'react-icons/md';
-
+import { useNavigate, useParams } from 'react-router-dom';
 import React from 'react';
 import { List } from 'phosphor-react';
 import AttributeIcon from '../AttributeIcon';
 import BasicButton from '../../../../components/BasicButton';
 
-export default function DescriptionSection() {
+export default function DescriptionSection({ info }) {
+  const navigate = useNavigate();
   const description = document.querySelector('#description-text');
   const descriptionButton = document.querySelector('#description-button');
-  const desc = `Situado a 6,7 km do aeroporto, EAST Miami oferece um terraço na cobertura
-  e fica a apenas 5 minutosde carro de Brickell City Centre.
-  Os hóspedes podem aproveitar massagens. Quinto La Huella,
-  um dos 2 restaurantes, serve café da manhã, almoço e jantar.
-  Este hotel de luxo possui 4 piscinas externas, 2 bares/lounges.
-  os quartos oferecem comodidades como roupas de cama premium e
-  chuveiros com efeito de chuva. Os viajantes costumam elogiar
-  as boas condições da propriedade e a localização. A propriedade
-  também tem acesso fácil aos meios de transporte público: Estação de
-  Metromover Eighth Street fica a 2 minutos e Estação de Metromover Fifth
-  Street fica a 4 minutos de caminhada do local.`;
-
   return (
     <Box
       flexDirection={{ base: 'column', lg: 'row' }}
@@ -57,7 +46,7 @@ export default function DescriptionSection() {
           fontSize={{ base: '1rem', lg: '1rem' }}
           lineHeight="1.6"
         >
-          {desc}
+          {info.description}
         </Text>
         <Text
           onClick={() => {
@@ -113,11 +102,11 @@ export default function DescriptionSection() {
         </Box>
 
         <Text as="h2" padding="2rem 0 1rem">
-          R$299,00/noite
+          {`R$${info.price},00/noite`}
         </Text>
 
         <Box display="flex" className="button-container">
-          <BasicButton description="Reservar" width="90%" />
+          <BasicButton description="Reservar" width="90%" onClick={() => navigate(`/reserve/accommodations/${info.id}`)} />
         </Box>
       </Box>
     </Box>

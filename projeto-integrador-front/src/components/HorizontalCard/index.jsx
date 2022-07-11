@@ -31,7 +31,6 @@ function HorizontalCard({ cardInfo }) {
 
   let headerImage = images.find(image => image.title === 'Header');
   headerImage = headerImage.links;
-  console.log(headerImage);
   const navigate = useNavigate();
 
   const route = () => navigate(`/detail/accommodations/${id}`);
@@ -235,7 +234,7 @@ function HorizontalCard({ cardInfo }) {
           display="flex"
         >
           <Text as="h3" color="var(--light-blue)">
-            R$320,00/noite
+            R${price},00/noite
           </Text>
           <HStack display="inline-block" padding="2.5px 5px">
             <Icon

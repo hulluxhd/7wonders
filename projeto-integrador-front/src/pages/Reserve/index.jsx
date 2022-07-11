@@ -8,7 +8,6 @@ import {
   Grid,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ArrowUUpLeft } from 'phosphor-react';
 import { useContext } from 'react';
 import BasicButton from '../../components/BasicButton';
 import Calendar from '../../components/Calendar';

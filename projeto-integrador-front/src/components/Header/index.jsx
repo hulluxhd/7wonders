@@ -68,7 +68,6 @@ function Header({ drawerFunctions, children }) {
   const layoutWidth = window.innerWidth;
 
   const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
-  console.log(toRenderOnDropdown);
   // função que seta os cards a serem exibidos
   // em tela na página de resultados
   function handleCardsOnDisplay() {
@@ -171,7 +170,7 @@ function Header({ drawerFunctions, children }) {
                 <Menu>
                   <MenuButton>
                     <Avatar
-                      name={`${user.userName} ${user.userSurname}`}
+                      name={`${user.name} ${user.surname}`}
                       bgColor="var(--hard-blue)"
                       color="#FFF"
                       size="sm"
@@ -192,7 +191,7 @@ function Header({ drawerFunctions, children }) {
                     Olá,{' '}
                   </Text>
                   <Text fontFamily="Poppins, sans-serif" color="var(--blue)">
-                    {user.userName}
+                    {user.name}
                   </Text>
                 </Box>
               </Box>

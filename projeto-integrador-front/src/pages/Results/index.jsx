@@ -45,7 +45,6 @@ function Results({ informations }) {
     useEffect(() => {
       try {
         baseApi.get(url.ACCOMODDATION).then(({ data }) => {
-          console.log(data);
           setAccommodations(data);
         });
       } catch (e) {
