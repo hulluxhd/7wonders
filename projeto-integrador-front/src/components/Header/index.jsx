@@ -68,13 +68,12 @@ function Header({ drawerFunctions, children }) {
   const layoutWidth = window.innerWidth;
 
   const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
-
   // função que seta os cards a serem exibidos
   // em tela na página de resultados
   function handleCardsOnDisplay() {
     setPlace({
-        ...temporaryPlace,
-        category: '',
+      ...temporaryPlace,
+      category: '',
     });
   }
 
@@ -88,9 +87,9 @@ function Header({ drawerFunctions, children }) {
       cityId: '',
       country: '',
       category: ''
-     });
+    });
 
-     setTemporaryPlace({
+    setTemporaryPlace({
       city: '',
       cityId: '',
       country: '',
@@ -171,7 +170,7 @@ function Header({ drawerFunctions, children }) {
                 <Menu>
                   <MenuButton>
                     <Avatar
-                      name={`${user.userName} ${user.userSurname}`}
+                      name={`${user.name} ${user.surname}`}
                       bgColor="var(--hard-blue)"
                       color="#FFF"
                       size="sm"
@@ -192,7 +191,7 @@ function Header({ drawerFunctions, children }) {
                     Olá,{' '}
                   </Text>
                   <Text fontFamily="Poppins, sans-serif" color="var(--blue)">
-                    {user.userName}
+                    {user.name}
                   </Text>
                 </Box>
               </Box>
@@ -282,9 +281,9 @@ function Header({ drawerFunctions, children }) {
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
                             setTemporaryPlace({
-                              city: city.cityName,
+                              city: city.name,
                               cityId: city.id,
-                              country: city.cityCountry,
+                              country: city.country,
                               category: ''
                             });
                             componentsVisible.inputCity.close();
@@ -307,7 +306,7 @@ function Header({ drawerFunctions, children }) {
                                 fontWeight="bold"
                                 fontSize="0.9rem"
                               >
-                                {city.cityName}
+                                {city.name}
                               </Text>
                               <HStack align="center">
                                 <Text
@@ -316,7 +315,7 @@ function Header({ drawerFunctions, children }) {
                                   fontSize="xs"
                                   as="span"
                                 >
-                                  {city.cityCountry}
+                                  {city.country}
                                 </Text>
                               </HStack>
                             </VStack>
@@ -334,7 +333,7 @@ function Header({ drawerFunctions, children }) {
                 position="relative"
                 zIndex={98}
                 w="100%"
-                >
+              >
 
                 {componentsVisible.inputCalendar.isComponentVisible && (
                   <BasicCalendar position="absolute" marginTop="2.8rem" zIndex={98}>

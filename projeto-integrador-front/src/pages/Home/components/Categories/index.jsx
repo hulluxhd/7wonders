@@ -3,41 +3,16 @@ import { Box, Text, useMediaQuery } from '@chakra-ui/react';
 import CategoryCard from '../CategoryCard';
 import Wrapper from '../../../../components/Wrapper';
 import baseApi from '../../../../services/service.baseApi';
+import urls from '../../../../services/urls';
 
 function Categories() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan851] = useMediaQuery('(max-width: 851px)');
 
-  const [eachCategory, setEachCategory] = useState([
-    {
-      id: 2,
-      categoryName: 'Hotel',
-      imagePath: 'images/Mardan_Palace.jpg',
-      accommodationSet: []
-    },
-    {
-      id: 3,
-      categoryName: 'Hotel & Spa',
-      imagePath: 'images/Nayara.jpg',
-      accommodationSet: []
-    },
-    {
-      id: 4,
-      categoryName: 'Resort',
-      imagePath: 'images/Jade_Mountain.jpg',
-      accommodationSet: []
-    },
-    {
-      id: 5,
-      categoryName: 'Casino',
-      imagePath: 'images/Palms_Casino_Resort.jpg',
-      accommodationSet: []
-    },
-  ]);
-
+  const [eachCategory, setEachCategory] = useState([]);
   useEffect(() => {
-      baseApi.get('categories').then(({ data }) => {
-        setEachCategory([...eachCategory, ...data]);
+    baseApi.get(urls.CATEGORIES).then(({ data }) => {
+      setEachCategory(data);
     });
   }, []);
 
@@ -60,7 +35,6 @@ function Categories() {
           gap="0.8rem"
         >
           {eachCategory.map(
-            // eslint-disable-next-line react/no-array-index-key
             (categoryToRender, index) => (
               <CategoryCard
                 key={`${categoryToRender} + ${index.toString()} `}

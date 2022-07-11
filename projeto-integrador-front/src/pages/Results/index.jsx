@@ -5,6 +5,7 @@ import { InfoContext } from '../../contexts/InfoContext';
 import baseApi from '../../services/service.baseApi';
 import Wrapper from '../../components/Wrapper';
 import HorizontalCard from '../../components/HorizontalCard';
+import url from '../../services/urls';
 
 async function getData(_id, _search, _cb) {
   const { data } = await baseApi.get(`${_search}/${_id}`);
@@ -43,7 +44,7 @@ function Results({ informations }) {
   } else {
     useEffect(() => {
       try {
-        baseApi.get('accommodations').then(({ data }) => {
+        baseApi.get(url.ACCOMODDATION).then(({ data }) => {
           setAccommodations(data);
         });
       } catch (e) {
@@ -55,9 +56,8 @@ function Results({ informations }) {
   return (
     <Wrapper>
       <Text as="h2">
-        {`Resultados da pesquisa${
-          (city || category) && `: ${city || category}`
-        }`}
+        {`Resultados da pesquisa${(city || category) && `: ${city || category}`
+          }`}
       </Text>
       <Box>
         {accommodations?.map(acc => (

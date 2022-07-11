@@ -13,22 +13,25 @@ import {
   Text,
 } from '@chakra-ui/react';
 import {
- useCallback, useContext, useEffect, useRef, useState
+  useCallback, useContext, useEffect, useRef, useState
 } from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { InfoContext } from '../../../../contexts/InfoContext';
 import BasicButton from '../../../BasicButton';
 import baseApi from '../../../../services/service.baseApi';
+import url from '../../../../services/urls';
 
 function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const inputNick = useRef();
 
   const [errors, setErrors] = useState('');
 
-  const [usersInfo, setUsersInfo] = useState([]);
+  const [usersInfo, setUsersInfo] = useState({});
+  console.log(usersInfo);
 
   const [userInfoForm, setUserInfoForm] = useState({ email: '', password: '' });
+  console.log(userInfoForm);
 
   const { user, setUser } = useContext(InfoContext);
 
@@ -43,6 +46,12 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     };
   }
 
+  useEffect(() => {
+    setUser(usersInfo);
+  }, [usersInfo]);
+
+  console.log(user);
+
   const validateEmailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -56,33 +65,37 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     [setUserInfoForm]
   );
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const schema = yup.object().shape({
       email: yup.string().email().matches(validateEmailRegex).required(),
       password: yup.string().min(6).required(),
     });
-
     try {
-      const { email, password } = userInfoForm;
       await schema.validate(userInfoForm);
-      const loggedUser = verifyLogin(usersInfo, email, password);
-      if (!loggedUser) throw new Error();
-      setUser(loggedUser);
-      onClose();
-      setErrors('');
-    } catch (err) {
-      setErrors(err.errors[0]);
-      setUser({});
-      console.error(errors);
-    }
-  }
+      const params = new URLSearchParams();
+      params.append('username', userInfoForm.email);
+      params.append('password', userInfoForm.password);
 
-  useEffect(() => {
-    try {
-      baseApi.get('/users').then(({ data, status }) => {
+      baseApi.post(url.LOGIN, params).then(({ data, status }) => {
         if (status === 200) {
-          setUsersInfo(data);
+          console.log('tá pegando fogo bixo');
+          const token = data.access_token;
+          const bearer = `Bearer ${token}`;
+          console.log(bearer);
+          try {
+            baseApi.get(url.USER_INFO, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            }).then((resp) => setUsersInfo({
+              name: resp.data.name, surname: resp.data.surname, token: token
+            }));
+            console.log('passou');
+            onClose();
+          } catch (eol) {
+            console.error(eol);
+          }
         }
         if (status === 201) {
           // ! implementar toastify ou modal
@@ -91,11 +104,13 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
           "Infelizmente, você não pôde efetuar login. Por favor, tente novamente mais tarde." */
         }
       });
-    } catch (e) {
-      console.error(e);
+      setErrors('');
+    } catch (err) {
+      setErrors(err.errors[0]);
+      setUser({});
+      console.error(errors);
     }
-  }, []);
-
+  };
   return (
     <Drawer
       size={breakpoint ? 'full' : 'xs'}

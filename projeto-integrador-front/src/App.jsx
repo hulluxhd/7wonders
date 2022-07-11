@@ -1,5 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  useLocation,
+  withRouter,
+  BrowserRouter,
+  Route,
+  Routes,
+} from 'react-router-dom';
 import { useDisclosure } from '@chakra-ui/react';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -12,6 +18,7 @@ import ResultsWithId from './pages/ResultsWithId';
 import Product from './pages/Product';
 import ReservePage from './pages/Reserve';
 import CreateProduct from './pages/CreateProduct';
+import Guard from './components/Guard';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,24 +33,39 @@ function App() {
             onClose,
           }}
         />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/register"
-              element={<Register openDrawer={onOpen} />}
-            />
-            <Route path="/results" element={<Results />} />
-            <Route
-              path="/results/:search/:searchId"
-              element={<ResultsWithId />}
-            />
-            <Route
-              path="/detail/accommodations/:productId"
-              element={<Product />}
-            />
-            <Route path="/reserve" element={<ReservePage />} />
-            <Route path="/register-product" element={<CreateProduct />} />
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register openDrawer={onOpen} />} />
+          <Route path="/results" element={<Results />} />
+          <Route
+            path="/results/:search/:searchId"
+            element={<ResultsWithId />}
+          />
+          <Route
+            path="/detail/accommodations/:productId"
+            element={<Product />}
+          />
+          <Route
+            path="/reserve/accommodations/:searchId"
+            element={
+              (
+                <Guard>
+                  <ReservePage />
+                </Guard>
+              )
+            }
+          />
+          <Route
+            path="/register-product"
+            element={
+              (
+                <Guard>
+                  <CreateProduct />
+                </Guard>
+              )
+            }
+          />
+        </Routes>
         <Footer />
       </InfoProvider>
     </BrowserRouter>

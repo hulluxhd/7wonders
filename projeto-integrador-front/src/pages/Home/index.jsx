@@ -1,12 +1,15 @@
 import { Text, useMediaQuery } from '@chakra-ui/react';
 import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Wrapper from '../../components/Wrapper';
+import baseApi from '../../services/service.baseApi';
+import url from '../../services/urls';
 import Categories from './components/Categories';
 import PlacesList from './components/PlacesList';
 
 function Home() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
-
+  const { productId } = useParams();
   return (
     <>
       <Categories />

@@ -25,10 +25,12 @@ function HorizontalCard({ cardInfo }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const {
- accoDescription, accoName, accoRoomGuests, accoRoomNumber, imagens, id
-} =
+    description, name, rooms, images, id, price, safetyRules, adress, attributes, beds
+  } =
     cardInfo;
 
+  let headerImage = images.find(image => image.title === 'Header');
+  headerImage = headerImage.links;
   const navigate = useNavigate();
 
   const route = () => navigate(`/detail/accommodations/${id}`);
@@ -57,14 +59,13 @@ function HorizontalCard({ cardInfo }) {
       >
         <Image
           src={
-            imagens[0]?.headerImage ||
-            'https://yt3.ggpht.com/a/AATXAJwDd0Kc2XYZQMWmcNrZHyEZmJHIUVYbiDJkftDVpg=s900-c-k-c0xffffffff-no-rj-mo'
+            headerImage
           }
           objectPosition="center center"
           cursor="pointer"
           onClick={route}
           fit="cover"
-          alt="meh"
+          alt="place-card"
           w="100%"
           h="100%"
         />
@@ -94,7 +95,7 @@ function HorizontalCard({ cardInfo }) {
               letterSpacing="wide"
               fontSize="xs"
             >
-              1 Quarto &bull; 3 camas
+              {rooms} Quarto(s) &bull; {beds} cama(s)
             </Box>
           </Box>
           <Text color="var(--light-blue)" fontSize="sm" as="span">
@@ -209,7 +210,7 @@ function HorizontalCard({ cardInfo }) {
               maxH="72px"
               pr="1rem"
             >
-              {accoName}
+              {name}
             </Heading>
             <Text
               lineHeight="1.2rem"
@@ -217,7 +218,7 @@ function HorizontalCard({ cardInfo }) {
               fontSize="90%"
               p="1rem 0"
             >
-              {accoDescription.slice(0, 500)}
+              {description.slice(0, 185)}
               <Text as="span" color="var(--blue)" onClick={route} cursor="pointer">
                 ... see more
               </Text>
@@ -233,7 +234,7 @@ function HorizontalCard({ cardInfo }) {
           display="flex"
         >
           <Text as="h3" color="var(--light-blue)">
-            R$320,00/noite
+            R${price},00/noite
           </Text>
           <HStack display="inline-block" padding="2.5px 5px">
             <Icon

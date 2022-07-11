@@ -5,13 +5,12 @@ import { InfoContext } from '../../../../contexts/InfoContext';
 
 function CategoryCard({ categoryToRender }) {
   const {
-    categoryName, categoryDescription, accommodationSet, id
-  } =
-    categoryToRender;
+    description, image, name, id, accommodations
+  } = categoryToRender;
 
   const {
-    setCardsRender, place, setPlace, localData
-   } =
+    setPlace,
+  } =
     useContext(InfoContext);
 
   const navigate = useNavigate();
@@ -39,10 +38,10 @@ function CategoryCard({ categoryToRender }) {
       cursor="pointer"
       transition="transform 0.2s ease-in-out"
       _hover={{ transform: 'scale(1.08)' }}
-      onClick={() => categoryEngine(categoryName, id)}
+      onClick={() => categoryEngine(name, id)}
     >
       <Image
-        src={categoryToRender.imagePath}
+        src={categoryToRender.image}
         alt="alt-image"
         borderRadius="10px 10px 0 0"
         w="100%"
@@ -51,7 +50,7 @@ function CategoryCard({ categoryToRender }) {
       />
       <Box display="flex" flexDirection="column" m="0.5rem">
         <Text color="var(--hard-blue)" as="h3" fontWeight="800">
-          {categoryName}
+          {name}
         </Text>
         <Text
           color="var(--light-blue)"
@@ -59,7 +58,7 @@ function CategoryCard({ categoryToRender }) {
           as="span"
           fontWeight="bold"
         >
-          {accommodationSet.length} {categoryName}
+          {accommodations.length} {name}
         </Text>
       </Box>
     </Box>

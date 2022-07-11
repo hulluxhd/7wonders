@@ -6,8 +6,8 @@ import {
   Select,
   GridItem,
   Grid,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { ArrowUUpLeft } from 'phosphor-react';
 import { useContext } from 'react';
 import BasicButton from '../../components/BasicButton';
 import Calendar from '../../components/Calendar';
@@ -22,6 +22,8 @@ import MoreInfo from '../Product/components/MoreInfo';
 import DetailPageHeader from '../Product/components/DetailPageHeader';
 
 function ReservePage() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
   const { dateCheckinAndCheckout } = useContext(InfoContext);

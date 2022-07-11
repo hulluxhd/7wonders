@@ -22,14 +22,17 @@ import {
 } from '@chakra-ui/react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import baseApi from '../../services/service.baseApi';
-
+import BasicButton from '../../components/BasicButton';
 import ModalSlide from './components/ModalSlide';
 import Map from './components/Map/Map';
 import GridProductItem from './components/GridIProductItem';
 import DetailPageHeader from './components/DetailPageHeader';
 import ShareFavIcons from './components/ShareFavIcons';
-import DescriptionSection from './components/DescriptionSection';
 import MoreInfo from './components/MoreInfo';
+import DescriptionSection from './components/DescriptionSection';
+import InfosRules from '../Reserve/InfosRules';
+import url from '../../services/urls';
+import Wrapper from '../../components/Wrapper';
 
 function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,129 +41,152 @@ function Product() {
   const { productId } = useParams();
   const navigate = useNavigate();
 
+  const {
+    description,
+    name,
+    rooms,
+    id,
+    price,
+    safetyRules,
+    houseRules,
+    adress,
+    attributes,
+    beds,
+  } = product;
+
+  console.log(product);
+
   useEffect(() => {
+    console.log('entrou');
     try {
-      baseApi
-        .get(`/accommodations/${productId}`)
-        .then(({ data }) => {
-          setProduct(data);
-        });
+      baseApi.get(`${url.ACCOMODDATION}/${productId}`).then(({ data }) => {
+        console.log(data);
+        setProduct(data);
+      });
     } catch (error) {
       console.log(error);
     }
   }, []);
 
+  console.log(product);
   return (
     <>
-      <DetailPageHeader />
-      <Box className="page-detail container">
-        <ShareFavIcons />
-        <Grid
-          className="container"
-          height={{ base: '25rem', lg: '28rem', '2xl': '32rem' }}
-          templateRows="repeat(2, 1fr)"
-          templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', xl: '2fr repeat(2, 1fr)' }}
-          gap={{ base: '0.5', md: '1', xl: 2 }}
-          padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
-          position="relative"
-        // ref={finalRef}
-        // tabIndex={-1}
-        >
-          <GridProductItem
-            bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-            gridArea="1 / 1 / 3 / 2"
-          />
-          <GridProductItem
-            bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-            gridArea="1 / 2 / 2 / 3"
-          />
-          <GridProductItem
-            gridArea="1 / 3 / 2 / 4"
-            bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26544b9f.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          />
-          <GridProductItem
-            gridArea="2 / 2 / 3 / 3"
-            bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/51f14658.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          />
-          <GridProductItem
-            gridArea="2 / 3 / 3 / 4"
-            bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/26cb0e81.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          />
-          <Button
-            position="absolute"
-            right="3.5rem"
-            bottom="1rem"
-            mt={4}
-            onClick={onOpen}
-            color="#fff"
-            bg="#8D6F57"
-            padding="0.5rem 1rem"
-            borderRadius="8px"
-            _hover={{
-              color: '#D9B061',
-              bg: '#3F0D0C',
-              letterSpacing: '1.1px'
+      <DetailPageHeader name={name} />
+      <Wrapper>
+        <Box className="page-detail container">
+          <ShareFavIcons />
+          <Grid
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              md: 'repeat(2, 1fr)',
+              xl: '2fr repeat(2, 1fr)',
             }}
-            transition="all 0.3s ease-in"
+            height={{ base: '25rem', lg: '28rem', '2xl': '32rem' }}
+            padding={{ base: '0 0.5rem', md: '0 1.5rem' }}
+            gap={{ base: '0.5', md: '1', xl: 2 }}
+            templateRows="repeat(2, 1fr)"
+            className="container"
+            position="relative"
+            // ref={finalRef}
+            // tabIndex={-1}
+            // ! COLOCAR O EVENTO DE CLICK DENTRO DO MAP QUE VIRÁ DAS IMAGENS DA API
+            onClick={onOpen}
           >
-            Ver mais
-          </Button>
-          <Modal
-            finalFocusRef={finalRef}
-            size="xl"
-            isOpen={isOpen}
-            onClose={onClose}
-          >
-            <ModalOverlay
-              bg="none"
-              backdropFilter="auto"
-              backdropBlur="2px"
-              width="100%"
+            <GridProductItem
+              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+              gridArea="1 / 1 / 3 / 2"
             />
-            <ModalContent
-              minW="70vw"
+            <GridProductItem
+              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+              gridArea="1 / 2 / 2 / 3"
+            />
+            <GridProductItem
+              gridArea="1 / 3 / 2 / 4"
+              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+            />
+            <GridProductItem
+              gridArea="2 / 2 / 3 / 3"
+              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+            />
+            <GridProductItem
+              gridArea="2 / 3 / 3 / 4"
+              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+            />
+            <BasicButton
+              position="absolute"
+              description="Ver mais"
+              right="3.5rem"
+              bottom="1rem"
+              w="150px"
+              mt={4}
+              onClick={onOpen}
+              _hover={{
+                opacity: 0.9,
+              }}
+              transition="all 0.1s ease-in"
+            />
+            <Modal
+              finalFocusRef={finalRef}
+              size="xl"
+              isOpen={isOpen}
+              onClose={onClose}
             >
-              <ModalHeader color="#3F0D0C">{product.accoName}</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <ModalSlide />
-              </ModalBody>
-              <ModalFooter>
-                <Button colorScheme="red" mr={3} onClick={onClose}>
-                  Voltar
-                </Button>
-                <Link to="/reserve">
-                  <Button
-                    variant="ghost"
-                    backgroundColor="#8D6F57"
+              <ModalOverlay
+                bg="gray.200"
+                backdropFilter="auto"
+                backdropBlur="2px"
+                width="100%"
+              />
+              <ModalContent>
+                <ModalHeader>Modal Title</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <ModalSlide />
+                </ModalBody>
+                <ModalFooter gap="1rem" justifyContent="flex-end">
+                  <BasicButton
+                    bgColor="transparent"
                     border="none"
-                    color="#FFF"
-                    _hover={{
-                      color: '#D9B061',
-                      bg: '#3F0D0C',
-                      letterSpacing: '1.1px'
-                    }}
-                    transition="all 0.3s ease-in"
-                    >Fazer reserva
-                  </Button>
-                </Link>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        </Grid>
+                    color="var(--hard-blue)"
+                    w={{ base: '25%', lg: '20%' }}
+                    description="Voltar"
+                  />
+                  <BasicButton
+                    w={{ base: '25%', lg: '20%' }}
+                    description="Fazer reserva"
+                  />
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </Grid>
 
-        <Divider borderWidth="-1px" borderColor="#D9B061" margin="2rem auto" />
+          <Divider
+            borderWidth="-1px"
+            borderColor="var(--light-blue)"
+            margin="2rem auto"
+          />
 
-        <DescriptionSection />
+          <DescriptionSection info={{
+            description, price, attributes, id
+          }} />
 
-        <Divider borderWidth="-1px" borderColor="#D9B061" margin="2rem auto" />
+          <Divider
+            borderWidth="-1px"
+            borderColor="var(--light-blue)"
+            margin="2rem auto 1rem"
+          />
 
-        <Map />
+          <Map />
 
-        <Divider borderWidth="-1px" borderColor="#D9B061" margin="2rem auto" />
+          <Divider
+            borderWidth="-1px"
+            borderColor="var(--light-blue)"
+            margin="1rem auto"
+          />
 
-        <MoreInfo />
-      </Box>
+        </Box>
+        {/* <InfosRules info={{ houseRules, safetyRules }} /> */}
+      </Wrapper>
     </>
   );
 }
