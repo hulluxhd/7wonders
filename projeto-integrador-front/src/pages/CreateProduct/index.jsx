@@ -418,35 +418,57 @@ function CreateProduct() {
                     inputlabel="Política de cancelamento"
                     name="policies"
                     id="policies"
+                    as="textarea"
                     {...formik.getFieldProps}
                   />
-                  <Grid>
-                    <GridItem>
+                  <Grid templateColumns="1fr 1fr 1fr 1fr">
+                    <GridItem colStart={1}>
                       <Input
                         inputlabel="Quartos"
                         name="policies"
                         id="policies"
                         as="select"
                         {...formik.getFieldProps}
-                       />
+                       >
+                         {generateNumbersArray(5).map((el) => (
+                           <Box key={el.toString()} as="option">{el}</Box>
+                         ))}
+                      </Input>
                     </GridItem>
                     <GridItem>
                       <Input
                         inputlabel="Camas"
                         name="policies"
                         id="policies"
+                        as="select"
                         {...formik.getFieldProps}
-                      />
+                      >
+                      {generateNumbersArray(15).map((el) => (
+                           <Box key={el.toString()} as="option">{el}</Box>
+                         ))}
+                      </Input>
                     </GridItem>
-                    <GridItem>
+                    <GridItem colSpan={1}>
                       <Input
                         inputlabel="Capacidade"
                         name="policies"
                         id="policies"
-                        as="textarea"
+                        as="select"
                         {...formik.getFieldProps}
-                      />
+                      >
+                      {generateNumbersArray(30).map((el) => (
+                           <Box key={el.toString()} as="option">{el} {el !== 1 ? 'pessoas' : 'pessoa'}</Box>
+                         ))}
+                      </Input>
                     </GridItem>
+                      <GridItem>
+                      <Input
+                        inputlabel="Valor por noite"
+                        name="price"
+                        id="price"
+                        type="number"
+                        {...formik.getFieldProps} />
+                      </GridItem>
                   </Grid>
                 </GridItem>
                 <GridItem colSpan={{ base: '1', lg: '2' }}>
