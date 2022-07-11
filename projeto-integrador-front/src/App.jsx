@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  useLocation, withRouter, BrowserRouter, Route, Routes,
+} from 'react-router-dom';
 import { useDisclosure } from '@chakra-ui/react';
 import Footer from './components/Footer';
 import Header from './components/Header';
