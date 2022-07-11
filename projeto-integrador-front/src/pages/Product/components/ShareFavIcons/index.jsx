@@ -5,8 +5,8 @@ import React from 'react';
 export default function ShareFavIcons() {
   return (
     <Box
-      h="60px"
-      w="100%"
+      height="60px"
+      width="100%"
       display="flex"
       alignItems="center"
       padding="0 2rem"
@@ -14,12 +14,12 @@ export default function ShareFavIcons() {
     >
       <ShareNetwork
         size={28}
-        color="var(--hard-blue)"
+        color="#D9B061"
         cursor="pointer"
       />
       <Heart
         size={30}
-        color="var(--hard-blue)"
+        color="#D9B061"
         cursor="pointer"
       />
     </Box>
