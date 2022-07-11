@@ -41,12 +41,6 @@ function FormReserve() {
       city: '',
       }}
 
-      // eslint-disable-next-line react/jsx-props-no-multi-spaces
-      onSubmit={values => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-        });
-      }}
     >
       {props => (
         <Box
@@ -56,7 +50,7 @@ function FormReserve() {
           shadow="lg"
           color="#3F0D0C"
         >
-          <Form onSubmit={props.handleSubmit}>
+          <Form>
             <FormControl>
               <FormLabel
                 lineHeight="1.75rem"
@@ -66,7 +60,9 @@ function FormReserve() {
               >
                 Para quem é esta reserva?
               </FormLabel>
-              <RadioGroup>
+              <RadioGroup
+                color="#696969"
+              >
                 <VStack
                   spacing="1"
                   align="flex-start"

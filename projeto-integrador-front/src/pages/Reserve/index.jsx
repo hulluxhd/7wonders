@@ -26,6 +26,10 @@ function ReservePage() {
 
   const { dateCheckinAndCheckout } = useContext(InfoContext);
 
+  function reserveSumit() {
+    console.log('Reservado!');
+  }
+
   return (
     <>
       <DetailPageHeader />
@@ -82,6 +86,7 @@ function ReservePage() {
                 placeholder="Check in - Check out"
               />
               <BasicButton
+                onClick={reserveSumit}
                 type="submit"
                 description="Reservar"
                 w="100%"

@@ -42,7 +42,7 @@
 .react-calendar__navigation button {
   min-width: 44px;
   background: none;
-  color: var(--blue);
+  color: #3F0D0C;
 }
 .react-calendar__navigation button:disabled {
   background-color: #f0f0f0;
@@ -96,7 +96,6 @@
 .react-calendar__tile:enabled:focus {
   background-color: var(--blue);
   color: #fff;
-  border-radius:100%;
 }
 
 .react-calendar__tile--now:enabled:hover,
@@ -109,7 +108,6 @@
 .react-calendar__tile--active {
   background: var(--blue);
   color: #fff;
-  border-radius:100%;
 }
 
 .react-calendar__tile--rangeEnd,

@@ -42,6 +42,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Check-out: 10:00
           </Text>
@@ -49,6 +50,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Não é permitido festa
           </Text>
@@ -56,6 +58,7 @@ export default function MoreInfo() {
             fontSize="small"
             fontWeight="medium"
             mt="5"
+            color="#696969"
           >
             Não é permitido fumar
           </Text>

@@ -57,8 +57,8 @@ function RegisterForm({ openDrawer }) {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             toast({
-              title: 'Account created.',
-              description: "We've created your account for you.",
+              title: 'Conta criada.',
+              description: 'Entre com seu login.',
               status: 'success',
               duration: 3000,
               isClosable: true,
