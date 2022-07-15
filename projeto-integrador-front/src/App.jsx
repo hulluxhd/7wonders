@@ -14,7 +14,6 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Results from './pages/Results';
 import ResultsWithId from './pages/ResultsWithId';
-// eslint-disable-next-line import/no-named-as-default
 import Product from './pages/Product';
 import ReservePage from './pages/Reserve';
 import CreateProduct from './pages/CreateProduct';
@@ -47,11 +46,19 @@ function App() {
           />
           <Route
             path="/reserve/accommodations/:searchId"
-            element={<ReservePage />}
+            element={(
+              <Guard>
+                <ReservePage />
+              </Guard>
+            )}
           />
           <Route
             path="/register-product"
-            element={<CreateProduct />}
+            element={(
+              <Guard>
+                <CreateProduct />
+              </Guard>
+            )}
           />
         </Routes>
         <Footer />
