@@ -2,13 +2,10 @@ import {
   Box,
   FormControl,
   FormLabel,
-  HStack,
   VStack,
-  Radio,
   RadioGroup,
   Grid,
   GridItem,
-  Button,
   useDisclosure,
 } from '@chakra-ui/react';
 import React, { useContext, useEffect, useState } from 'react';
@@ -17,9 +14,6 @@ import * as Yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import InputRegister from '../../Register/components/InputRegister';
 import { InfoContext } from '../../../contexts/InfoContext';
-import Input from '../../CreateProduct/components/Input';
-import baseApi from '../../../services/service.baseApi';
-import url from '../../../services/urls';
 
 // regras  e errors para validação dos inputs
 const SignupSchema = Yup.object().shape({
@@ -37,7 +31,6 @@ const SignupSchema = Yup.object().shape({
 });
 
 function FormReserve() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useContext(InfoContext);
   const [guest, setGuest] = useState('usuario');
   const { name, surname, email } = user;

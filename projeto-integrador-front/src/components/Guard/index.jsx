@@ -6,17 +6,13 @@ import { InfoContext } from '../../contexts/InfoContext';
 function Guard({ children }) {
     const navigate = useNavigate();
 
-    const { user } = useContext(InfoContext);
-    console.log(user);
-
+    const localToken = localStorage.getItem('token');
     useEffect(() => {
-        console.log(localStorage.getItem('token'));
-        if (!localStorage.getItem('token')) {
+        if (!localToken) {
             navigate('/register');
         }
-    }, []);
+    }, [localToken]);
 
-    console.log(children);
     return (
         <Box>
             {children}

@@ -1,5 +1,9 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, {
+ createContext, useEffect, useMemo, useState
+} from 'react';
 import localData from '../data';
+import baseApi from '../services/service.baseApi';
+import url from '../services/urls';
 
 export const InfoContext = createContext();
 
@@ -18,6 +22,30 @@ function InfoProvider({ children }) {
   const [cardsRender, setCardsRender] = useState(localData);
 
   const [dateCheckinAndCheckout, setDateCheckinAndCheckout] = useState(null);
+
+useEffect(() => {
+  try {
+    baseApi
+      .get(url.USER_INFO, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+      .then(({ data: userData }) => {
+        console.log(userData);
+        setUser({
+          name: userData.name,
+          surname: userData.surname,
+          roles: userData.roles,
+          favorites: userData.favorites,
+          email: userData.username,
+        });
+      });
+    console.log('passou');
+  } catch (e) {
+    console.error(e);
+  }
+}, []);
 
   return (
     <InfoContext.Provider

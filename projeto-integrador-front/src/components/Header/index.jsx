@@ -35,6 +35,7 @@ import handleInputCityValueController from './utils/util.handleInputCityValueCon
 import baseApi from '../../services/service.baseApi';
 import renderDropdown from './utils/util.renderDropdown';
 import getCities from './utils/util.getCities';
+import url from '../../services/urls';
 
 function Header({ drawerFunctions, children }) {
   const {
@@ -49,7 +50,6 @@ function Header({ drawerFunctions, children }) {
     user,
     setUser,
     setPlace,
-    localData,
   } = useContext(InfoContext);
 
   const componentsVisible = new ComponentIsVisible();
@@ -163,7 +163,7 @@ function Header({ drawerFunctions, children }) {
                 maxH="40px"
               />
             </Link>
-            {user.token ? (
+            {user.name ? (
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Menu>
                   <MenuButton>
@@ -175,7 +175,10 @@ function Header({ drawerFunctions, children }) {
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem onClick={() => setUser({})}>
+                    <MenuItem onClick={() => {
+                      localStorage.removeItem('token');
+                      setUser({});
+                    }}>
                       Encerrar sessão
                     </MenuItem>
                   </MenuList>

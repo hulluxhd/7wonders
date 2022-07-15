@@ -28,23 +28,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const [errors, setErrors] = useState('');
 
   const [usersInfo, setUsersInfo] = useState({});
-  console.log(usersInfo);
 
   const [userInfoForm, setUserInfoForm] = useState({ email: '', password: '' });
-  console.log(userInfoForm);
 
   const { user, setUser } = useContext(InfoContext);
-
-  function verifyLogin(array, email, password) {
-    const findEmail = array.find(_user => _user.userEmail === email);
-    if (!findEmail) return setErrors('Usuário não encontrado');
-    if (findEmail.userPassword !== password) return setErrors('Senha inválida');
-
-    return {
-      ...findEmail,
-      token: 'authorized',
-    };
-  }
 
   console.log(user);
 
@@ -73,42 +60,44 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
       params.append('username', userInfoForm.email);
       params.append('password', userInfoForm.password);
 
-      baseApi.post(url.LOGIN, params).then(({ data, status }) => {
-        if (status === 200) {
-          console.log('tá pegando fogo bixo');
-          const token = data.access_token;
-          const bearer = `Bearer ${token}`;
-          console.log(bearer);
-          try {
-            baseApi
-              .get(url.USER_INFO, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-              .then(resp => {
-                console.log(resp);
-                setUser({
-                  name: resp.data.name,
-                  surname: resp.data.surname,
-                  token: token,
-                  email: resp.data.username,
+      baseApi
+        .post(url.LOGIN, params)
+        .then(({ data, status }, response) => {
+          if (status === 200) {
+            console.log('tá pegando fogo bixo');
+            const token = data.access_token;
+            localStorage.setItem('token', token);
+            try {
+              baseApi
+                .get(url.USER_INFO, {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                })
+                .then(({ data: userData }) => {
+                  console.log(userData);
+                  setUser({
+                    name: userData.name,
+                    surname: userData.surname,
+                    roles: userData.roles,
+                    favorites: userData.favorites,
+                    email: userData.username,
+                  });
                 });
-                localStorage.setItem('token', user.token);
-              });
-            console.log('passou');
+              console.log('passou');
+            } catch (eol) {
+              console.error(eol);
+            }
             onClose();
-          } catch (eol) {
-            console.error(eol);
           }
-        }
-        if (status === 201) {
-          // ! implementar toastify ou modal
-          /* Se o endpoint não retornar o status 201, o bloco de login deverá exibir
+          if (status === 201) {
+            // ! implementar toastify ou modal
+            /* Se o endpoint não retornar o status 201, o bloco de login deverá exibir
           uma mensagem de erro no formulário informando ao usuário:
           "Infelizmente, você não pôde efetuar login. Por favor, tente novamente mais tarde." */
-        }
-      });
+          }
+          console.log(response);
+        });
       setErrors('');
     } catch (err) {
       setErrors(err.errors[0]);
@@ -125,8 +114,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     >
       <DrawerOverlay />
       <DrawerContent bg="#FFF">
-        <DrawerCloseButton />
-
         <DrawerBody
           display="flex"
           flexDir="column"
