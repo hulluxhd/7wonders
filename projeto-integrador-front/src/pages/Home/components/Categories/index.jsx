@@ -10,6 +10,7 @@ function Categories() {
   const [isSmallerThan851] = useMediaQuery('(max-width: 851px)');
 
   const [eachCategory, setEachCategory] = useState([]);
+
   useEffect(() => {
     baseApi.get(urls.CATEGORIES).then(({ data }) => {
       setEachCategory(data);

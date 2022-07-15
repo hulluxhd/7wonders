@@ -29,7 +29,6 @@ function InfoProvider({ children }) {
           setPlace,
           cardsRender,
           setCardsRender,
-          localData,
           dateCheckinAndCheckout,
           setDateCheckinAndCheckout,
         }),
@@ -40,7 +39,6 @@ function InfoProvider({ children }) {
           setPlace,
           cardsRender,
           setCardsRender,
-          localData,
           dateCheckinAndCheckout,
           setDateCheckinAndCheckout,
         ]

@@ -25,12 +25,18 @@ function HorizontalCard({ cardInfo }) {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)');
   const {
-    description, name, rooms, images, id, price, safetyRules, adress, attributes, beds
-  } =
-    cardInfo;
+    description,
+    name,
+    rooms,
+    images,
+    id,
+    price,
+    safetyRules,
+    adress,
+    attributes,
+    beds,
+  } = cardInfo;
 
-  let headerImage = images.find(image => image.title === 'Header');
-  headerImage = headerImage.links;
   const navigate = useNavigate();
 
   const route = () => navigate(`/detail/accommodations/${id}`);
@@ -58,9 +64,7 @@ function HorizontalCard({ cardInfo }) {
         height="300px"
       >
         <Image
-          src={
-            headerImage
-          }
+          src={headerImage}
           objectPosition="center center"
           cursor="pointer"
           onClick={route}
@@ -219,7 +223,12 @@ function HorizontalCard({ cardInfo }) {
               p="1rem 0"
             >
               {description.slice(0, 185)}
-              <Text as="span" color="var(--blue)" onClick={route} cursor="pointer">
+              <Text
+                as="span"
+                color="var(--blue)"
+                onClick={route}
+                cursor="pointer"
+              >
                 ... see more
               </Text>
             </Text>

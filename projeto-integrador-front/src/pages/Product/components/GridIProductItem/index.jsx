@@ -5,13 +5,13 @@ function GridProductItem({ bgImage, gridArea }, props) {
     <GridItem
       {...props}
       rounded="lg"
-      bgImage={bgImage}
+      bgImage={`url(${bgImage})`}
       bgPosition="center"
       bgRepeat="no-repeat"
       cursor="pointer"
       bgSize="cover"
       gridArea={gridArea || '1 / 2 / 2 / 3'}
-      transition="transform 0.5s ease-in-out"
+      transition="transform 0.2s ease-in-out"
     />
   );
 }

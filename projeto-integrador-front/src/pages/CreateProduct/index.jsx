@@ -31,16 +31,13 @@ function CreateProduct() {
   const [cities, setCities] = useState([]);
 
   const [images, setImages] = useState([]);
-  console.log(images);
 
   const attributes = atributes.slice(0);
-  console.log(attributes);
 
   function handleAttributes() {
     const [...selectedAttributesName] = selectedAttributes.map(
       attrib => attrib.name
     );
-    console.log(selectedAttributesName);
     return selectedAttributesName;
   }
 
@@ -94,7 +91,6 @@ function CreateProduct() {
 
     return newAtt;
   }
-  console.log(...selectedAttributes);
 
   const removeIcon = useCallback(
     // eslint-disable-next-line no-shadow
@@ -127,12 +123,9 @@ function CreateProduct() {
     return array;
   }
 
-  console.log(generateNumbersArray(3));
-
   return (
     <Wrapper
       justifyContent="center"
-      bgColor="gray.300"
       flexDir="column"
       display="flex"
       padding="2rem 1rem"
@@ -183,8 +176,16 @@ function CreateProduct() {
                   base: 'repeat(1, 1fr)',
                 }}
               >
+                <Grid
+                  gap="4rem"
+                  templateColumns={{
+                  lg: 'repeat(2, 1fr)',
+                  base: 'repeat(1, 1fr)',
+                }}>
                 <GridItem
-                  borderRadius="0.25rem"
+                  h="fit-content"
+                  bgColor="gray.300"
+                  borderRadius="1rem"
                   flexDir="column"
                   display="flex"
                   gap="1rem"
@@ -329,6 +330,10 @@ function CreateProduct() {
                     </Box>
                   </Box>
                 </GridItem>
+                <GridItem h="100%">
+                  <Image h="auto" objectFit="cover" borderRadius="0.25rem" src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg" />
+                </GridItem>
+                </Grid>
                 <GridItem
                   borderRadius="0.25rem"
                   flexDir="column"

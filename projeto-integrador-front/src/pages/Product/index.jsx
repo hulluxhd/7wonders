@@ -171,16 +171,16 @@ function Product() {
           }} />
 
           <Divider
-            borderWidth="-1px"
             borderColor="var(--light-blue)"
             margin="2rem auto 1rem"
+            borderWidth="-1px"
           />
 
           <Map />
 
           <Divider
-            borderWidth="-1px"
             borderColor="var(--light-blue)"
+            borderWidth="-1px"
             margin="1rem auto"
           />
 

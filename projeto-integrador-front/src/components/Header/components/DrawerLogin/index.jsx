@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import {
-  useCallback, useContext, useEffect, useRef, useState
+ useCallback, useContext, useEffect, useRef, useState
 } from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
@@ -61,7 +61,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
     [setUserInfoForm]
   );
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const schema = yup.object().shape({
       email: yup.string().email().matches(validateEmailRegex).required(),
@@ -80,16 +80,22 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
           const bearer = `Bearer ${token}`;
           console.log(bearer);
           try {
-            baseApi.get(url.USER_INFO, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              }
-            }).then((resp) => {
-              setUser({
-                name: resp.data.name, surname: resp.data.surname, token: token
+            baseApi
+              .get(url.USER_INFO, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .then(resp => {
+                console.log(resp);
+                setUser({
+                  name: resp.data.name,
+                  surname: resp.data.surname,
+                  token: token,
+                  email: resp.data.username,
+                });
+                localStorage.setItem('token', user.token);
               });
-              localStorage.setItem('token', token);
-            });
             console.log('passou');
             onClose();
           } catch (eol) {

@@ -1,32 +1,39 @@
 import {
-  Box, FormLabel, Input, Text
+ Box, FormLabel, Input, Text
 } from '@chakra-ui/react';
 
-function InputRegister({
-  fieldname,
-  placeholderDescription,
-  fieldDescription,
-  type,
-  errorColor,
-  props,
-  errors,
-  touched,
-  colSpan,
-}) {
+function InputRegister(teste) {
+ const {
+    fieldname,
+    placeholderDescription,
+    fieldDescription,
+    type,
+    errorColor,
+    props,
+    errors,
+    touched,
+    colSpan,
+    value,
+    bgColor,
+  } = teste;
   return (
     <Box display="flex" flexDirection="column" colSpan={colSpan}>
-      <FormLabel color="var(--hard-blue)" mt={6} mb={0} htmlFor={fieldname}>{fieldDescription}</FormLabel>
+      <FormLabel color="var(--hard-blue)" mt={6} mb={0} htmlFor={fieldname}>
+        {fieldDescription}
+      </FormLabel>
       <Input
-        bgColor="#FFF"
-        {...props.getFieldProps(fieldname)}
-        id={fieldname}
         placeholder={placeholderDescription}
-        type={type}
-        name={fieldname}
+        {...props.getFieldProps(fieldname)}
+        bgColor={bgColor || '#FFF'}
         color="var(--light-blue)"
+        name={fieldname}
+        id={fieldname}
+        value={value}
+        type={type}
+        {...props}
       />
       <Box>
-        {errors && touched && (
+        {(errors && touched) && (
           <Text as="span" color={errorColor} size="xs" position="absolute">
             {errors}
           </Text>

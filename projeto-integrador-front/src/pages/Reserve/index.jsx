@@ -8,7 +8,9 @@ import {
   Grid,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import yup from 'yup';
+import { useParams } from 'react-router-dom';
 import BasicButton from '../../components/BasicButton';
 import Calendar from '../../components/Calendar';
 import InputHeader from '../../components/Header/components/InputHeader';
@@ -20,18 +22,56 @@ import Wrapper from '../../components/Wrapper';
 import InfosRules from './InfosRules';
 import MoreInfo from '../Product/components/MoreInfo';
 import DetailPageHeader from '../Product/components/DetailPageHeader';
+import baseApi from '../../services/service.baseApi';
+import url from '../../services/urls';
 
 function ReservePage() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
   const { dateCheckinAndCheckout } = useContext(InfoContext);
+  const { searchId } = useParams();
+  const [product, setProduct] = useState({});
+  function dates(date) {
+    if (date) {
+      const [checkin, checkout] = dateCheckinAndCheckout;
+      return [checkin, checkout];
+    }
+
+    return ['teste'];
+  }
+
+  useEffect(() => {
+    try {
+      baseApi.get(`${url.ACCOMODDATION}/${searchId}`).then(({ data }) => {
+        setProduct(data);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  console.log(product);
+
+  const [first, setFirst] = useState('');
+  const [second, setSecond] = useState('');
+  const [error, setError] = useState('');
+  const [dados, setDados] = useState({});
+
+  console.log(dates()[0]);
 
   function reserveSumit() {
     console.log('Reservado!');
   }
 
+  function validadeData() {
+    if (!first) return setError('Campo obrigatório');
+    if (!second) return setError('Campo obrigatório');
+    setError('');
+    reserveSumit();
+    return console.log('return');
+  }
+
+  console.log(first, second);
   return (
     <>
       <DetailPageHeader />
@@ -43,9 +83,7 @@ function ReservePage() {
           p="1rem"
           color="#3F0D0C"
         >
-          <GridItem
-            colSpan={{ base: '5', lg: '3' }}
-          >
+          <GridItem colSpan={{ base: '5', lg: '3' }}>
             <Text
               as="h2"
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
@@ -56,7 +94,7 @@ function ReservePage() {
             >
               Insira seus dados
             </Text>
-            <FormReserve />
+            <FormReserve dados={dados} />
           </GridItem>
           <GridItem
             colSpan={{ base: '5', lg: '2' }}
@@ -80,15 +118,29 @@ function ReservePage() {
                 mt="1"
                 mb="2"
               >
-                Datalhe da reserva
+                Detalhe da reserva
               </Text>
-              <DetailsCard />
+              <DetailsCard product={product} />
               <InputHeader
                 value={handleInputDateValueController(dateCheckinAndCheckout)}
-                placeholder="Check in - Check out"
+                placeholder="Check in"
+                _readOnly
+                cursor="pointer"
               />
+              <InputHeader
+                onChange={() => setSecond('teste')}
+                value={handleInputDateValueController(dateCheckinAndCheckout)}
+                placeholder="Check out"
+                _readOnly
+                cursor="pointer"
+              />
+              {error && <Text>{error}</Text>}
               <BasicButton
-                onClick={reserveSumit}
+                onClick={() => {
+                  validadeData();
+                  setFirst('teste');
+                  setSecond('teste');
+                }}
                 type="submit"
                 description="Reservar"
                 w="100%"
@@ -104,9 +156,7 @@ function ReservePage() {
               />
             </Box>
           </GridItem>
-          <GridItem
-            colSpan={{ base: '5', lg: '3' }}
-          >
+          <GridItem colSpan={{ base: '5', lg: '3' }}>
             <Text
               as="h2"
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
@@ -120,9 +170,7 @@ function ReservePage() {
             </Text>
             <Calendar showDoubleView={!isSmallerThan606} />
           </GridItem>
-          <GridItem
-            colSpan={{ base: '5', lg: '3' }}
-          >
+          <GridItem colSpan={{ base: '5', lg: '3' }}>
             <Text
               as="h2"
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
@@ -142,16 +190,10 @@ function ReservePage() {
               shadow="lg"
               h="32"
             >
-              <Text
-                fontWeight="bold"
-              >
+              <Text fontWeight="bold">
                 Seu quarto estará pronto para check-in entre 10hs e 23hs
               </Text>
-              <Text
-                fontSize="small"
-                fontWeight="medium"
-                mt="1"
-              >
+              <Text fontSize="small" fontWeight="medium" mt="1">
                 Indique a sua hora prevista de chegada
               </Text>
               <FormControl mt="3">
@@ -177,9 +219,7 @@ function ReservePage() {
               </FormControl>
             </Box>
           </GridItem>
-          <GridItem
-            colSpan={5}
-          >
+          <GridItem colSpan={5}>
             <MoreInfo />
           </GridItem>
         </Grid>

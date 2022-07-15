@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 
 function InfosRules({ info }) {
-  const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
+  const [isSmallerThan606] = useMediaQuery('max-width: 606px');
 
   function transformIntoArray(rules) {
     const rulesArray = rules.trim().split('\n');
@@ -56,13 +56,14 @@ function InfosRules({ info }) {
             Regras da casa
           </Text>
           <Box as="ul" p="1rem">
-            {houseRules.map(string => (
+            {houseRules.map((string, index) => (
               <Text
                 fontSize="small"
                 fontWeight="medium"
                 mt="5"
                 as="li"
-                key={string}>
+                // eslint-disable-next-line react/no-array-index-key
+                key={`${string}${index}`}>
                 {string}
               </Text>
             ))}
@@ -80,13 +81,14 @@ function InfosRules({ info }) {
             Saúde e segurança
           </Text>
           <Box as="ul" p="1rem">
-            {safetyRules.map(string => (
+            {safetyRules.map((string, index) => (
               <Text
                 fontSize="small"
                 fontWeight="medium"
                 mt="5"
                 as="li"
-                key={string}>
+                // eslint-disable-next-line react/no-array-index-key
+                key={`${string}${index}`}>
                 {string}
               </Text>
             ))}

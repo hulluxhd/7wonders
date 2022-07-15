@@ -44,7 +44,6 @@ function Header({ drawerFunctions, children }) {
   } = drawerFunctions;
 
   const {
-    setCardsRender,
     dateCheckinAndCheckout,
     setDateCheckinAndCheckout,
     user,
@@ -78,7 +77,6 @@ function Header({ drawerFunctions, children }) {
   }
 
   function handleCleanRenderStates() {
-    setCardsRender(localData);
     setDateCheckinAndCheckout(null);
     setToRenderOnDropdown(getCities());
 
@@ -127,8 +125,6 @@ function Header({ drawerFunctions, children }) {
       console.error(e);
     }
   }, [temporaryPlace]);
-
-  localStorage.setItem('token', user.token);
 
   return (
     <>

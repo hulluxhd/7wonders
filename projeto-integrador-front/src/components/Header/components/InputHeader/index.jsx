@@ -24,6 +24,7 @@ function InputHeader(props) {
         }}
         value={value}
         onChange={onChange}
+        {...props}
       />
       <Image
         src={image}

@@ -42,7 +42,7 @@ function App() {
             element={<ResultsWithId />}
           />
           <Route
-            path="/detail/accommodations/:productId"
+            path="/detail/accommodations/:searchId"
             element={<Product />}
           />
           <Route

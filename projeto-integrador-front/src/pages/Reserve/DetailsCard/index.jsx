@@ -1,17 +1,25 @@
 import {
-    Badge,
-    Box,
-    Heading,
-    Image,
-    Text
-    } from '@chakra-ui/react';
+ Badge, Box, Heading, Image, Text
+} from '@chakra-ui/react';
 
-function DetailsCard() {
-    /* const {
-        imagePath,
-        name,
-        category,
-    } = place; */
+function DetailsCard({ product }) {
+  const {
+    description,
+    name,
+    rooms,
+    id,
+    price,
+    images,
+    safetyRules,
+    houseRules,
+    adress,
+    attributes,
+    beds,
+  } = product;
+
+/*   let headerImage = images.find(image => image.title === 'Header');
+  headerImage = headerImage.links; */
+
   return (
     <Box
       borderRadius="0.25rem"
@@ -23,13 +31,10 @@ function DetailsCard() {
       alignItems="stretch"
       color="#3F0D0C"
     >
-      <Box
-        h="100%"
-        position="relative"
-      >
+      <Box h="100%" position="relative">
         <Image
-          /* src={imagePath}
-          alt={name} */
+          /* src={headerImage}
+          alt={headerImage} */
           w="100%"
           h="20rem"
           fit="cover"
@@ -37,16 +42,8 @@ function DetailsCard() {
         />
       </Box>
       <Box p="1rem 1rem">
-        <Box
-          display="flex"
-          alignItems="start"
-          gap={2}
-        >
-          <Badge
-            background="green.200"
-            borderRadius="base"
-            pr="2"
-          >
+        <Box display="flex" alignItems="start" gap={2}>
+          <Badge background="green.200" borderRadius="base" pr="2">
             Novo
           </Badge>
           <Box
@@ -55,25 +52,18 @@ function DetailsCard() {
             fontSize="xs"
             textTransform="uppercase"
           >
-            1 Quarto &bull; 3 camas
+            {rooms} Quarto &bull; {beds} camas
           </Box>
         </Box>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+        <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
             >
-              <Text
-                fontSize="sm"
-                as="span"
-              >
-                {/* {category} */} Categoria
+              <Text fontSize="sm" as="span">
+                Luxuous House
               </Text>
             </Box>
             <Heading
@@ -82,7 +72,7 @@ function DetailsCard() {
               fontSize="1.2rem"
               overflow="hidden"
             >
-              Hotel EAST Miami
+              {name}
             </Heading>
           </Box>
         </Box>
