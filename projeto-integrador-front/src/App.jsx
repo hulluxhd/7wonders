@@ -47,23 +47,11 @@ function App() {
           />
           <Route
             path="/reserve/accommodations/:searchId"
-            element={
-              (
-                <Guard>
-                  <ReservePage />
-                </Guard>
-              )
-            }
+            element={<ReservePage />}
           />
           <Route
             path="/register-product"
-            element={
-              (
-                <Guard>
-                  <CreateProduct />
-                </Guard>
-              )
-            }
+            element={<CreateProduct />}
           />
         </Routes>
         <Footer />

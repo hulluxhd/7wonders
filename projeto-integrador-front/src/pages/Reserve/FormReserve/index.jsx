@@ -19,14 +19,18 @@ import InputRegister from '../../Register/components/InputRegister';
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, 'Muito curto!')
-    .max(15, 'Muito longo!')
+    .max(35, 'Muito longo!')
+    .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
     .required('Obrigatório'),
   lastName: Yup.string()
     .min(2, 'Muito curto!')
     .max(40, 'Muito longo!')
+    .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
     .required('Obrigatório'),
   email: Yup.string().email('Email invalido!').required('Obrigatório'),
   city: Yup.string()
+    .max(58, 'Muito longo!')
+    .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
     .required('Obrigatório'),
 });
 
