@@ -26,15 +26,3 @@ function BasicButton(props) {
 }
 
 export default BasicButton;
-
-/* BasicButton.propTypes = {
-  w: PropTypes.string.isRequired,
-  ml: PropTypes.string.isRequired,
-  h: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
-  background: PropTypes.string.isRequired,
-  bgColor: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  border: PropTypes.string.isRequired,
-}; */
