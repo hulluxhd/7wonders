@@ -146,13 +146,7 @@ function ReservePage() {
                 w="100%"
                 my="1rem"
                 transition="all 0.2s ease-in-out"
-                backgroundColor="#8D6F57"
                 border="none"
-                _hover={{
-                  background: '#3F0D0C',
-                  color: '#D9B061',
-                  border: '#8D6F57',
-                }}
               />
             </Box>
           </GridItem>

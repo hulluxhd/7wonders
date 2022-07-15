@@ -20,15 +20,17 @@ import InputRegister from '../InputRegister';
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, 'Muito curto!')
-    .max(15, 'Muito longo!')
+    .max(35, 'Muito longo!')
+    .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
     .required('Obrigatório'),
   lastName: Yup.string()
     .min(2, 'Muito curto!')
     .max(40, 'Muito longo!')
+    .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
     .required('Obrigatório'),
   email: Yup.string().email('Email invalido!').required('Obrigatório'),
   password: Yup.string()
-    .min(4, 'Use no mínimo 4 caracteres')
+    .min(6, 'Use no mínimo 6 caracteres')
     .required('Obrigatório'),
   passwordVerf: Yup.string()
     .required('Confirmação obrigatória')

@@ -34,7 +34,7 @@ function Footer() {
         fontFamily="'Poppins', sans-serif"
         fontSize="1rem"
       >
-        ©2022 Digital Booking
+        ©2022 7 Wonders
       </Text>
       <Box
         display="flex"

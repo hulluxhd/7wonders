@@ -221,7 +221,7 @@ function CreateProduct() {
                       {_categories.map((cat, index) => (
                         <Box
                           {...formik.getFieldProps}
-                          value={`${cat}${index.toString()}`}
+                          value={cat}
                           as="option"
                           key={cat}
                         >
