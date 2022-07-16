@@ -31,6 +31,7 @@ function ReservePage() {
   const { dateCheckinAndCheckout } = useContext(InfoContext);
   const { searchId } = useParams();
   const [product, setProduct] = useState({});
+
   function dates(date) {
     if (date) {
       const [checkin, checkout] = dateCheckinAndCheckout;

@@ -8,22 +8,19 @@ function BasicButton(props) {
   } = props;
   return (
     <Box
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       as="button"
       w={w || '100%'}
       ml={ml}
       h={h || height || '2.5rem'}
-      background="var(--blue)"
+      bgGradient="linear(to-r, yellow.300, yellow.400, yellow.300)"
       _hover={{
-        background: '#3F0D0C',
-        color: '#D9B061',
-        border: '#8D6F57',
+        filter: 'brightness(0.9)'
       }}
-      border={border || '2px solid var(--blue)'}
       borderRadius={borderRadius || '0.25rem'}
-      color={color || '#FFF'}
+      color={color || '#3F0D0C'}
       fontWeight="bold"
+      transition="all 150ms ease-in-out"
     >
       {description}
     </Box>

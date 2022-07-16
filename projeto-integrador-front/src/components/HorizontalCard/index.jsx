@@ -64,7 +64,7 @@ function HorizontalCard({ cardInfo }) {
         height="300px"
       >
         <Image
-          src={headerImage}
+          src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg"
           objectPosition="center center"
           cursor="pointer"
           onClick={route}
