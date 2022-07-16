@@ -15,15 +15,17 @@ import * as Yup from 'yup';
 import BasicButton from '../../../../components/BasicButton';
 import InputPassword from '../InputPassword';
 import InputRegister from '../InputRegister';
+import baseApi from '../../../../services/service.baseApi';
+import url from '../../../../services/urls';
 
 // regras  e errors para validação dos inputs
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
+  name: Yup.string()
     .min(2, 'Muito curto!')
     .max(35, 'Muito longo!')
     .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
     .required('Obrigatório'),
-  lastName: Yup.string()
+  surname: Yup.string()
     .min(2, 'Muito curto!')
     .max(40, 'Muito longo!')
     .matches(/^[A-Za-zÀ-ÿ\- &]*$/, 'Caractere não valido!')
@@ -48,16 +50,22 @@ function RegisterForm({ openDrawer }) {
       <Formik
         validationSchema={SignupSchema}
         initialValues={{
-          firstName: '',
-          lastName: '',
+          name: '',
+          surname: '',
           email: '',
-          emailVerf: '',
+          passwordVerf: '',
           password: '',
         }}
         // função para capturar os valores dos inputs
         onSubmit={values => {
+          const data = {
+            name: values.name,
+            surname: values.surname,
+            username: values.email,
+            password: values.password,
+          };
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            alert(data);
             toast({
               title: 'Conta criada.',
               description: 'Entre com seu login.',
@@ -66,6 +74,12 @@ function RegisterForm({ openDrawer }) {
               isClosable: true,
             });
           });
+          try {
+            baseApi
+              .post(url.POST_NEW_USER, data);
+          } catch (e) {
+            console.error(e);
+          }
         }}
       >
         {props => (
@@ -77,18 +91,18 @@ function RegisterForm({ openDrawer }) {
                     <InputRegister
                       fieldDescription="Nome"
                       props={props}
-                      fieldname="firstName"
-                      errors={props.errors.firstName}
-                      touched={props.touched.firstName}
+                      fieldname="name"
+                      errors={props.errors.name}
+                      touched={props.touched.name}
                       type="text"
                       errorColor="var(--red)"
                     />
                     <InputRegister
                       fieldDescription="Sobrenome"
                       props={props}
-                      fieldname="lastName"
-                      errors={props.errors.lastName}
-                      touched={props.touched.lastName}
+                      fieldname="surname"
+                      errors={props.errors.surname}
+                      touched={props.touched.surname}
                       type="text"
                       errorColor="var(--red)"
                     />

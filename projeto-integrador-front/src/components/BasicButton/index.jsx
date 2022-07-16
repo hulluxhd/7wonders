@@ -13,7 +13,7 @@ function BasicButton(props) {
       w={w || '100%'}
       ml={ml}
       h={h || height || '2.5rem'}
-      bgGradient="linear(to-r, yellow.300, yellow.400, yellow.300)"
+      bgGradient="linear(to-b, yellow.300, yellow.400, yellow.500)"
       _hover={{
         filter: 'brightness(0.9)'
       }}

@@ -38,7 +38,7 @@ function Product() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [product, setProduct] = useState({});
-  const { productId } = useParams();
+  const { searchId } = useParams();
   const navigate = useNavigate();
 
   const {
@@ -59,7 +59,7 @@ function Product() {
   useEffect(() => {
     console.log('entrou');
     try {
-      baseApi.get(`${url.ACCOMODDATION}/${productId}`).then(({ data }) => {
+      baseApi.get(`${url.ACCOMODDATION}/${searchId}`).then(({ data }) => {
         console.log(data);
         setProduct(data);
       });
