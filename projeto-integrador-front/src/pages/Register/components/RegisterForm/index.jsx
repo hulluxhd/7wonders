@@ -72,7 +72,7 @@ function RegisterForm({ openDrawer }) {
         }}
       >
         {props => (
-          <Container maxW="md" bgColor="">
+          <Container background="rgba(99,58,57,0.5)" maxW="md" borderRadius="0.5rem">
             <Box display="flex" flexWrap="wrap" flexDirection="column">
               <Form onSubmit={props.handleSubmit}>
                 <FormControl>
