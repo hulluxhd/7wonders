@@ -18,6 +18,7 @@ import Product from './pages/Product';
 import ReservePage from './pages/Reserve';
 import CreateProduct from './pages/CreateProduct';
 import Guard from './components/Guard';
+import Melhorando from './pages/Melhorando';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,6 +61,7 @@ function App() {
               </Guard>
             )}
           />
+          <Route path="/melhora-essa-porra" element={<Melhorando />} />
         </Routes>
         <Footer />
       </InfoProvider>

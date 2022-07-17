@@ -16,7 +16,7 @@ const theme = {
         background: 'var(--blue) !important',
       },
       body: {
-        background: 'var(--light-bege)',
+        backgroundColor: '#f7f4ef',
         '@media(max-width: 1080px)': {
           fontSize: '93.75%',
         },

@@ -1,8 +1,4 @@
-import {
-  Box,
-  Text,
-  UnorderedList,
-} from '@chakra-ui/react';
+import { Box, Text, UnorderedList } from '@chakra-ui/react';
 // import { PawPrint } from 'phosphor-react';
 // import { FontsAwesome } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
@@ -92,13 +88,6 @@ export default function DescriptionSection({ info }) {
           <AttributeIcon />
           <AttributeIcon />
           <AttributeIcon />
-          <AttributeIcon />
-          <AttributeIcon />
-          <AttributeIcon />
-          <AttributeIcon />
-          <AttributeIcon />
-          <AttributeIcon />
-          <AttributeIcon />
         </Box>
 
         <Text as="h2" padding="2rem 0 1rem">
@@ -106,7 +95,11 @@ export default function DescriptionSection({ info }) {
         </Text>
 
         <Box display="flex" className="button-container">
-          <BasicButton description="Reservar" width="90%" onClick={() => navigate(`/reserve/accommodations/${info.id}`)} />
+          <BasicButton
+            description="Reservar"
+            width="90%"
+            onClick={() => navigate(`/reserve/accommodations/${info.id}`)}
+          />
         </Box>
       </Box>
     </Box>

@@ -15,7 +15,7 @@ import {
 import {
  useCallback, useContext, useEffect, useRef, useState
 } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { InfoContext } from '../../../../contexts/InfoContext';
 import BasicButton from '../../../BasicButton';
@@ -24,6 +24,8 @@ import url from '../../../../services/urls';
 
 function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const inputNick = useRef();
+
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState('');
 

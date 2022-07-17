@@ -64,19 +64,8 @@ function RegisterForm({ openDrawer }) {
             username: values.email,
             password: values.password,
           };
-          setTimeout(() => {
-            alert(data);
-            toast({
-              title: 'Conta criada.',
-              description: 'Entre com seu login.',
-              status: 'success',
-              duration: 3000,
-              isClosable: true,
-            });
-          });
           try {
-            baseApi
-              .post(url.POST_NEW_USER, data);
+            baseApi.post(url.POST_NEW_USER, data);
           } catch (e) {
             console.error(e);
           }

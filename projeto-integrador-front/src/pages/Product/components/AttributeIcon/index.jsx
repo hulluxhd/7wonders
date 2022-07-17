@@ -17,7 +17,12 @@ export default function AttributeIcon() {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button padding="2rem 0.5rem" borderRadius="0.25rem">
+        <Button
+          _hover={{ bgColor: 'transparent' }}
+          bgColor="transparent"
+          padding="2rem 0.5rem"
+          borderRadius="0.25rem"
+        >
           <MdPets fontSize="2.5rem" color="var(--hard-blue)" />
         </Button>
       </PopoverTrigger>

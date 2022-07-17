@@ -142,7 +142,7 @@ function Header({ drawerFunctions, children }) {
           position={isSmallerThan606 ? 'fixed' : 'relative'}
           className={isSmallerThan606 ? 'header' : null}
           as={isSmallerThan606 ? 'header' : null}
-          bg="var(--light-bege)"
+          bgColor="#FFF"
           zIndex={100}
           py="0.5rem"
           maxH="56px"
