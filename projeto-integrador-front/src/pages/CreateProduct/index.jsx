@@ -330,9 +330,6 @@ function CreateProduct() {
                     </Box>
                   </Box>
                 </GridItem>
-                <GridItem h="100%">
-                  <Image h="auto" objectFit="cover" borderRadius="0.25rem" src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg" />
-                </GridItem>
                 </Grid>
                 <GridItem
                   borderRadius="0.25rem"
