@@ -39,15 +39,6 @@ function FormReserve() {
   const { user } = useContext(InfoContext);
   const [guest, setGuest] = useState('usuario');
   const { name, surname, email } = user;
-  const navigate = useNavigate();
-
-  console.log(guest);
-
-  /* useEffect(() => {
-    if (!name) {
-      navigate('/register');
-    }
-  }, [name]); */
 
   return (
     <Formik
@@ -79,7 +70,6 @@ function FormReserve() {
                 fontSize="lg"
                 p="1"
               >
-                {console.log(props.values.firstName)}
                 Para quem é esta reserva?
               </FormLabel>
               <RadioGroup

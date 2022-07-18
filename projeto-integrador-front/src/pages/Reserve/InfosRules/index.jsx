@@ -10,7 +10,6 @@ function InfosRules({ info }) {
 
   function transformIntoArray(rules) {
     const rulesArray = rules.trim().split('\n');
-    console.log(rulesArray);
     return rulesArray;
   }
 

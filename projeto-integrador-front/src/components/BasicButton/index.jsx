@@ -13,12 +13,12 @@ function BasicButton(props) {
       w={w || '100%'}
       ml={ml}
       h={h || height || '2.5rem'}
-      bgColor="#D9B061"
+      bgColor={background || bgColor || '#D9B061'}
       _hover={{
         filter: 'brightness(0.9)'
       }}
       borderRadius={borderRadius || '0.25rem'}
-      color={color || 'black.400'}
+      color={color || '#FFF'}
       fontWeight="bold"
       transition="all 150ms ease-in-out"
     >

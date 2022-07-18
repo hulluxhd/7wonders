@@ -1,5 +1,5 @@
 import React, {
- createContext, useEffect, useMemo, useState
+  createContext, useEffect, useMemo, useState
 } from 'react';
 import localData from '../data';
 import baseApi from '../services/service.baseApi';
@@ -23,29 +23,27 @@ function InfoProvider({ children }) {
 
   const [dateCheckinAndCheckout, setDateCheckinAndCheckout] = useState(null);
 
-useEffect(() => {
-  try {
-    baseApi
-      .get(url.USER_INFO, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
-      .then(({ data: userData }) => {
-        console.log(userData);
-        setUser({
-          name: userData.name,
-          surname: userData.surname,
-          roles: userData.roles,
-          favorites: userData.favorites,
-          email: userData.username,
+  useEffect(() => {
+    try {
+      baseApi
+        .get(url.USER_INFO, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        })
+        .then(({ data: userData }) => {
+          setUser({
+            name: userData.name,
+            surname: userData.surname,
+            roles: userData.roles,
+            favorites: userData.favorites,
+            email: userData.username,
+          });
         });
-      });
-    console.log('passou');
-  } catch (e) {
-    console.error(e);
-  }
-}, []);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   return (
     <InfoContext.Provider

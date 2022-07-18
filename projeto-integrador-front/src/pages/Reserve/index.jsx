@@ -51,8 +51,6 @@ function ReservePage() {
     }
   }, []);
 
-  console.log(product);
-
   const [first, setFirst] = useState('');
   const [second, setSecond] = useState('');
   const [error, setError] = useState('');

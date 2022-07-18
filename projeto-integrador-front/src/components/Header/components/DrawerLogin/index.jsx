@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import {
- useCallback, useContext, useEffect, useRef, useState
+  useCallback, useContext, useEffect, useRef, useState
 } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
@@ -34,8 +34,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const [userInfoForm, setUserInfoForm] = useState({ email: '', password: '' });
 
   const { user, setUser } = useContext(InfoContext);
-
-  console.log(user);
 
   const validateEmailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -66,7 +64,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
         .post(url.LOGIN, params)
         .then(({ data, status }, response) => {
           if (status === 200) {
-            console.log('tá pegando fogo bixo');
             const token = data.access_token;
             localStorage.setItem('token', token);
             try {
@@ -77,7 +74,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   },
                 })
                 .then(({ data: userData }) => {
-                  console.log(userData);
                   setUser({
                     name: userData.name,
                     surname: userData.surname,
@@ -86,7 +82,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                     email: userData.username,
                   });
                 });
-              console.log('passou');
             } catch (eol) {
               console.error(eol);
             }
@@ -98,7 +93,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
           uma mensagem de erro no formulário informando ao usuário:
           "Infelizmente, você não pôde efetuar login. Por favor, tente novamente mais tarde." */
           }
-          console.log(response);
         });
       setErrors('');
     } catch (err) {
@@ -205,10 +199,8 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 }}
                 border="1px solid transparent"
                 borderRadius="0"
-                background="transparent"
-                transition="all 0.2s ease-in-out"
                 color="var(--blue)"
-                _hover={{ borderBottom: '1px solid var(--blue)' }}
+                background="transparent"
               />
               <BasicButton
                 description="Entrar"
@@ -218,11 +210,6 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                 borderRadius="0.25rem"
                 form="login-form"
                 transition="all 0.2s ease-in-out"
-                _hover={{
-                  border: '1px solid var(--blue)',
-                  color: 'var(--blue)',
-                  bgColor: '#FFF',
-                }}
               />
             </Stack>
             <Stack pt="10px" alignItems="center">

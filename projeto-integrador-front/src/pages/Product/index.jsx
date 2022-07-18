@@ -54,21 +54,16 @@ function Product() {
     beds,
   } = product;
 
-  console.log(product);
-
   useEffect(() => {
-    console.log('entrou');
     try {
       baseApi.get(`${url.ACCOMODDATION}/${searchId}`).then(({ data }) => {
-        console.log(data);
         setProduct(data);
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, []);
 
-  console.log(product);
   return (
     <>
       <DetailPageHeader name={name} />
