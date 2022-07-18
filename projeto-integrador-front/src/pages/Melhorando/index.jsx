@@ -1,9 +1,34 @@
 // eslint-disable-next-line object-curly-newline
-import { Box, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Image,
+  Stack,
+  Text,
+  useRadioGroup,
+} from '@chakra-ui/react';
 import { Formik } from 'formik';
 import Wrapper from '../../components/Wrapper';
+import CustomRadio from './CustomRadio';
+import options from './options.customradio';
 
 function Melhorando() {
+  function handleChange(sh) {
+    console.log(sh);
+  }
+  const {
+ value, getRadioProps, getRootProps, setValue
+} = useRadioGroup({
+    name: 'categories',
+    defaultValue: 'Piscina',
+  });
+  console.log(getRadioProps());
+  console.log(value);
+  console.log(setValue);
+
   return (
     <Wrapper>
       <Formik
@@ -51,7 +76,19 @@ function Melhorando() {
             <GridItem h="80vh">
               <Flex direction="column">
                 <Text as="h2">Imagens</Text>
-                
+                <HStack {...getRootProps()}>
+                  {options.map(option => {
+                    const radio = getRadioProps({ value: option.category });
+                    console.log(radio);
+                    return (
+                      <CustomRadio
+                        key={option.category}
+                        image={option.img}
+                        {...radio}
+                      />
+                    );
+                  })}
+                </HStack>
               </Flex>
             </GridItem>
           </Grid>
