@@ -13,7 +13,7 @@ function CustomRadio(props) {
       <input {...getInputProps()} hidden />
       <Box
         {...getCheckboxProps()}
-        bg={state.isChecked ? 'yellow.200' : 'transparent'}
+        bg={state.isChecked ? 'var(--hard-blue)' : 'transparent'}
         w="4rem"
         p={1}
         rounded="full"
