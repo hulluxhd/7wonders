@@ -1,4 +1,4 @@
-import { Box, FormLabel } from '@chakra-ui/react';
+import { Box, FormLabel, Tooltip } from '@chakra-ui/react';
 import { Field } from 'formik';
 import { forwardRef } from 'react';
 
@@ -18,16 +18,22 @@ const Input = forwardRef((props, ref) => {
     name,
     id,
     as,
-    border
+    onChange,
+    tooltipLabel,
+    border,
   } = props;
 
   return (
+    <>
+    <Tooltip label={tooltipLabel} shouldWrapChildren>
+        <FormLabel w="100%" htmlFor={htmlFor}>
+          {inputlabel}
+        </FormLabel>
+    </Tooltip>
     <Box border={border} borderRadius="0.5rem" w="100%">
-      <FormLabel w="100%" htmlFor={htmlFor}>
-        {inputlabel}
-      </FormLabel>
       <Field
         placeholder={placeholder}
+        onChange={onChange}
         style={fieldStyle}
         value={value}
         name={name}
@@ -39,6 +45,7 @@ const Input = forwardRef((props, ref) => {
         {children}
       </Field>
     </Box>
+    </>
   );
 });
 

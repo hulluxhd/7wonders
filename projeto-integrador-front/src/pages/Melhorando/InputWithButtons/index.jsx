@@ -6,19 +6,19 @@ import PlusButton from '../../../assets/plus-button.svg';
 
 function InputWithButtons(props) {
   const {
- inputlabel, htmlFor, value, name, id, onClickPlus, onClickMinus, onChange
+ inputlabel, htmlFor, value, name, id, handleplus, handleminus, onChange, onClick, tooltipLabel
 } =
     props;
+
   return (
     <HStack align="end">
       <Input
         inputlabel={inputlabel}
-        onChange={onChange}
         htmlFor={htmlFor}
+        onChange={onChange}
         value={value}
         name={name}
         {...props}
-        readOnly
         id={id}
       />
       <VStack>
@@ -28,7 +28,7 @@ function InputWithButtons(props) {
             src={PlusButton}
             alt="add bed button"
             cursor="pointer"
-            onClick={onClickPlus}
+            onClick={handleplus}
           />
         </Tooltip>
         <Tooltip label="Remover">
@@ -37,7 +37,7 @@ function InputWithButtons(props) {
             src={PlusButton}
             alt="add bed button"
             cursor="pointer"
-            onClick={onClickMinus}
+            onClick={handleminus}
           />
         </Tooltip>
       </VStack>
