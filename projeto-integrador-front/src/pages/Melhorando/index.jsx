@@ -13,10 +13,12 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Radio,
   Stack,
   Text,
   Tooltip,
   useRadioGroup,
+  VStack,
 } from '@chakra-ui/react';
 import { Field, Formik } from 'formik';
 import { useCallback, useState } from 'react';
@@ -24,17 +26,24 @@ import Wrapper from '../../components/Wrapper';
 import options from './options.customradio';
 import CustomRadio from './CustomRadio';
 import Input from './Input';
-import PlusButtom from '../../assets/plus-button.svg';
 import atributes from '../CreateProduct/atributes';
 import AtributeIcon from './Icon';
+import InputWithButtons from './InputWithButtons';
+import PlusButton from '../../assets/plus-button.svg';
 
 function Melhorando() {
   const attributes = atributes.slice(0);
   const { value, getRadioProps, getRootProps } = useRadioGroup({
-    name: 'categories',
+    name: 'image-category',
+  });
+
+  const placeCategory = useRadioGroup({
+    name: 'place-category',
   });
 
   const [selectedAttributes, setSelectedAttributes] = useState([]);
+  const [countBeds, setCountBeds] = useState(1);
+  const [countRooms, setCountRooms] = useState(1);
 
   function addIcon({ values: { attributes: attr } }, newIcon, _name) {
     const found = attr.find(({ name }) => name === _name);
@@ -67,6 +76,26 @@ function Melhorando() {
       return newAttrib;
     },
     [setSelectedAttributes]
+  );
+
+  const handleCountPlus = useCallback(
+    (setState, min, max) => {
+      setState(prev => {
+        if (prev >= min && prev < max) return prev + 1;
+        return prev;
+      });
+    },
+    [setCountBeds, setCountRooms]
+  );
+
+  const handleCountMinus = useCallback(
+    (setState, min, max) => {
+      setState(prev => {
+        if (prev > min && prev <= max) return prev - 1;
+        return prev;
+      });
+    },
+    [setCountBeds, setCountRooms]
   );
 
   return (
@@ -150,7 +179,7 @@ function Melhorando() {
                     <Tooltip label="Adicionar url">
                       <Image
                         h="100%"
-                        src={PlusButtom}
+                        src={PlusButton}
                         alt="add url button"
                         cursor="pointer"
                       />
@@ -226,6 +255,29 @@ function Melhorando() {
                     ))}
                   </Box>
                 </HStack>
+                <Stack mt="1rem" direction={['column', 'row']}>
+                  <InputWithButtons
+                    inputlabel="Camas"
+                    htmlFor="beds"
+                    value={countBeds}
+                    name="beds"
+                    onChange={() => formik.setFieldValue('beds', countBeds.toString())}
+                    id="beds"
+                    onClickPlus={() => handleCountPlus(setCountBeds, 1, 15)}
+                    onClickMinus={() => handleCountMinus(setCountBeds, 1, 15)}
+                  />
+                  <InputWithButtons
+                    inputlabel="Quartos"
+                    htmlFor="rooms"
+                    value={countRooms}
+                    name="rooms"
+                    onChange={() => formik.setFieldValue('rooms', countRooms.toString())}
+                    id="rooms"
+                    onClickPlus={() => handleCountPlus(setCountRooms, 1, 10)}
+                    onClickMinus={() => handleCountMinus(setCountRooms, 1, 10)}
+                  />
+                </Stack>
+                <Button onClick={formik.handleSubmit}>Vai</Button>
               </Box>
             </GridItem>
           </Grid>
