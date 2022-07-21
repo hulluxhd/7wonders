@@ -108,6 +108,9 @@ function Melhorando() {
 
   return (
     <Wrapper>
+      <Text mt="1rem" as="h1">
+        Administração de produtos
+      </Text>
       <Formik
         initialValues={{
           category: 'default',
@@ -161,19 +164,19 @@ function Melhorando() {
                 </GridItem>
               )}
               <GridItem
+                colStart={isSmallerThan992 ? 1 : 3}
+                colSpan={isSmallerThan992 ? 5 : 3}
                 border="1px solid var(--blue)"
-                justifyContent="center"
+                justifyContent="space-evenly"
                 borderRadius="1rem"
-                alignItems="start"
+                alignItems="center"
                 flexDir="column"
                 display="flex"
                 m="2rem 0"
                 gap="1rem"
-                p="0 4rem"
-                colStart={isSmallerThan992 ? 1 : 3}
-                colSpan={isSmallerThan992 ? 5 : 3}
+                p="0 1rem 2rem"
               >
-                <Box p="1rem 0 2rem">
+                <Box alignSelf="start" p="1rem 0">
                   <Text m="0 0 1rem" as="h2">
                     Imagens
                   </Text>
@@ -182,7 +185,7 @@ function Melhorando() {
                     {...getRootProps()}
                     spacing="1.5rem"
                     justify="start"
-                    align="center"
+                    align="start"
                   >
                     <HStack>
                       {options.map(option => {
@@ -197,7 +200,7 @@ function Melhorando() {
                         );
                       })}
                     </HStack>
-                    <HStack>
+                    <HStack w="100%">
                       <Input
                         placeholder="https://link-da-imagem.com"
                         value={formik.values.imageURL}
@@ -276,9 +279,9 @@ function Melhorando() {
                             icon={icon}
                             index={index}
                             onClick={() => formik.setFieldValue(
-                              'attributes',
-                              removeIcon(icon, formik)
-                            )}
+                                'attributes',
+                                removeIcon(icon, formik)
+                              )}
                           />
                         </Tooltip>
                       ))}
@@ -287,18 +290,18 @@ function Melhorando() {
                   <Grid
                     templateColumns={{ base: '1fr 1fr', lg: 'repeat(3, 1fr)' }}
                     direction={{ base: 'column', lg: 'row' }}
-                    spacing="2rem"
+                    gap="2rem"
                     mt="1rem"
                   >
                     <GridItem>
                       <InputWithButtons
+                        onChange={() => formik.setFieldValue('beds', countBeds.toString())}
                         inputlabelWithButtons="Camas"
                         value={countBeds}
                         htmlFor="beds"
                         name="beds"
                         id="beds"
                         readOnly
-                        onChange={() => formik.setFieldValue('beds', countBeds.toString())}
                         handleplus={() => {
                           handleCountPlus(setCountBeds, 1, 10);
                           formik.setFieldValue(
@@ -375,9 +378,9 @@ function Melhorando() {
                 </Box>
               </GridItem>
 
-              <GridItem h="80vh" colStart={1} colEnd={isSmallerThan715 ? 6 : 4}>
+              <GridItem maxH="70vh" colStart={1} colEnd={isSmallerThan992 ? 6 : 4}>
                 <Text as="h2">Regras</Text>
-                <Flex gap="4rem" dir="column" wrap="wrap">
+                <Flex h="100%" justifyContent="center" dir="column" wrap="wrap">
                   <Box w="100%">
                     <Input
                       {...formik.getFieldProps('safetyRules')}
@@ -389,6 +392,7 @@ function Melhorando() {
                       name="safetyRules"
                       id="safetyRules"
                       as="textarea"
+                      rows="2"
                     />
                   </Box>
                   <Box w="100%">
@@ -402,6 +406,7 @@ function Melhorando() {
                       name="policies"
                       id="policies"
                       as="textarea"
+                      rows="2"
                     />
                   </Box>
                   <Box w="100%">
@@ -415,12 +420,14 @@ function Melhorando() {
                       name="houseRules"
                       id="houseRules"
                       as="textarea"
+                      rows="2"
                     />
                   </Box>
                 </Flex>
               </GridItem>
-              {!isSmallerThan715 && (
-                <GridItem w="100%" colStart={4} colEnd={6} h="80vh">
+
+              {!isSmallerThan992 && (
+                <GridItem maxH="70vh" w="100%" colStart={4} colEnd={6}>
                   <Image
                     src="https://cdn.discordapp.com/attachments/998213274048933888/998213853886291978/01.jpg"
                     borderRadius="1rem"
@@ -431,9 +438,11 @@ function Melhorando() {
                 </GridItem>
               )}
               <GridItem pb="2rem" colStart={1} colEnd={6}>
-                <Text my="2rem" as="h2">Informações de endereço</Text>
-                <Grid gap="1rem" templateColumns={{ base: '1fr', lg: 'repeat(8, 1fr)' }}>
-                  <GridItem colStart={1} colSpan={4}>
+                <Text my="2rem" as="h2">
+                  Informações de endereço
+                </Text>
+                <Grid gap="1rem" templateColumns="repeat(8, 1fr)">
+                  <GridItem colStart={1} colEnd={isSmallerThan992 ? '-1' : '5'}>
                     <Input
                       {...formik.getFieldProps('street')}
                       placeholder="Avenida de exemplo"
@@ -446,7 +455,10 @@ function Melhorando() {
                       padding="1rem"
                     />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                    colStart={isSmallerThan992 ? '1' : '5'}
+                    colEnd={isSmallerThan992 ? '4' : '5'}
+                  >
                     <Input
                       {...formik.getFieldProps('adressNumber')}
                       value={formik.values.adressNumber}
@@ -459,7 +471,10 @@ function Melhorando() {
                       padding="1rem"
                     />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                    colStart={isSmallerThan992 ? '4' : '6'}
+                    colEnd={isSmallerThan992 ? '9' : '9'}
+                  >
                     <Input
                       {...formik.getFieldProps('zipcode')}
                       border="1px solid var(--blue)"
@@ -472,7 +487,10 @@ function Melhorando() {
                       padding="1rem"
                     />
                   </GridItem>
-                  <GridItem colStart={1} colSpan={3}>
+                  <GridItem
+                    colStart={isSmallerThan992 ? '1' : '1'}
+                    colEnd={isSmallerThan992 ? '9' : '5'}
+                  >
                     <Input
                       {...formik.getFieldProps('city')}
                       border="1px solid var(--blue)"
@@ -485,7 +503,10 @@ function Melhorando() {
                       id="city"
                     />
                   </GridItem>
-                  <GridItem colStart={4} colSpan={3}>
+                  <GridItem
+                    colStart={isSmallerThan992 ? '1' : '5'}
+                    colEnd={isSmallerThan992 ? '9' : '8'}
+                  >
                     <Input
                       {...formik.getFieldProps('state')}
                       border="1px solid var(--blue)"
@@ -493,17 +514,31 @@ function Melhorando() {
                       placeholder="Ex: Sâo Paulo"
                       inputlabel="Estado"
                       htmlFor="state"
+                      padding="1rem"
                       name="state"
                       id="state"
-                      padding="1rem"
                     />
                   </GridItem>
-                  <GridItem h="100%" display="flex" flexDir="column" justifyContent="end" alignContent="flex-end" colSpan={2}>
-                    <BasicButton type="submit" onClick={formik.handleSubmit} minH="55px" h="59px" description="Enviar" />
+                  <GridItem
+                    colStart={isSmallerThan992 ? '1' : '8'}
+                    colEnd={isSmallerThan992 ? '-1' : '-1'}
+                    alignContent="flex-end"
+                    justifyContent="end"
+                    flexDir="column"
+                    display="flex"
+                    h="100%"
+                    colSpan={2}
+                  >
+                    <BasicButton
+                      onClick={formik.handleSubmit}
+                      description="Enviar"
+                      type="submit"
+                      minH="55px"
+                      h="59px"
+                    />
                   </GridItem>
                 </Grid>
               </GridItem>
-
             </Box>
           </Flex>
         )}
