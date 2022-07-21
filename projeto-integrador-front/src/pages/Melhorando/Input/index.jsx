@@ -15,10 +15,11 @@ const Input = forwardRef((props, ref) => {
     onChange,
     tooltipLabel,
     border,
+    padding
   } = props;
 
   const fieldStyle = {
-    padding: '1rem',
+    padding: padding || '1rem',
     borderRadius: '0.5rem',
     width: '100%',
     height: '100%',
@@ -26,12 +27,12 @@ const Input = forwardRef((props, ref) => {
   };
 
   return (
-    <>
-    <Tooltip label={tooltipLabel}>
+    <Box>
+      <Tooltip label={tooltipLabel}>
         <FormLabel htmlFor={htmlFor}>
           {inputlabel}
         </FormLabel>
-    </Tooltip>
+      </Tooltip>
       <Field
         placeholder={placeholder}
         onChange={onChange}
@@ -45,7 +46,7 @@ const Input = forwardRef((props, ref) => {
       >
         {children}
       </Field>
-    </>
+    </Box>
   );
 });
 

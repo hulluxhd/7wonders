@@ -17,11 +17,13 @@ import {
   Stack,
   Text,
   Tooltip,
+  useMediaQuery,
   useRadioGroup,
   VStack,
 } from '@chakra-ui/react';
 import { Field, Formik } from 'formik';
 import { useCallback, useState } from 'react';
+import { FolderSimpleMinus } from 'phosphor-react';
 import Wrapper from '../../components/Wrapper';
 import options from './options.customradio';
 import CustomRadio from './CustomRadio';
@@ -30,9 +32,13 @@ import atributes from '../CreateProduct/atributes';
 import AtributeIcon from './Icon';
 import InputWithButtons from './InputWithButtons';
 import PlusButton from '../../assets/plus-button.svg';
+import BasicButton from '../../components/BasicButton';
 import url from '../../services/urls';
 
 function Melhorando() {
+  const [isSmallerThan715] = useMediaQuery('(max-width: 715px)');
+  const [isSmallerThan992] = useMediaQuery('(max-width: 992px)');
+
   const attributes = atributes.slice(0);
   const { value, getRadioProps, getRootProps } = useRadioGroup({
     name: 'image-category',
@@ -104,26 +110,26 @@ function Melhorando() {
     <Wrapper>
       <Formik
         initialValues={{
+          category: 'default',
+          imageCategory: '',
+          adressNumber: '',
           description: '',
           productName: '',
           safetyRules: '',
-          imageCategory: '',
-          imageURL: '',
           houseRules: '',
           attributes: [],
+          imageURL: '',
           policies: '',
-          category: 'default',
+          zipcode: '',
+          country: '',
+          guests: '1',
+          street: '',
           images: [],
           price: '',
-          street: '',
-          adressNumber: '',
-          zipcode: '',
           state: '',
-          country: '',
           rooms: '1',
           beds: '1',
-          guests: '1',
-          city: 'default',
+          city: '',
         }}
         onSubmit={values => {
           // eslint-disable-next-line no-alert
@@ -143,16 +149,30 @@ function Melhorando() {
               display="grid"
               gap="2rem"
             >
-              <GridItem m="2rem 0" h="75vh" colStart={1} colSpan={2}>
-                <Image
-                  src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg"
-                  borderRadius="1rem"
-                  objectFit="cover"
-                  w="100%"
-                  h="100%"
-                />
-              </GridItem>
-              <GridItem alignItems="start" gap="1rem" justifyContent="center" display="flex" flexDir="column" border="1px solid var(--blue)" borderRadius="1rem" m="2rem 0" p="0 4rem" colStart={3} colSpan={3}>
+              {!isSmallerThan992 && (
+                <GridItem m="2rem 0" h="75vh" colStart={1} colSpan={2}>
+                  <Image
+                    src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg"
+                    borderRadius="1rem"
+                    objectFit="cover"
+                    w="100%"
+                    h="100%"
+                  />
+                </GridItem>
+              )}
+              <GridItem
+                border="1px solid var(--blue)"
+                justifyContent="center"
+                borderRadius="1rem"
+                alignItems="start"
+                flexDir="column"
+                display="flex"
+                m="2rem 0"
+                gap="1rem"
+                p="0 4rem"
+                colStart={isSmallerThan992 ? 1 : 3}
+                colSpan={isSmallerThan992 ? 5 : 3}
+              >
                 <Box p="1rem 0 2rem">
                   <Text m="0 0 1rem" as="h2">
                     Imagens
@@ -256,9 +276,9 @@ function Melhorando() {
                             icon={icon}
                             index={index}
                             onClick={() => formik.setFieldValue(
-                                'attributes',
-                                removeIcon(icon, formik)
-                              )}
+                              'attributes',
+                              removeIcon(icon, formik)
+                            )}
                           />
                         </Tooltip>
                       ))}
@@ -270,22 +290,23 @@ function Melhorando() {
                     spacing="2rem"
                     mt="1rem"
                   >
-                    <GridItem><InputWithButtons
-                      inputlabelWithButtons="Camas"
-                      value={countBeds}
-                      htmlFor="beds"
-                      name="beds"
-                      id="beds"
-                      readOnly
-                      onChange={() => formik.setFieldValue('beds', countBeds.toString())}
-                      handleplus={() => {
+                    <GridItem>
+                      <InputWithButtons
+                        inputlabelWithButtons="Camas"
+                        value={countBeds}
+                        htmlFor="beds"
+                        name="beds"
+                        id="beds"
+                        readOnly
+                        onChange={() => formik.setFieldValue('beds', countBeds.toString())}
+                        handleplus={() => {
                           handleCountPlus(setCountBeds, 1, 10);
                           formik.setFieldValue(
                             'beds',
                             (countBeds + 1).toString()
                           );
                         }}
-                      handleminus={() => {
+                        handleminus={() => {
                           handleCountMinus(setCountBeds, 1, 10);
                           formik.setFieldValue(
                             'beds',
@@ -353,42 +374,137 @@ function Melhorando() {
                   </Grid>
                 </Box>
               </GridItem>
+
+              <GridItem h="80vh" colStart={1} colEnd={isSmallerThan715 ? 6 : 4}>
+                <Text as="h2">Regras</Text>
+                <Flex gap="4rem" dir="column" wrap="wrap">
+                  <Box w="100%">
+                    <Input
+                      value={formik.values.safetyRules}
+                      inputlabel="Saúde e segurança"
+                      border="1px solid var(--blue)"
+                      placeholder="Escreva aqui..."
+                      {...formik.getFieldProps('safetyRules')}
+                      htmlFor="safetyRules"
+                      name="safetyRules"
+                      id="safetyRules"
+                      as="textarea"
+                    />
+                  </Box>
+                  <Box w="100%">
+                    <Input
+                      inputlabel="Política de cancelamento"
+                      value={formik.values.policies}
+                      border="1px solid var(--blue)"
+                      placeholder="Escreva aqui..."
+                      {...formik.getFieldProps('policies')}
+                      htmlFor="policies"
+                      name="policies"
+                      id="policies"
+                      as="textarea"
+                    />
+                  </Box>
+                  <Box w="100%">
+                    <Input
+                      inputlabel="Regras do estabelecimento"
+                      value={formik.values.houseRules}
+                      border="1px solid var(--blue)"
+                      placeholder="Escreva aqui..."
+                      {...formik.getFieldProps('houseRules')}
+                      htmlFor="houseRules"
+                      name="houseRules"
+                      id="houseRules"
+                      as="textarea"
+                    />
+                  </Box>
+                </Flex>
+              </GridItem>
+              {!isSmallerThan715 && (
+                <GridItem w="100%" colStart={4} colEnd={6} h="80vh">
+                  <Image
+                    src="https://cdn.discordapp.com/attachments/998213274048933888/998213853886291978/01.jpg"
+                    borderRadius="1rem"
+                    w="100%"
+                    objectFit="cover"
+                    h="100%"
+                  />
+                </GridItem>
+              )}
+              <GridItem pb="2rem" colStart={1} colEnd={6}>
+                <Text my="2rem" as="h2">Informações de endereço</Text>
+                <Grid gap="1rem" templateColumns={{ base: '1fr', lg: 'repeat(8, 1fr)' }}>
+                  <GridItem colStart={1} colSpan={4}>
+                    <Input
+                      padding="1rem"
+                      inputlabel="Rua/Avenida"
+                      value={formik.values.street}
+                      border="1px solid var(--blue)"
+                      placeholder="Avenida de exemplo"
+                      {...formik.getFieldProps('street')}
+                      htmlFor="street"
+                      name="street"
+                      id="street"
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <Input
+                      padding="1rem"
+                      inputlabel="Número"
+                      value={formik.values.adressNumber}
+                      border="1px solid var(--blue)"
+                      placeholder="00"
+                      {...formik.getFieldProps('adressNumber')}
+                      htmlFor="adressNumber"
+                      name="adressNumber"
+                      id="adressNumber"
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <Input
+                      padding="1rem"
+                      inputlabel="CEP/Zipcode"
+                      value={formik.values.zipcode}
+                      border="1px solid var(--blue)"
+                      placeholder="00000-000"
+                      {...formik.getFieldProps('zipcode')}
+                      htmlFor="zipcode"
+                      name="zipcode"
+                      id="zipcode"
+                    />
+                  </GridItem>
+                  <GridItem colStart={1} colSpan={3}>
+                    <Input
+                      padding="1rem"
+                      inputlabel="Cidade"
+                      value={formik.values.city}
+                      border="1px solid var(--blue)"
+                      placeholder="Minha Cidade"
+                      {...formik.getFieldProps('city')}
+                      htmlFor="city"
+                      name="city"
+                      id="city"
+                    />
+                  </GridItem>
+                  <GridItem colStart={4} colSpan={3}>
+                    <Input
+                      padding="1rem"
+                      inputlabel="Estado"
+                      value={formik.values.state}
+                      border="1px solid var(--blue)"
+                      placeholder="Ex: Sâo Paulo"
+                      {...formik.getFieldProps('state')}
+                      htmlFor="state"
+                      name="state"
+                      id="state"
+                    />
+                  </GridItem>
+                  <GridItem h="100%" display="flex" flexDir="column" justifyContent="end" alignContent="flex-end" colSpan={2}>
+                    <BasicButton type="submit" onClick={formik.handleSubmit} minH="55px" h="59px" description="Enviar" />
+                  </GridItem>
+                </Grid>
+              </GridItem>
+
             </Box>
-            {/*  <GridItem h="70vh" padding="2rem" margin="0 auto">
-              <Box p="1rem 0 2rem">
-                <Text m="0 0 1rem" as="h2">
-                  Regras
-                </Text>
-                <Input
-                  placeholder="Escreva aqui..."
-                  {...formik.getFieldProps('safetyRules')}
-                  inputlabel="Regras de segurança"
-                  border="2px solid var(--hard-blue)"
-                  value={formik.values.safetyRules}
-                  name="safetyRules"
-                  id="safetyRules"
-                  as="textarea"
-                />
-                <Input
-                  placeholder="Escreva aqui..."
-                  {...formik.getFieldProps('policies')}
-                  inputlabel="Políticas do estabelecimento"
-                  value={formik.values.policies}
-                  name="policies"
-                  border="2px solid var(--hard-blue)"
-                  id="policies"
-                  as="textarea"
-                />
-              </Box>
-            </GridItem>
-            <GridItem h="70vh" padding="2rem" margin="0 auto">
-              <Image
-                h="100%"
-                borderRadius="1rem"
-                objectFit="cover"
-                src="https://cdn.discordapp.com/attachments/998213274048933888/998213853886291978/01.jpg"
-              />
-            </GridItem> */}
           </Flex>
         )}
       </Formik>
