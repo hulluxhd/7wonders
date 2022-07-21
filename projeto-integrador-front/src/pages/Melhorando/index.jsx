@@ -380,11 +380,11 @@ function Melhorando() {
                 <Flex gap="4rem" dir="column" wrap="wrap">
                   <Box w="100%">
                     <Input
+                      {...formik.getFieldProps('safetyRules')}
                       value={formik.values.safetyRules}
                       inputlabel="Saúde e segurança"
                       border="1px solid var(--blue)"
                       placeholder="Escreva aqui..."
-                      {...formik.getFieldProps('safetyRules')}
                       htmlFor="safetyRules"
                       name="safetyRules"
                       id="safetyRules"
@@ -393,11 +393,11 @@ function Melhorando() {
                   </Box>
                   <Box w="100%">
                     <Input
+                      {...formik.getFieldProps('policies')}
                       inputlabel="Política de cancelamento"
                       value={formik.values.policies}
                       border="1px solid var(--blue)"
                       placeholder="Escreva aqui..."
-                      {...formik.getFieldProps('policies')}
                       htmlFor="policies"
                       name="policies"
                       id="policies"
@@ -406,11 +406,11 @@ function Melhorando() {
                   </Box>
                   <Box w="100%">
                     <Input
+                      {...formik.getFieldProps('houseRules')}
                       inputlabel="Regras do estabelecimento"
                       value={formik.values.houseRules}
                       border="1px solid var(--blue)"
                       placeholder="Escreva aqui..."
-                      {...formik.getFieldProps('houseRules')}
                       htmlFor="houseRules"
                       name="houseRules"
                       id="houseRules"
@@ -424,8 +424,8 @@ function Melhorando() {
                   <Image
                     src="https://cdn.discordapp.com/attachments/998213274048933888/998213853886291978/01.jpg"
                     borderRadius="1rem"
-                    w="100%"
                     objectFit="cover"
+                    w="100%"
                     h="100%"
                   />
                 </GridItem>
@@ -435,51 +435,51 @@ function Melhorando() {
                 <Grid gap="1rem" templateColumns={{ base: '1fr', lg: 'repeat(8, 1fr)' }}>
                   <GridItem colStart={1} colSpan={4}>
                     <Input
-                      padding="1rem"
-                      inputlabel="Rua/Avenida"
-                      value={formik.values.street}
-                      border="1px solid var(--blue)"
-                      placeholder="Avenida de exemplo"
                       {...formik.getFieldProps('street')}
+                      placeholder="Avenida de exemplo"
+                      border="1px solid var(--blue)"
+                      value={formik.values.street}
+                      inputlabel="Rua/Avenida"
                       htmlFor="street"
                       name="street"
                       id="street"
+                      padding="1rem"
                     />
                   </GridItem>
                   <GridItem colSpan={2}>
                     <Input
-                      padding="1rem"
-                      inputlabel="Número"
+                      {...formik.getFieldProps('adressNumber')}
                       value={formik.values.adressNumber}
                       border="1px solid var(--blue)"
-                      placeholder="00"
-                      {...formik.getFieldProps('adressNumber')}
                       htmlFor="adressNumber"
                       name="adressNumber"
+                      inputlabel="Número"
                       id="adressNumber"
+                      placeholder="00"
+                      padding="1rem"
                     />
                   </GridItem>
                   <GridItem colSpan={2}>
                     <Input
-                      padding="1rem"
-                      inputlabel="CEP/Zipcode"
-                      value={formik.values.zipcode}
-                      border="1px solid var(--blue)"
-                      placeholder="00000-000"
                       {...formik.getFieldProps('zipcode')}
+                      border="1px solid var(--blue)"
+                      value={formik.values.zipcode}
+                      inputlabel="CEP/Zipcode"
+                      placeholder="00000-000"
                       htmlFor="zipcode"
                       name="zipcode"
                       id="zipcode"
+                      padding="1rem"
                     />
                   </GridItem>
                   <GridItem colStart={1} colSpan={3}>
                     <Input
-                      padding="1rem"
-                      inputlabel="Cidade"
-                      value={formik.values.city}
-                      border="1px solid var(--blue)"
-                      placeholder="Minha Cidade"
                       {...formik.getFieldProps('city')}
+                      border="1px solid var(--blue)"
+                      value={formik.values.city}
+                      placeholder="Minha Cidade"
+                      inputlabel="Cidade"
+                      padding="1rem"
                       htmlFor="city"
                       name="city"
                       id="city"
@@ -487,15 +487,15 @@ function Melhorando() {
                   </GridItem>
                   <GridItem colStart={4} colSpan={3}>
                     <Input
-                      padding="1rem"
-                      inputlabel="Estado"
-                      value={formik.values.state}
-                      border="1px solid var(--blue)"
-                      placeholder="Ex: Sâo Paulo"
                       {...formik.getFieldProps('state')}
+                      border="1px solid var(--blue)"
+                      value={formik.values.state}
+                      placeholder="Ex: Sâo Paulo"
+                      inputlabel="Estado"
                       htmlFor="state"
                       name="state"
                       id="state"
+                      padding="1rem"
                     />
                   </GridItem>
                   <GridItem h="100%" display="flex" flexDir="column" justifyContent="end" alignContent="flex-end" colSpan={2}>
