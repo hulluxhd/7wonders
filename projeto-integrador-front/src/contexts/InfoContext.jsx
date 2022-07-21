@@ -50,8 +50,8 @@ function InfoProvider({ children }) {
       value={useMemo(
         () => ({
           user,
-          setUser,
           place,
+          setUser,
           setPlace,
           cardsRender,
           setCardsRender,
@@ -60,8 +60,8 @@ function InfoProvider({ children }) {
         }),
         [
           user,
-          setUser,
           place,
+          setUser,
           setPlace,
           cardsRender,
           setCardsRender,

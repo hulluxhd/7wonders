@@ -64,6 +64,7 @@ function Product() {
     }
   }, []);
 
+  console.log(product);
   return (
     <>
       <DetailPageHeader name={name} />
@@ -88,7 +89,7 @@ function Product() {
             onClick={onOpen}
           >
             <GridProductItem
-              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+              bgImage={product.images[0].links[0]}
               gridArea="1 / 1 / 3 / 2"
             />
             <GridProductItem

@@ -137,34 +137,41 @@ function Melhorando() {
         }}
       >
         {formik => (
-          <Grid templateColumns={{ base: '1fr', lg: '1fr' }}>
-            <GridItem gap="2rem" display="flex" flexWrap="wrap" h="70vh" padding="2rem" m="0 auto">
-              <Image
-                h="100%"
-                borderRadius="1rem"
-                objectFit="cover"
-                src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg"
-              />
-              <Box>
+          <Flex wrap="wrap" justify="center">
+            <Box
+              gridTemplateColumns={{ base: '1fr', lg: 'repeat(5, 1fr)' }}
+              display="grid"
+              gap="2rem"
+            >
+              <GridItem m="2rem 0" h="75vh" colStart={1} colSpan={2}>
+                <Image
+                  src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg"
+                  borderRadius="1rem"
+                  objectFit="cover"
+                  w="100%"
+                  h="100%"
+                />
+              </GridItem>
+              <GridItem alignItems="start" gap="1rem" justifyContent="center" display="flex" flexDir="column" border="1px solid var(--blue)" borderRadius="1rem" m="2rem 0" p="0 4rem" colStart={3} colSpan={3}>
                 <Box p="1rem 0 2rem">
                   <Text m="0 0 1rem" as="h2">
                     Imagens
                   </Text>
                   <Stack
-                    direction="row"
-                    align="center"
-                    justify="start"
-                    spacing="1.5rem"
+                    direction={{ base: 'column', lg: 'row' }}
                     {...getRootProps()}
+                    spacing="1.5rem"
+                    justify="start"
+                    align="center"
                   >
                     <HStack>
                       {options.map(option => {
                         const radio = getRadioProps({ value: option.category });
                         return (
                           <CustomRadio
+                            category={option.category}
                             key={option.category}
                             image={option.img}
-                            category={option.category}
                             {...radio}
                           />
                         );
@@ -172,18 +179,18 @@ function Melhorando() {
                     </HStack>
                     <HStack>
                       <Input
-                        {...formik.getFieldProps}
-                        name="imageURL"
-                        htmlFor="imageURL"
-                        value={formik.values.imageURL}
                         placeholder="https://link-da-imagem.com"
+                        value={formik.values.imageURL}
+                        {...formik.getFieldProps}
+                        htmlFor="imageURL"
+                        name="imageURL"
                       />
                       <Tooltip label="Adicionar url">
                         <Image
-                          h="100%"
-                          src={PlusButton}
                           alt="add url button"
+                          src={PlusButton}
                           cursor="pointer"
+                          h="100%"
                         />
                       </Tooltip>
                     </HStack>
@@ -196,11 +203,11 @@ function Melhorando() {
                   <HStack>
                     <Menu w="100%">
                       <MenuButton
-                        padding="1rem"
-                        rounded="xl"
                         bgColor="black"
+                        padding="1rem"
                         color="white"
                         type="button"
+                        rounded="xl"
                       >
                         Selecione os atributos
                       </MenuButton>
@@ -257,89 +264,97 @@ function Melhorando() {
                       ))}
                     </Box>
                   </HStack>
-                  <Stack
-                    mt="1rem"
+                  <Grid
+                    templateColumns={{ base: '1fr 1fr', lg: 'repeat(3, 1fr)' }}
+                    direction={{ base: 'column', lg: 'row' }}
                     spacing="2rem"
-                    direction={{ base: 'row', lg: 'column' }}
+                    mt="1rem"
                   >
-                    <InputWithButtons
-                      inputlabel="Camas"
-                      htmlFor="beds"
+                    <GridItem><InputWithButtons
+                      inputlabelWithButtons="Camas"
                       value={countBeds}
+                      htmlFor="beds"
                       name="beds"
                       id="beds"
                       readOnly
                       onChange={() => formik.setFieldValue('beds', countBeds.toString())}
                       handleplus={() => {
-                        handleCountPlus(setCountBeds, 1, 15);
-                        formik.setFieldValue(
-                          'beds',
-                          (countBeds + 1).toString()
-                        );
-                      }}
+                          handleCountPlus(setCountBeds, 1, 10);
+                          formik.setFieldValue(
+                            'beds',
+                            (countBeds + 1).toString()
+                          );
+                        }}
                       handleminus={() => {
-                        handleCountMinus(setCountBeds, 1, 15);
-                        formik.setFieldValue(
-                          'beds',
-                          (countBeds - 1).toString()
-                        );
-                      }}
-                    />
-                    <InputWithButtons
-                      inputlabel="Quartos"
-                      value={countRooms}
-                      htmlFor="rooms"
-                      name="rooms"
-                      id="rooms"
-                      readOnly
-                      onChange={() => formik.setFieldValue('rooms', countRooms.toString())}
-                      handleplus={() => {
-                        handleCountPlus(setCountRooms, 1, 10);
-                        formik.setFieldValue(
-                          'rooms',
-                          (countRooms + 1).toString()
-                        );
-                      }}
-                      handleminus={() => {
-                        handleCountMinus(setCountRooms, 1, 10);
-                        formik.setFieldValue(
-                          'rooms',
-                          (countRooms - 1).toString()
-                        );
-                      }}
-                    />
-                    <InputWithButtons
-                      tooltipLabel="Capacidade de pessoas"
-                      inputlabel="Capacidade"
-                      htmlFor="guests"
-                      name="guests"
-                      id="guests"
-                      readOnly
-                      value={countGuests}
-                      onChange={e => {
-                        formik.setFieldValue('guests', countGuests.toString());
-                      }}
-                      handleplus={() => {
-                        handleCountPlus(setCountGuests, 1, 300);
-                        formik.setFieldValue(
-                          'guests',
-                          (countGuests + 1).toString()
-                        );
-                      }}
-                      handleminus={() => {
-                        handleCountMinus(setCountGuests, 1, 300);
-                        formik.setFieldValue(
-                          'guests',
-                          (countGuests - 1).toString()
-                        );
-                      }}
-                    />
-                  </Stack>
-                  <Button onClick={formik.handleSubmit}>Vai</Button>
+                          handleCountMinus(setCountBeds, 1, 10);
+                          formik.setFieldValue(
+                            'beds',
+                            (countBeds - 1).toString()
+                          );
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <InputWithButtons
+                        inputlabelWithButtons="Quartos"
+                        value={countRooms}
+                        htmlFor="rooms"
+                        name="rooms"
+                        id="rooms"
+                        readOnly
+                        onChange={() => formik.setFieldValue('rooms', countRooms.toString())}
+                        handleplus={() => {
+                          handleCountPlus(setCountRooms, 1, 10);
+                          formik.setFieldValue(
+                            'rooms',
+                            (countRooms + 1).toString()
+                          );
+                        }}
+                        handleminus={() => {
+                          handleCountMinus(setCountRooms, 1, 10);
+                          formik.setFieldValue(
+                            'rooms',
+                            (countRooms - 1).toString()
+                          );
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <InputWithButtons
+                        tooltipLabel="Capacidade de pessoas"
+                        inputlabelWithButtons="Capacidade"
+                        htmlFor="guests"
+                        name="guests"
+                        id="guests"
+                        readOnly
+                        value={countGuests}
+                        onChange={e => {
+                          formik.setFieldValue(
+                            'guests',
+                            countGuests.toString()
+                          );
+                        }}
+                        handleplus={() => {
+                          handleCountPlus(setCountGuests, 1, 300);
+                          formik.setFieldValue(
+                            'guests',
+                            (countGuests + 1).toString()
+                          );
+                        }}
+                        handleminus={() => {
+                          handleCountMinus(setCountGuests, 1, 300);
+                          formik.setFieldValue(
+                            'guests',
+                            (countGuests - 1).toString()
+                          );
+                        }}
+                      />
+                    </GridItem>
+                  </Grid>
                 </Box>
-              </Box>
-            </GridItem>
-            <GridItem h="70vh" padding="2rem" margin="0 auto">
+              </GridItem>
+            </Box>
+            {/*  <GridItem h="70vh" padding="2rem" margin="0 auto">
               <Box p="1rem 0 2rem">
                 <Text m="0 0 1rem" as="h2">
                   Regras
@@ -373,8 +388,8 @@ function Melhorando() {
                 objectFit="cover"
                 src="https://cdn.discordapp.com/attachments/998213274048933888/998213853886291978/01.jpg"
               />
-            </GridItem>
-          </Grid>
+            </GridItem> */}
+          </Flex>
         )}
       </Formik>
     </Wrapper>
