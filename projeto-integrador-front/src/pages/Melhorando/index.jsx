@@ -202,7 +202,7 @@ function Melhorando() {
                   direction="row"
                   align="center"
                 >
-                  <HStack padding="2rem 0">
+                  <HStack padding="2rem 0" w="100%" justifyContent="space-evenly">
                     {category.map(option => {
                       const radio = getRadioProps({ value: option.name });
                       return (
@@ -254,7 +254,7 @@ function Melhorando() {
                     padding="1rem"
                     id="description"
                     as="textarea"
-                    rows="3"
+                    rows="1"
                   />
                 </Box>
               </GridItem>

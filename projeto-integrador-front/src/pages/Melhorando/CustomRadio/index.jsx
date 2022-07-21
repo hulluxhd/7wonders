@@ -9,12 +9,12 @@ function CustomRadio(props) {
   } =
     useRadio(props);
   return (
-    <Box textAlign="center" h="4rem" as="label" cursor="pointer">
+    <Box textAlign="center" h="4rem" margin="1rem 0" as="label" cursor="pointer">
       <input {...getInputProps()} hidden />
       <Box
         {...getCheckboxProps()}
         bg={state.isChecked ? 'var(--hard-blue)' : 'transparent'}
-        w="4rem"
+        w="4.2rem"
         p={1}
         rounded="full"
         h="100%"
