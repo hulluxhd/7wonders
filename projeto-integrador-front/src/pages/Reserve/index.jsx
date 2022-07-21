@@ -24,6 +24,7 @@ import MoreInfo from '../Product/components/MoreInfo';
 import DetailPageHeader from '../Product/components/DetailPageHeader';
 import baseApi from '../../services/service.baseApi';
 import url from '../../services/urls';
+import ModalSuccess from '../../components/ModalSuccess';
 
 function ReservePage() {
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
@@ -31,6 +32,7 @@ function ReservePage() {
   const { dateCheckinAndCheckout } = useContext(InfoContext);
   const { searchId } = useParams();
   const [product, setProduct] = useState({});
+  const [openModal, setOpenModal] = useState(false);
 
   function dates(date) {
     if (date) {
@@ -73,6 +75,7 @@ function ReservePage() {
   console.log(first, second);
   return (
     <>
+      <ModalSuccess open={openModal} msg="Reserva efetuada com sucesso!" />;
       <DetailPageHeader />
       <Wrapper>
         <Grid

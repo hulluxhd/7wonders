@@ -5,6 +5,7 @@ import {
   Flex,
   Grid,
   GridItem,
+  Heading,
   HStack,
   Icon,
   IconButton,
@@ -22,7 +23,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Field, Formik } from 'formik';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FolderSimpleMinus } from 'phosphor-react';
 import Wrapper from '../../components/Wrapper';
 import options from './options.customradio';
@@ -34,6 +35,8 @@ import InputWithButtons from './InputWithButtons';
 import PlusButton from '../../assets/plus-button.svg';
 import BasicButton from '../../components/BasicButton';
 import url from '../../services/urls';
+import baseApi from '../../services/service.baseApi';
+import ModalSuccess from '../../components/ModalSuccess';
 
 function Melhorando() {
   const [isSmallerThan715] = useMediaQuery('(max-width: 715px)');
@@ -52,6 +55,7 @@ function Melhorando() {
   const [countBeds, setCountBeds] = useState(1);
   const [countRooms, setCountRooms] = useState(1);
   const [countGuests, setCountGuests] = useState(1);
+  const [openModal, setOpenModal] = useState(false);
 
   function addIcon({ values: { attributes: attr } }, newIcon, _name) {
     const found = attr.find(({ name }) => name === _name);
@@ -106,6 +110,12 @@ function Melhorando() {
     [setCountBeds, setCountRooms]
   );
 
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    baseApi.get(url.CATEGORIES).then(({ data }) => setCategory(data));
+  }, []);
+  console.log(category);
+
   return (
     <Wrapper>
       <Text mt="1rem" as="h1">
@@ -147,32 +157,118 @@ function Melhorando() {
       >
         {formik => (
           <Flex wrap="wrap" justify="center">
+            <ModalSuccess open={openModal} msg="Cadastro efetuado com sucesso!" />;
             <Box
               gridTemplateColumns={{ base: '1fr', lg: 'repeat(5, 1fr)' }}
               display="grid"
               gap="2rem"
             >
               {!isSmallerThan992 && (
-                <GridItem m="2rem 0" h="75vh" colStart={1} colSpan={2}>
-                  <Image
-                    src="https://images.pexels.com/photos/3214958/pexels-photo-3214958.jpeg"
-                    borderRadius="1rem"
-                    objectFit="cover"
-                    w="100%"
-                    h="100%"
-                  />
+                <GridItem
+                  backgroundImage="url(https://images.pexels.com/photos/90597/pexels-photo-90597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)"
+                  height={{ base: '230px', lg: 'auto' }}
+                  bgRepeat="no-repeat"
+                  borderRadius="lg"
+                  bgSize="cover"
+                  bgPos="center"
+                  colStart={1}
+                  rowSpan={2}
+                  colEnd={3}
+                  h="100%"
+                  mt="4"
+                  mb="2"
+                >
+                  <Heading
+                    pt={{ base: '24', lg: '16' }}
+                    color="#FFFF"
+                    size="lg"
+                    as="h3"
+                    px="5"
+                  >
+                    {' '}
+                    Qual tipo de espaço você vai hospedar?
+                  </Heading>
                 </GridItem>
               )}
               <GridItem
+                maxH="50vh"
                 colStart={isSmallerThan992 ? 1 : 3}
-                colSpan={isSmallerThan992 ? 5 : 3}
+                colEnd={isSmallerThan992 ? 6 : 6}
+              >
+                <Stack
+                  {...placeCategory.getRootProps()}
+                  spacing="1.5rem"
+                  justify="start"
+                  direction="row"
+                  align="center"
+                >
+                  <HStack padding="2rem 0">
+                    {category.map(option => {
+                      const radio = getRadioProps({ value: option.name });
+                      return (
+                        <CustomRadio
+                          category={option.name}
+                          image={option.image}
+                          key={option.name}
+                          {...radio}
+                        />
+                      );
+                    })}
+                  </HStack>
+                </Stack>
+                <Box gap="1rem" display="flex" flexDir="column">
+                  <Grid gap={2} templateColumns="1fr 1fr 1fr">
+                    <GridItem colStart={1} colSpan={2}>
+                      <Input
+                        {...formik.getFieldProps('productName')}
+                        value={formik.values.productName}
+                        inputlabel="Nome da acomodação"
+                        border="1px solid var(--blue)"
+                        htmlFor="productName"
+                        name="productName"
+                        id="productName"
+                        padding="1rem"
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <Input
+                        {...formik.getFieldProps('price')}
+                        value={formik.values.price}
+                        inputlabel="Preço/noite"
+                        border="1px solid var(--blue)"
+                        htmlFor="price"
+                        name="price"
+                        id="price"
+                        padding="1rem"
+                      />
+                    </GridItem>
+                  </Grid>
+                  <Input
+                    {...formik.getFieldProps('description')}
+                    value={formik.values.description}
+                    border="1px solid var(--blue)"
+                    placeholder="Escreva aqui..."
+                    inputlabel="Descrição"
+                    htmlFor="description"
+                    name="description"
+                    padding="1rem"
+                    id="description"
+                    as="textarea"
+                    rows="3"
+                  />
+                </Box>
+              </GridItem>
+
+              <GridItem
+                colStart={isSmallerThan992 ? 1 : 3}
+                colEnd={isSmallerThan992 ? 6 : 6}
                 border="1px solid var(--blue)"
                 justifyContent="space-evenly"
                 borderRadius="1rem"
                 alignItems="center"
                 flexDir="column"
                 display="flex"
-                m="2rem 0"
+                m="9px 0"
                 gap="1rem"
                 p="0 1rem 2rem"
               >
@@ -378,7 +474,11 @@ function Melhorando() {
                 </Box>
               </GridItem>
 
-              <GridItem maxH="70vh" colStart={1} colEnd={isSmallerThan992 ? 6 : 4}>
+              <GridItem
+                maxH="70vh"
+                colStart={1}
+                colEnd={isSmallerThan992 ? 6 : 4}
+              >
                 <Text as="h2">Regras</Text>
                 <Flex h="100%" justifyContent="center" dir="column" wrap="wrap">
                   <Box w="100%">
@@ -530,7 +630,10 @@ function Melhorando() {
                     colSpan={2}
                   >
                     <BasicButton
-                      onClick={formik.handleSubmit}
+                      onClick={() => {
+                        formik.handleSubmit();
+                        setOpenModal(true);
+                      }}
                       description="Enviar"
                       type="submit"
                       minH="55px"

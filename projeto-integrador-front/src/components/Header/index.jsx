@@ -235,7 +235,7 @@ function Header({ drawerFunctions, children }) {
             w="100%"
             as="h1"
           >
-            Buscar ofertas em hóteis, casas e muito mais
+            Encontre sua maravilha!
           </Text>
           <Wrapper paddingX="10rem">
             <Grid
