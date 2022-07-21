@@ -19,7 +19,7 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { InfoContext } from '../../contexts/InfoContext';
 import geolocalization from '../../assets/geolocalization.svg';
 import calendar from '../../assets/calendar.svg';
@@ -43,6 +43,8 @@ function Header({ drawerFunctions, children }) {
     onOpen,
     onClose,
   } = drawerFunctions;
+
+  const navigate = useNavigate();
 
   const {
     dateCheckinAndCheckout,
@@ -157,10 +159,9 @@ function Header({ drawerFunctions, children }) {
             <Link to="/">
               <Image
                 onClick={handleCleanRenderStates}
-                borderRadius="0.25rem"
                 fit="contain"
                 src={logo5}
-                maxH="40px"
+                maxH="44px"
               />
             </Link>
             {user.name ? (
@@ -175,6 +176,9 @@ function Header({ drawerFunctions, children }) {
                     />
                   </MenuButton>
                   <MenuList>
+                    <MenuItem onClick={() => navigate('/register-product')}>
+                      Administração de produtos
+                    </MenuItem>
                     <MenuItem onClick={() => {
                       localStorage.removeItem('token');
                       setUser({});

@@ -57,7 +57,7 @@ function App() {
             path="/register-product"
             element={(
               <Guard>
-                <CreateProduct />
+                <Melhorando />
               </Guard>
             )}
           />

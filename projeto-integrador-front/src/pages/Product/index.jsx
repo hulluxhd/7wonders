@@ -89,7 +89,7 @@ function Product() {
             onClick={onOpen}
           >
             <GridProductItem
-              bgImage={product.images[0].links[0]}
+              bgImage={product?.images[1]?.links[0]}
               gridArea="1 / 1 / 3 / 2"
             />
             <GridProductItem

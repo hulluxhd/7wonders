@@ -1,9 +1,10 @@
 import {
-    Flex,
- FormLabel, HStack, Image, Tooltip, VStack
+  Flex,
+  FormLabel, HStack, Image, Tooltip, VStack
 } from '@chakra-ui/react';
 import Input from '../Input';
 import PlusButton from '../../../assets/plus-button.svg';
+import MinusButton from '../assets/minus-button.svg';
 
 function InputWithButtons(props) {
   const {
@@ -50,7 +51,7 @@ function InputWithButtons(props) {
             <Image
               minW="21.5px"
               maxW="22px"
-              src={PlusButton}
+              src={MinusButton}
               alt="add bed button"
               cursor="pointer"
               onClick={handleminus}
