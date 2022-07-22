@@ -13,26 +13,26 @@ function InputHeader(props) {
 
     <Box position="relative" onClick={onClick}>
       <Input
-        readOnly={readOnly}
-        background="#FFF"
-        fontSize="sm"
         placeholder={placeholder}
         borderRadius="0.25rem"
         paddingLeft="2.7rem"
+        readOnly={readOnly}
+        onChange={onChange}
+        background="#FFF"
+        fontSize="sm"
+        value={value}
         _placeholder={{
           fontSize: '0.85rem',
         }}
-        value={value}
-        onChange={onChange}
         {...props}
       />
       <Image
-        src={image}
-        width="1rem"
+        top={postop || '13px'}
         position="absolute"
         border-style="none"
+        width="1rem"
+        src={image}
         left="1rem"
-        top={postop || '13px'}
         zIndex={1}
       />
     </Box>

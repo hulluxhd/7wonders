@@ -3,7 +3,7 @@ import {
   Icon,
   Text,
   useMediaQuery,
- } from '@chakra-ui/react';
+} from '@chakra-ui/react';
 import {
   FaFacebook,
   FaLinkedinIn,
@@ -16,31 +16,31 @@ function Footer() {
 
   return (
     <Box
+      flexDir={isSmallerThan606 ? 'column' : 'row'}
+      justifyContent="space-between"
       position="relative"
+      alignItems="center"
+      bgColor="#d8d0c5"
+      display="flex"
+      p="1rem 3rem"
       width="100%"
+      as="footer"
       bottom="0"
       left="0"
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      flexDir={isSmallerThan606 ? 'column' : 'row'}
-      as="footer"
-      bgColor="#d8d0c5"
-      p="1rem 3rem"
     >
       <Text
+        fontFamily="'Poppins', sans-serif"
         color="var(--hard-blue)"
         fontWeight="bold"
-        fontFamily="'Poppins', sans-serif"
         fontSize="1rem"
       >
         ©2022 7 Wonders
       </Text>
       <Box
-        display="flex"
-        justifyContent="space-evenly"
-        gap="1.25rem"
         mt={isSmallerThan606 ? '0.8rem' : null}
+        justifyContent="space-evenly"
+        display="flex"
+        gap="1.25rem"
       >
         <Icon color="var(--hard-blue)" fontSize="1.75rem" as={FaFacebook} />
         <Icon color="var(--hard-blue)" fontSize="1.75rem" as={FaLinkedinIn} />

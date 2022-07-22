@@ -1,10 +1,10 @@
 import {
- Box, Icon, IconButton, Text
+  Box, Icon, IconButton, Text
 } from '@chakra-ui/react';
 import { IoMdCloseCircle } from 'react-icons/io';
 
 function AtributeIcon({
- name, index, icon, onClick
+  name, index, icon, onClick
 }) {
   return (
     <Box
@@ -18,10 +18,10 @@ function AtributeIcon({
       <Icon boxSize="2rem" as={icon} display="block" />
       <IconButton
         _hover={{ background: 'transparent' }}
-        onClick={onClick}
         background="transparent"
         as={IoMdCloseCircle}
         position="absolute"
+        onClick={onClick}
         cursor="pointer"
         color="red.400"
         boxSize="1rem"

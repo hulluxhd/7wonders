@@ -21,28 +21,32 @@ function Categories() {
     <Box background="#FFF" p="0 0 0.5rem">
       <Wrapper>
         <Text
-          as="h2"
-          color="var(--hard-blue)"
+          p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
           fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
+          color="var(--hard-blue)"
           lineHeight="1.75rem"
           fontWeight="700"
-          p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
+          as="h2"
         >
           Buscar por tipo de acomodação
         </Text>
         <Box
           display="grid"
-          gridTemplateColumns={isSmallerThan606 ? 'repeat(1, 1fr)' : (isSmallerThan851 ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)')}
           gap="0.8rem"
+          gridTemplateColumns={
+            isSmallerThan606
+              ? 'repeat(1, 1fr)'
+              : isSmallerThan851
+                ? 'repeat(2, 1fr)'
+                : 'repeat(5, 1fr)'
+          }
         >
-          {eachCategory.map(
-            (categoryToRender, index) => (
-              <CategoryCard
-                key={`${categoryToRender} + ${index.toString()} `}
-                categoryToRender={categoryToRender}
-              />
-            )
-          )}
+          {eachCategory.map((categoryToRender, index) => (
+            <CategoryCard
+              key={`${categoryToRender} + ${index.toString()} `}
+              categoryToRender={categoryToRender}
+            />
+          ))}
         </Box>
       </Wrapper>
     </Box>

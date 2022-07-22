@@ -28,9 +28,7 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState('');
-
   const [usersInfo, setUsersInfo] = useState({});
-
   const [userInfoForm, setUserInfoForm] = useState({ email: '', password: '' });
 
   const { user, setUser } = useContext(InfoContext);
@@ -111,10 +109,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
       <DrawerOverlay />
       <DrawerContent bg="#FFF">
         <DrawerBody
-          display="flex"
-          flexDir="column"
-          justifyContent="center"
           color="var(--hard-blue)"
+          justifyContent="center"
+          flexDir="column"
+          display="flex"
         >
           <Text as="h2" mb="2rem">
             Entre com a sua conta
@@ -124,8 +122,8 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               onSubmit={handleSubmit}
               id="login-form"
               style={{
-                display: 'flex',
                 flexDirection: 'column',
+                display: 'flex',
                 gap: '1.5rem',
               }}
             >
@@ -139,10 +137,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   E-mail
                   <Input
                     onChange={e => handleChangeLogin(e)}
-                    name="email"
-                    type="text"
                     color="var(--hard-blue)"
                     fontSize="sm"
+                    name="email"
+                    type="text"
                   />
                 </label>
               </Box>
@@ -157,10 +155,10 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   <Input
                     onChange={e => handleChangeLogin(e)}
                     color="var(--hard-blue)"
-                    fontSize="sm"
-                    id="password"
                     type="password"
                     name="password"
+                    id="password"
+                    fontSize="sm"
                   />
                 </label>
                 {errors.password && (
@@ -173,21 +171,21 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
           </Box>
           {errors && (
             <Text
-              textAlign="left"
               fontFamily="'Poppins', sans-serif"
+              textAlign="left"
+              color="red.500"
               fontSize="sm"
               as="span"
-              color="red.500"
             >
               {errors}
             </Text>
           )}
 
           <Box
-            display="flex"
-            flexDir="column"
             justifyContent="center"
             alignItems="center"
+            flexDir="column"
+            display="flex"
             m="2rem auto"
           >
             <Stack top="-10%" direction="row" spacing="20px">
@@ -198,18 +196,18 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
                   setErrors('');
                 }}
                 border="1px solid transparent"
-                borderRadius="0"
-                color="var(--blue)"
                 background="transparent"
+                color="var(--blue)"
+                borderRadius="0"
               />
               <BasicButton
-                description="Entrar"
-                p="0.5rem 1rem"
-                type="submit"
+                transition="all 0.2s ease-in-out"
                 border="1px solid var(--blue)"
                 borderRadius="0.25rem"
+                description="Entrar"
                 form="login-form"
-                transition="all 0.2s ease-in-out"
+                p="0.5rem 1rem"
+                type="submit"
               />
             </Stack>
             <Stack pt="10px" alignItems="center">
@@ -218,11 +216,11 @@ function DrawerLogin({ isOpen, onClose, breakpoint }) {
               </StackItem>
               <Link to="/register">
                 <StackItem
-                  as="span"
+                  _hover={{ borderBottom: '1px solid var(--blue)' }}
+                  color="var(--blue)"
                   onClick={onClose}
                   fontSize="xs"
-                  color="var(--blue)"
-                  _hover={{ borderBottom: '1px solid var(--blue)' }}
+                  as="span"
                 >
                   Cadastrar
                 </StackItem>

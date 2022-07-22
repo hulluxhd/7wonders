@@ -1,25 +1,25 @@
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
-  Box,
+  InputRightElement,
+  InputGroup,
   FormLabel,
+  Button,
   Input,
   Text,
-  InputGroup,
-  InputRightElement,
-  Button,
   Icon,
+  Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 function InputPassword({
-  fieldname,
   placeholderDescription,
   fieldDescription,
-  type,
   errorColor,
+  fieldname,
+  touched,
   props,
   errors,
-  touched,
+  type,
 }) {
   // função para exibir/ocultar password
   const [show, setShow] = useState(false);
@@ -32,13 +32,13 @@ function InputPassword({
       </FormLabel>
       <InputGroup>
         <Input
-          bgColor="#FFF"
-          {...props.getFieldProps(fieldname)}
-          id={fieldname}
           placeholder={placeholderDescription}
+          {...props.getFieldProps(fieldname)}
           type={show ? 'text' : 'password'}
-          name={fieldname}
           color="var(--light-blue)"
+          name={fieldname}
+          id={fieldname}
+          bgColor="#FFF"
         />
         <InputRightElement width="4.5rem">
           <Button h="1.5rem" size="sm" onClick={handleClick}>

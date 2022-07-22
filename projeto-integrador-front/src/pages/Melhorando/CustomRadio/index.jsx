@@ -9,18 +9,26 @@ function CustomRadio(props) {
   } =
     useRadio(props);
   return (
-    <Box textAlign="center" h="4rem" margin="1rem 0" as="label" cursor="pointer">
+    <Box
+      textAlign="center"
+      cursor="pointer"
+      margin="1rem 0"
+      h="4rem"
+      as="label"
+    >
       <input {...getInputProps()} hidden />
       <Box
-        {...getCheckboxProps()}
         bg={state.isChecked ? 'var(--hard-blue)' : 'transparent'}
-        w="4.2rem"
-        p={1}
+        {...getCheckboxProps()}
         rounded="full"
+        w="4.2rem"
         h="100%"
+        p={1}
       >
         <Image src={image} h="100%" rounded="full" {...getLabelProps()} />
-        <Text as="span" fontSize="small">{category}</Text>
+        <Text as="span" fontSize="small">
+          {category}
+        </Text>
       </Box>
     </Box>
   );

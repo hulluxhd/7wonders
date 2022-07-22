@@ -3,15 +3,15 @@ import { GridItem } from '@chakra-ui/react';
 function GridProductItem({ bgImage, gridArea }, props) {
   return (
     <GridItem
-      {...props}
-      rounded="lg"
-      bgImage={`url(${bgImage})`}
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      cursor="pointer"
-      bgSize="cover"
       gridArea={gridArea || '1 / 2 / 2 / 3'}
       transition="transform 0.2s ease-in-out"
+      bgImage={`url(${bgImage})`}
+      bgRepeat="no-repeat"
+      bgPosition="center"
+      cursor="pointer"
+      bgSize="cover"
+      rounded="lg"
+      {...props}
     />
   );
 }

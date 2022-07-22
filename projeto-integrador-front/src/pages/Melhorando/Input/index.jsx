@@ -4,18 +4,18 @@ import { forwardRef } from 'react';
 
 const Input = forwardRef((props, ref) => {
   const {
+    tooltipLabel,
     placeholder,
     inputlabel,
+    onChange,
     children,
+    padding,
     htmlFor,
+    border,
     value,
     name,
     id,
     as,
-    onChange,
-    tooltipLabel,
-    border,
-    padding
   } = props;
 
   const fieldStyle = {

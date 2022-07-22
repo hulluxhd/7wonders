@@ -109,28 +109,28 @@ function Product() {
               bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
             />
             <BasicButton
-              position="absolute"
+              transition="all 0.1s ease-in"
               description="Ver mais"
+              position="absolute"
+              onClick={onOpen}
               right="3.5rem"
               bottom="1rem"
               w="150px"
               mt={4}
-              onClick={onOpen}
               _hover={{
                 opacity: 0.9,
               }}
-              transition="all 0.1s ease-in"
             />
             <Modal
               finalFocusRef={finalRef}
-              size="xl"
-              isOpen={isOpen}
               onClose={onClose}
+              isOpen={isOpen}
+              size="xl"
             >
               <ModalOverlay
-                bg="gray.200"
                 backdropFilter="auto"
                 backdropBlur="2px"
+                bg="gray.200"
                 width="100%"
               />
               <ModalContent>
@@ -141,11 +141,11 @@ function Product() {
                 </ModalBody>
                 <ModalFooter gap="1rem" justifyContent="flex-end">
                   <BasicButton
-                    bgColor="transparent"
-                    border="none"
-                    color="var(--hard-blue)"
                     w={{ base: '25%', lg: '20%' }}
+                    color="var(--hard-blue)"
+                    bgColor="transparent"
                     description="Voltar"
+                    border="none"
                   />
                   <BasicButton
                     w={{ base: '25%', lg: '20%' }}
@@ -157,8 +157,8 @@ function Product() {
           </Grid>
 
           <Divider
-            borderWidth="-1px"
             borderColor="var(--light-blue)"
+            borderWidth="-1px"
             margin="2rem auto"
           />
 

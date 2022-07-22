@@ -20,26 +20,26 @@ export default function DescriptionSection({ info }) {
       display="flex"
     >
       <Box
-        padding="2rem"
-        position="relative"
-        display="flex"
-        flexDirection="column"
         width={{ base: '100%', xl: '50%' }}
+        flexDirection="column"
+        position="relative"
+        padding="2rem"
+        display="flex"
       >
         <Text
           as="h2"
           fontFamily="Poppins, sans-serif"
-          fontWeight="600"
           paddingBottom="1rem"
+          fontWeight="600"
         >
           Umas das melhores localizações de Miami
         </Text>
         <Text
-          id="description-text"
+          fontSize={{ base: '1rem', lg: '1rem' }}
           className="description hided"
           color="var(--hard-blue)"
+          id="description-text"
           fontWeight="500"
-          fontSize={{ base: '1rem', lg: '1rem' }}
           lineHeight="1.6"
         >
           {info.description}
@@ -52,9 +52,9 @@ export default function DescriptionSection({ info }) {
               : (descriptionButton.innerText = 'Ler mais');
           }}
           id="description-button"
-          value="true"
-          cursor="pointer"
           color="var(--blue)"
+          cursor="pointer"
+          value="true"
         >
           Ler mais
         </Text>
@@ -63,22 +63,22 @@ export default function DescriptionSection({ info }) {
         margin={{ base: 'auto', lg: '0 auto', xl: '0 auto' }}
         boxShadow="2px 6px 20px var(--hard-blue)"
         width={{ base: '90%', xl: '40%' }}
+        justifyContent="space-between"
         className="accHighlights"
         color="var(--hard-blue)"
         borderRadius="10px"
-        display="flex"
         flexDir="column"
-        justifyContent="space-between"
-        height="auto"
+        display="flex"
         padding="2rem"
+        height="auto"
       >
         <Text as="h2" paddingBottom="1rem">
           Essa acomodação oferece:
         </Text>
 
         <Box
-          className="attribute-icons-container"
           justifyContent={{ base: 'start', lg: 'space-evenly' }}
+          className="attribute-icons-container"
           flexWrap="wrap"
           display="flex"
           gap="1rem"
@@ -96,9 +96,9 @@ export default function DescriptionSection({ info }) {
 
         <Box display="flex" className="button-container">
           <BasicButton
+            onClick={() => navigate(`/reserve/accommodations/${info.id}`)}
             description="Reservar"
             width="90%"
-            onClick={() => navigate(`/reserve/accommodations/${info.id}`)}
           />
         </Box>
       </Box>

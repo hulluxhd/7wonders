@@ -1,20 +1,20 @@
 import {
- Box, FormLabel, Input, Text
+  Box, FormLabel, Input, Text
 } from '@chakra-ui/react';
 
 function InputRegister(teste) {
- const {
-    fieldname,
+  const {
     placeholderDescription,
     fieldDescription,
-    type,
     errorColor,
-    props,
-    errors,
+    fieldname,
     touched,
     colSpan,
-    value,
     bgColor,
+    errors,
+    props,
+    value,
+    type,
   } = teste;
   return (
     <Box display="flex" flexDirection="column" colSpan={colSpan}>

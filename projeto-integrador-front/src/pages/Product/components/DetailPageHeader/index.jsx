@@ -16,30 +16,30 @@ export default function DetailPageHeader({ name }) {
   return (
     <Box
       className="detail-header"
-      // height="4rem"
       bgColor="#3F0D0C"
-      color="#FFF"
+      // height="4rem"
       marginTop="-2px"
+      color="#FFF"
     >
       <Box
-        width="90%"
+        justifyContent="space-between"
+        padding="0.75rem 0"
+        alignItems="center"
         maxWidth="1440px"
         margin="0 auto"
         display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        padding="0.75rem 0"
+        width="90%"
       >
         <Box as="span">
           <Text as="h4">Hotel</Text>
           <Text as="h2">{name}</Text>
         </Box>
         <Box
+          padding="0 0 0 1rem"
           onClick={goBack}
-          as="button"
           type="button"
           float="right"
-          padding="0 0 0 1rem"
+          as="button"
         >
           <ArrowUUpLeft size={32} color="#FFF" />
         </Box>

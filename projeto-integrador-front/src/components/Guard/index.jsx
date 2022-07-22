@@ -7,6 +7,7 @@ function Guard({ children }) {
     const navigate = useNavigate();
 
     const localToken = localStorage.getItem('token');
+
     useEffect(() => {
         if (!localToken) {
             navigate('/register');

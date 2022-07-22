@@ -38,11 +38,7 @@ import getCities from './utils/util.getCities';
 import url from '../../services/urls';
 
 function Header({ drawerFunctions, children }) {
-  const {
-    isOpen,
-    onOpen,
-    onClose,
-  } = drawerFunctions;
+  const { isOpen, onOpen, onClose } = drawerFunctions;
 
   const navigate = useNavigate();
 
@@ -58,19 +54,14 @@ function Header({ drawerFunctions, children }) {
 
   const [isSmallerThan606] = useMediaQuery('(max-width: 606px)');
 
-  // state para guardar a altura do header
   const [headerHeight, setHeaderHeight] = useState(0);
 
+  const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
+  const [temporaryPlace, setTemporaryPlace] = useState({});
   const [cities, setCities] = useState([]);
 
-  const [temporaryPlace, setTemporaryPlace] = useState({});
-
-  // largura da viewport
   const layoutWidth = window.innerWidth;
 
-  const [toRenderOnDropdown, setToRenderOnDropdown] = useState([]);
-  // função que seta os cards a serem exibidos
-  // em tela na página de resultados
   function handleCardsOnDisplay() {
     setPlace({
       ...temporaryPlace,
@@ -86,27 +77,25 @@ function Header({ drawerFunctions, children }) {
       city: '',
       cityId: '',
       country: '',
-      category: ''
+      category: '',
     });
 
     setTemporaryPlace({
       city: '',
       cityId: '',
       country: '',
-      category: ''
+      category: '',
     });
   }
 
   // * Gerenciadores do motor de busca
   function handlePlace({ target }) {
-    setTemporaryPlace(
-      {
-        city: target.value,
-        cityId: null,
-        cityCountry: '',
-        category: ''
-      }
-    );
+    setTemporaryPlace({
+      city: target.value,
+      cityCountry: '',
+      cityId: null,
+      category: '',
+    });
   }
 
   // useEffect para observar a largura da viewport e identificar o
@@ -155,7 +144,8 @@ function Header({ drawerFunctions, children }) {
           <Wrapper
             justifyContent="space-between"
             alignItems="center"
-            display="flex">
+            display="flex"
+          >
             <Link to="/">
               <Image
                 onClick={handleCleanRenderStates}
@@ -179,10 +169,12 @@ function Header({ drawerFunctions, children }) {
                     <MenuItem onClick={() => navigate('/register-product')}>
                       Administração de produtos
                     </MenuItem>
-                    <MenuItem onClick={() => {
-                      localStorage.removeItem('token');
-                      setUser({});
-                    }}>
+                    <MenuItem
+                      onClick={() => {
+                        localStorage.removeItem('token');
+                        setUser({});
+                      }}
+                    >
                       Encerrar sessão
                     </MenuItem>
                   </MenuList>
@@ -254,7 +246,6 @@ function Header({ drawerFunctions, children }) {
                 zIndex={99}
                 w="100%"
               >
-
                 <InputHeader
                   value={handleInputCityValueController(temporaryPlace)}
                   onClick={() => componentsVisible.inputCity.open()}
@@ -277,11 +268,8 @@ function Header({ drawerFunctions, children }) {
                     w="100%"
                     top="0"
                   >
-
-                    {toRenderOnDropdown.map((city) => (
-                      <Box
-                        key={city.cityName}
-                      >
+                    {toRenderOnDropdown.map(city => (
+                      <Box key={city.cityName}>
                         <Box
                           _hover={{ bgColor: 'var(--light-bege)' }}
                           onClick={() => {
@@ -289,7 +277,7 @@ function Header({ drawerFunctions, children }) {
                               city: city.name,
                               cityId: city.id,
                               country: city.country,
-                              category: ''
+                              category: '',
                             });
                             componentsVisible.inputCity.close();
                           }}
@@ -326,7 +314,11 @@ function Header({ drawerFunctions, children }) {
                             </VStack>
                           </HStack>
                         </Box>
-                        <Divider borderColor="var(--blue)" _last={{ borderColor: 'transparent' }} w="100%" />
+                        <Divider
+                          borderColor="var(--blue)"
+                          _last={{ borderColor: 'transparent' }}
+                          w="100%"
+                        />
                       </Box>
                     ))}
                   </Box>
@@ -339,15 +331,30 @@ function Header({ drawerFunctions, children }) {
                 zIndex={98}
                 w="100%"
               >
-
                 {componentsVisible.inputCalendar.isComponentVisible && (
-                  <BasicCalendar position="absolute" marginTop="2.8rem" zIndex={98}>
+                  <BasicCalendar
+                    position="absolute"
+                    marginTop="2.8rem"
+                    zIndex={98}
+                  >
                     <Grid gap="0.1rem" templateColumns="1fr 1fr">
                       <GridItem w="100%">
-                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0 0.25rem 0.25rem 0.25rem" description="Limpar" onClick={() => setDateCheckinAndCheckout(null)} />
+                        <BasicButton
+                          onClick={() => setDateCheckinAndCheckout(null)}
+                          borderRadius="0 0.25rem 0.25rem 0.25rem"
+                          _hover={{ filter: 'brightness(0.9)' }}
+                          transition="all 0.1s ease-in-out"
+                          description="Limpar"
+                        />
                       </GridItem>
                       <GridItem w="100%">
-                        <BasicButton _hover={{ filter: 'brightness(0.9)' }} transition="all 0.1s ease-in-out" borderRadius="0.25rem 0 0.25rem 0.25rem" description="Aplicar" onClick={() => componentsVisible.inputCalendar.close()} />
+                        <BasicButton
+                          onClick={() => componentsVisible.inputCalendar.close()}
+                          borderRadius="0.25rem 0 0.25rem 0.25rem"
+                          _hover={{ filter: 'brightness(0.9)' }}
+                          transition="all 0.1s ease-in-out"
+                          description="Aplicar"
+                        />
                       </GridItem>
                     </Grid>
                   </BasicCalendar>
@@ -361,10 +368,15 @@ function Header({ drawerFunctions, children }) {
                   cursor="pointer"
                   readOnly
                 />
-
               </GridItem>
               <GridItem colSpan={1} w="100%">
-                <Link to={temporaryPlace.city ? `/results/cities/${temporaryPlace.cityId}` : '/results'}>
+                <Link
+                  to={
+                    temporaryPlace.city
+                      ? `/results/cities/${temporaryPlace.cityId}`
+                      : '/results'
+                  }
+                >
                   <BasicButton
                     _hover={{
                       background: 'var(--light-blue)',

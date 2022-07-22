@@ -8,20 +8,15 @@ import url from '../services/urls';
 export const InfoContext = createContext();
 
 function InfoProvider({ children }) {
+  const [dateCheckinAndCheckout, setDateCheckinAndCheckout] = useState(null);
+  const [cardsRender, setCardsRender] = useState(localData);
   const [user, setUser] = useState({});
-
-  // ! Esse é o state central do header e do motor de busca. Tanto o input quanto
-  // ! as funções de renderização o utilizam
   const [place, setPlace] = useState({
-    city: '',
     cityId: null,
     country: '',
     category: '',
+    city: '',
   });
-
-  const [cardsRender, setCardsRender] = useState(localData);
-
-  const [dateCheckinAndCheckout, setDateCheckinAndCheckout] = useState(null);
 
   useEffect(() => {
     try {
@@ -33,11 +28,11 @@ function InfoProvider({ children }) {
         })
         .then(({ data: userData }) => {
           setUser({
-            name: userData.name,
-            surname: userData.surname,
-            roles: userData.roles,
             favorites: userData.favorites,
+            surname: userData.surname,
             email: userData.username,
+            roles: userData.roles,
+            name: userData.name,
           });
         });
     } catch (e) {

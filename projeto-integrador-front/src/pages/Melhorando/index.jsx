@@ -52,10 +52,11 @@ function Melhorando() {
   });
 
   const [selectedAttributes, setSelectedAttributes] = useState([]);
-  const [countBeds, setCountBeds] = useState(1);
-  const [countRooms, setCountRooms] = useState(1);
   const [countGuests, setCountGuests] = useState(1);
   const [openModal, setOpenModal] = useState(false);
+  const [countRooms, setCountRooms] = useState(1);
+  const [countBeds, setCountBeds] = useState(1);
+  const [category, setCategory] = useState([]);
 
   function addIcon({ values: { attributes: attr } }, newIcon, _name) {
     const found = attr.find(({ name }) => name === _name);
@@ -110,7 +111,6 @@ function Melhorando() {
     [setCountBeds, setCountRooms]
   );
 
-  const [category, setCategory] = useState([]);
   useEffect(() => {
     baseApi.get(url.CATEGORIES).then(({ data }) => setCategory(data));
   }, []);
@@ -267,10 +267,10 @@ function Melhorando() {
                 borderRadius="1rem"
                 alignItems="center"
                 flexDir="column"
-                display="flex"
-                m="9px 0"
-                gap="1rem"
                 p="0 1rem 2rem"
+                display="flex"
+                gap="1rem"
+                m="9px 0"
               >
                 <Box alignSelf="start" p="1rem 0">
                   <Text m="0 0 1rem" as="h2">
@@ -375,9 +375,9 @@ function Melhorando() {
                             icon={icon}
                             index={index}
                             onClick={() => formik.setFieldValue(
-                                'attributes',
-                                removeIcon(icon, formik)
-                              )}
+                              'attributes',
+                              removeIcon(icon, formik)
+                            )}
                           />
                         </Tooltip>
                       ))}

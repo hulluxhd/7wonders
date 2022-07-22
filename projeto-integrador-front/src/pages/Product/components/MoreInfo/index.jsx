@@ -5,30 +5,30 @@ export default function MoreInfo() {
   return (
     <Box
       className="moreInfo-section-container"
-      padding="4"
       borderRadius="lg"
-      bgColor="#fff"
-      shadow="lg"
       color="#3F0D0C"
+      bgColor="#fff"
+      padding="4"
+      shadow="lg"
     >
       <Text
-        as="h1"
         marginBottom="2"
+        as="h1"
       >
         O que você precisa saber:
       </Text>
       <Divider
-        borderWidth="-2px"
         borderColor="#D9B061"
+        borderWidth="-2px"
         margin="1rem auto"
       />
       <Box
+        flexDirection={{ base: 'column', lg: 'row' }}
+        justifyContent="space-evenly"
         className="infos-container"
         display="flex"
-        flexDirection={{ base: 'column', lg: 'row' }}
-        gap="6"
         marginTop="5"
-        justifyContent="space-evenly"
+        gap="6"
       >
         <Box
           flex="1"
@@ -39,26 +39,26 @@ export default function MoreInfo() {
             Regras da casa
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
-            mt="5"
+            fontSize="small"
             color="#696969"
+            mt="5"
           >
             Check-out: 10:00
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
-            mt="5"
+            fontSize="small"
             color="#696969"
+            mt="5"
           >
             Não é permitido festa
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
-            mt="5"
+            fontSize="small"
             color="#696969"
+            mt="5"
           >
             Não é permitido fumar
           </Text>
@@ -72,19 +72,19 @@ export default function MoreInfo() {
             Saúde e segurança
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
-            mt="5"
+            fontSize="small"
             color="#696969"
+            mt="5"
           >
             Diretrizes de distanciamento social e outras regulamentações
             relacionadas ao novo coronovírus se aplicam
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
-            mt="5"
+            fontSize="small"
             color="#696969"
+            mt="5"
           >
             Detector de fumaça
           </Text>
@@ -106,10 +106,10 @@ export default function MoreInfo() {
             Política de cancelamento
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
-            mt="5"
+            fontSize="small"
             color="#696969"
+            mt="5"
           >
             Adicione as datas da viagem para obter detalhes de cancelamento
             para esta estadia.

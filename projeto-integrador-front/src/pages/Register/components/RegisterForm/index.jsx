@@ -1,14 +1,14 @@
 import {
-  FormControl,
-  Box,
-  Container,
-  useMediaQuery,
-  Text,
-  useToast,
-  InputGroup,
   InputRightElement,
+  useMediaQuery,
+  FormControl,
+  InputGroup,
+  Container,
+  useToast,
   Button,
+  Text,
   Icon,
+  Box,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -50,19 +50,19 @@ function RegisterForm({ openDrawer }) {
       <Formik
         validationSchema={SignupSchema}
         initialValues={{
-          name: '',
-          surname: '',
-          email: '',
           passwordVerf: '',
           password: '',
+          surname: '',
+          email: '',
+          name: '',
         }}
         // função para capturar os valores dos inputs
         onSubmit={values => {
           const data = {
-            name: values.name,
+            password: values.password,
             surname: values.surname,
             username: values.email,
-            password: values.password,
+            name: values.name,
           };
           try {
             baseApi.post(url.POST_NEW_USER, data);
@@ -78,65 +78,65 @@ function RegisterForm({ openDrawer }) {
                 <FormControl>
                   <Box display="flex" flexDirection="row" gap={4}>
                     <InputRegister
-                      fieldDescription="Nome"
-                      props={props}
-                      fieldname="name"
-                      errors={props.errors.name}
                       touched={props.touched.name}
-                      type="text"
+                      errors={props.errors.name}
+                      fieldDescription="Nome"
                       errorColor="var(--red)"
+                      fieldname="name"
+                      props={props}
+                      type="text"
                     />
                     <InputRegister
-                      fieldDescription="Sobrenome"
-                      props={props}
-                      fieldname="surname"
-                      errors={props.errors.surname}
                       touched={props.touched.surname}
-                      type="text"
+                      errors={props.errors.surname}
+                      fieldDescription="Sobrenome"
                       errorColor="var(--red)"
+                      fieldname="surname"
+                      props={props}
+                      type="text"
                     />
                   </Box>
                   <InputRegister
-                    fieldDescription="Email"
-                    props={props}
-                    fieldname="email"
-                    errors={props.errors.email}
                     touched={props.touched.email}
-                    type="text"
+                    errors={props.errors.email}
+                    fieldDescription="Email"
                     errorColor="var(--red)"
+                    fieldname="email"
+                    props={props}
+                    type="text"
                   />
                   <InputPassword
-                    fieldDescription="Senha"
-                    props={props}
-                    fieldname="password"
-                    errors={props.errors.password}
                     touched={props.touched.password}
+                    errors={props.errors.password}
+                    fieldDescription="Senha"
                     errorColor="var(--red)"
+                    fieldname="password"
+                    props={props}
                   />
                   <InputRegister
-                    fieldDescription="Confirme sua Senha"
-                    props={props}
-                    fieldname="passwordVerf"
-                    errors={props.errors.passwordVerf}
                     touched={props.touched.passwordVerf}
-                    type="password"
+                    errors={props.errors.passwordVerf}
+                    fieldDescription="Confirme sua Senha"
+                    fieldname="passwordVerf"
                     errorColor="var(--red)"
+                    type="password"
+                    props={props}
                   />
                 </FormControl>
 
                 <Box
-                  display="flex"
+                  flexDir={isSmallerThan606 ? 'column' : 'row'}
                   justifyContent="center"
                   alignItems="center"
+                  display="flex"
                   m={4}
-                  flexDir={isSmallerThan606 ? 'column' : 'row'}
                 >
                   <BasicButton
-                    type="submit"
-                    description="Registrar"
-                    w={isSmallerThan606 ? '80%' : '40%'}
                     ml={isSmallerThan606 ? null : '1rem'}
+                    w={isSmallerThan606 ? '80%' : '40%'}
                     transition="all 0.2s ease-in-out"
+                    description="Registrar"
+                    type="submit"
                     _hover={{
                       background: 'transparent',
                       color: 'var(--hard-blue)',
@@ -149,11 +149,11 @@ function RegisterForm({ openDrawer }) {
                 <Text fontSize="sm">
                   Já tem uma conta?
                   <Text
-                    cursor="pointer"
                     onClick={openDrawer}
-                    as="span"
                     color="var(--blue)"
+                    cursor="pointer"
                     fontSize="sm"
+                    as="span"
                   >
                     {' '}
                     Login

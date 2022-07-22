@@ -81,19 +81,19 @@ function ReservePage() {
       <DetailPageHeader />
       <Wrapper>
         <Grid
-          templateRows="repeat(1, 1fr)"
           templateColumns="repeat(5, 1fr)"
+          templateRows="repeat(1, 1fr)"
           gap={{ base: '2', md: '4' }}
-          p="1rem"
           color="#3F0D0C"
+          p="1rem"
         >
           <GridItem colSpan={{ base: '5', lg: '3' }}>
             <Text
-              as="h2"
+              p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
               lineHeight="1.75rem"
               fontWeight="700"
-              p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
+              as="h2"
               mb="2"
             >
               Insira seus dados
@@ -101,24 +101,24 @@ function ReservePage() {
             <FormReserve dados={dados} />
           </GridItem>
           <GridItem
-            colSpan={{ base: '5', lg: '2' }}
             rowStart={{ base: '4', lg: '0' }}
+            colSpan={{ base: '5', lg: '2' }}
             rowSpan={{ base: '0', lg: '3' }}
           >
             <Box
-              padding="4"
               marginTop={isSmallerThan606 ? '0' : '14'}
               borderRadius="lg"
               bgColor="#fff"
               shadow="lg"
+              padding="4"
               w="100%"
             >
               <Text
-                as="h2"
+                p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
                 fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
                 lineHeight="1.75rem"
                 fontWeight="700"
-                p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
+                as="h2"
                 mt="1"
                 mb="2"
               >
@@ -128,15 +128,15 @@ function ReservePage() {
               <InputHeader
                 value={handleInputDateValueController(dateCheckinAndCheckout)}
                 placeholder="Check in"
-                _readOnly
                 cursor="pointer"
+                _readOnly
               />
               <InputHeader
-                onChange={() => setSecond('teste')}
                 value={handleInputDateValueController(dateCheckinAndCheckout)}
+                onChange={() => setSecond('teste')}
                 placeholder="Check out"
-                _readOnly
                 cursor="pointer"
+                _readOnly
               />
               {error && <Text>{error}</Text>}
               <BasicButton
@@ -146,22 +146,22 @@ function ReservePage() {
                   setSecond('teste');
                   setOpenModal('true');
                 }}
-                type="submit"
-                description="Reservar"
-                w="100%"
-                my="1rem"
                 transition="all 0.2s ease-in-out"
+                description="Reservar"
+                type="submit"
                 border="none"
+                my="1rem"
+                w="100%"
               />
             </Box>
           </GridItem>
           <GridItem colSpan={{ base: '5', lg: '3' }}>
             <Text
-              as="h2"
+              p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
               lineHeight="1.75rem"
               fontWeight="700"
-              p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
+              as="h2"
               mt="3"
               mb="2"
             >
@@ -172,21 +172,21 @@ function ReservePage() {
           <GridItem colSpan={{ base: '5', lg: '3' }}>
             <Text
               as="h2"
+              p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
               fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
               lineHeight="1.75rem"
               fontWeight="700"
-              p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
               mt="3"
               mb="2"
             >
               Seu horário de chegada
             </Text>
             <Box
-              padding="4"
               pt={{ base: '1', md: '4' }}
               borderRadius="lg"
               bgColor="#fff"
               shadow="lg"
+              padding="4"
               h="32"
             >
               <Text fontWeight="bold">
@@ -197,9 +197,9 @@ function ReservePage() {
               </Text>
               <FormControl mt="3">
                 <Select
-                  id="hr"
                   placeholder="Selecione a hora de chegada"
                   fontSize="smaller"
+                  id="hr"
                 >
                   <option>10:00 - 11:00</option>
                   <option>11:00 - 12:00</option>

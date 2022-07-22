@@ -8,8 +8,8 @@ import {
   Swiper,
   SwiperSlide,
 }
-// eslint-disable-next-line import/no-unresolved
-from 'swiper/react';
+  // eslint-disable-next-line import/no-unresolved
+  from 'swiper/react';
 
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css';
@@ -41,20 +41,20 @@ import baseApi from '../../../../services/service.baseApi';
 export default function ModalSlide() {
   return (
     <Swiper
+      modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
+      pagination={{ type: 'fraction', clickable: true }}
+      className="mySwiper2"
       spaceBetween={50}
       slidesPerView={1}
       navigation
-      modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
-      className="mySwiper2"
-      pagination={{ type: 'fraction', clickable: true }}
     >
       <SwiperSlide>
         <Box
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgSize="cover"
           bgRepeat="no-repeat"
+          bgPosition="center"
           margin="0 auto"
+          bgSize="cover"
           height="70vh"
           width="80vw"
         />
@@ -62,10 +62,10 @@ export default function ModalSlide() {
       <SwiperSlide>
         <Box
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
-          bgPosition="center"
-          bgSize="cover"
           bgRepeat="no-repeat"
+          bgPosition="center"
           margin="0 auto"
+          bgSize="cover"
           height="70vh"
           width="80vw"
         >
@@ -77,9 +77,9 @@ export default function ModalSlide() {
         <Box
           bgImage="url('https://images.trvl-media.com/hotels/13000000/12080000/12079000/12078999/a4a65579.jpg?impolicy=resizecrop&rw=1200&ra=fit')"
           bgPosition="center"
-          bgSize="cover"
           bgRepeat="no-repeat"
           margin="0 auto"
+          bgSize="cover"
           height="70vh"
           width="80vw"
         >

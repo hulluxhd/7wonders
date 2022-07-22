@@ -4,23 +4,23 @@ import { Box } from '@chakra-ui/react';
 
 function BasicButton(props) {
   const {
-    w, ml, h, height, background, bgColor, backgroundColor, description, border, borderRadius, color
+    w, ml, h, height, background, bgColor, description, borderRadius, color
   } = props;
   return (
     <Box
-      {...props}
-      as="button"
-      w={w || '100%'}
-      ml={ml}
-      h={h || height || '2.5rem'}
       bgColor={background || bgColor || '#D9B061'}
+      borderRadius={borderRadius || '0.25rem'}
+      transition="all 150ms ease-in-out"
       _hover={{
         filter: 'brightness(0.9)'
       }}
-      borderRadius={borderRadius || '0.25rem'}
+      h={h || height || '2.5rem'}
       color={color || '#FFF'}
+      w={w || '100%'}
       fontWeight="bold"
-      transition="all 150ms ease-in-out"
+      as="button"
+      {...props}
+      ml={ml}
     >
       {description}
     </Box>

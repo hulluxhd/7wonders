@@ -15,12 +15,12 @@ function Home() {
       <Categories />
       <Wrapper>
         <Text
-          as="h2"
-          color="var(--hard-blue)"
           fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
+          color="var(--hard-blue)"
           lineHeight="1.75rem"
           fontWeight="700"
           p="2rem 0 1rem"
+          as="h2"
         >
           Recomendações
         </Text>

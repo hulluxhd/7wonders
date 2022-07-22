@@ -24,14 +24,14 @@ function BasicCalendar({
 
   return (
     <Box
-      className="calendar-wrapper"
       position={position || 'relative'}
-      top={0}
-      left={0}
+      className="calendar-wrapper"
+      borderRadius="0.25rem"
       marginTop={marginTop}
       background="#FFF"
-      borderRadius="0.25rem"
       width={width}
+      top={0}
+      left={0}
     >
       <Calendar
         next2Label={<Icon as={FaChevronCircleRight} />}

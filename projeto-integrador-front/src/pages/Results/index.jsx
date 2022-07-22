@@ -29,11 +29,9 @@ function Results({ informations }) {
         getData(id, endpoint).then(resp => {
           if (!resp.accommodations) {
             const { accommodationSet } = resp;
-
             setAccommodations(accommodationSet);
           } else {
             const { accommodations: accommodation } = resp;
-
             setAccommodations(accommodation);
           }
         });

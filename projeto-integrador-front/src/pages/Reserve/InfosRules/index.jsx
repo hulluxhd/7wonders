@@ -18,19 +18,19 @@ function InfosRules({ info }) {
 
   return (
     <Box
-      padding="4"
       borderRadius="lg"
       bgColor="#fff"
       shadow="lg"
+      padding="4"
       mt="2"
     >
       <Text
-        as="h2"
-        color="var(--hard-blue)"
+        p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
         fontSize={isSmallerThan606 ? '1.4rem' : '1.75rem'}
+        color="var(--hard-blue)"
         lineHeight="1.75rem"
         fontWeight="700"
-        p={isSmallerThan606 ? '1rem 0 0.25rem' : '1rem 0 0.5rem'}
+        as="h2"
         mt="3"
         mb="2"
       >
@@ -38,18 +38,18 @@ function InfosRules({ info }) {
       </Text>
       <Divider bgColor="var(--blue)" />
       <Box
-        display="flex"
         flexDirection="row"
+        display="flex"
         mt="5"
         gap="4"
       >
         <Box w="33%">
           <Text
-            as="h1"
-            color="var(--hard-blue)"
             fontSize={isSmallerThan606 ? '1.0rem' : '1.2rem'}
+            color="var(--hard-blue)"
             lineHeight="1.75rem"
             fontWeight="600"
+            as="h1"
             p="1"
           >
             Regras da casa
@@ -57,12 +57,13 @@ function InfosRules({ info }) {
           <Box as="ul" p="1rem">
             {houseRules.map((string, index) => (
               <Text
-                fontSize="small"
+                // eslint-disable-next-line react/no-array-index-key
+                key={`${string}${index}`}
                 fontWeight="medium"
+                fontSize="small"
                 mt="5"
                 as="li"
-                // eslint-disable-next-line react/no-array-index-key
-                key={`${string}${index}`}>
+              >
                 {string}
               </Text>
             ))}
@@ -70,11 +71,11 @@ function InfosRules({ info }) {
         </Box>
         <Box w="33%">
           <Text
-            as="h1"
-            color="var(--hard-blue)"
             fontSize={isSmallerThan606 ? '1.0rem' : '1.2rem'}
+            color="var(--hard-blue)"
             lineHeight="1.75rem"
             fontWeight="600"
+            as="h1"
             p="1"
           >
             Saúde e segurança
@@ -82,10 +83,10 @@ function InfosRules({ info }) {
           <Box as="ul" p="1rem">
             {safetyRules.map((string, index) => (
               <Text
-                fontSize="small"
                 fontWeight="medium"
-                mt="5"
+                fontSize="small"
                 as="li"
+                mt="5"
                 // eslint-disable-next-line react/no-array-index-key
                 key={`${string}${index}`}>
                 {string}
@@ -95,18 +96,18 @@ function InfosRules({ info }) {
         </Box>
         <Box w="33%">
           <Text
-            as="h1"
-            color="var(--hard-blue)"
             fontSize={isSmallerThan606 ? '1.0rem' : '1.2rem'}
+            color="var(--hard-blue)"
             lineHeight="1.75rem"
             fontWeight="600"
+            as="h1"
             p="1"
           >
             Política de cancelamento
           </Text>
           <Text
-            fontSize="small"
             fontWeight="medium"
+            fontSize="small"
             mt="5"
           >
             Adicione as datas da viagem para obter detalhes de cancelamento

@@ -8,12 +8,12 @@ export default function Map() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBha6bbcPqbLjNHuJdRMpm5eENNi-e7fH4'
-    });
+  });
 
-    const accPosition = {
-      lat: 25.759848017292736,
-      lng: -80.19208362173622,
-    };
+  const accPosition = {
+    lat: 25.759848017292736,
+    lng: -80.19208362173622,
+  };
 
   return (
     <Box>
@@ -21,12 +21,12 @@ export default function Map() {
         Onde você vai estar
       </Text>
       <Box
-        className="container"
-        width="75%"
         height={{ base: '60vh', xl: '70vh' }}
+        className="container"
         position="relative"
+        width="75%"
       >
-        { isLoaded ? (
+        {isLoaded ? (
           <GoogleMap
             mapContainerStyle={{ width: '100%', height: '100%' }}
             center={accPosition}
@@ -38,10 +38,10 @@ export default function Map() {
                 label: {
                   text: 'Piramides de Gize',
                   className: 'map-marker',
-              }
-            }} />
+                }
+              }} />
           </GoogleMap>
-          ) : (<Text as="h4">Erro ao carregar o mapa</Text>)}
+        ) : (<Text as="h4">Erro ao carregar o mapa</Text>)}
       </Box>
     </Box>
   );

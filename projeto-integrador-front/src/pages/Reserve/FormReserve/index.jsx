@@ -11,7 +11,6 @@ import {
 import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate, useParams } from 'react-router-dom';
 import InputRegister from '../../Register/components/InputRegister';
 import { InfoContext } from '../../../contexts/InfoContext';
 
@@ -44,11 +43,11 @@ function FormReserve() {
     <Formik
       validationSchema={SignupSchema}
       initialValues={{
+        guest: 'usuario',
         firstName: '',
         lastName: '',
         email: '',
         city: '',
-        guest: 'usuario',
       }}
       onSubmit={values => {
         console.log(values);
@@ -138,11 +137,11 @@ function FormReserve() {
                     <InputRegister
                       touched={props.touched.lastName}
                       errors={props.errors.lastName}
+                      value={props.values.lastName}
                       fieldDescription="Sobrenome"
                       errorColor="var(--red)"
                       fieldname="lastName"
                       props={props}
-                      value={props.values.lastName}
                       type="text"
                     />
                   ) : (
