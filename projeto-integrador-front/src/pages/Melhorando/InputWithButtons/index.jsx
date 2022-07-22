@@ -29,8 +29,8 @@ function InputWithButtons(props) {
       <HStack>
         <Input
           inputlabel={inputlabel}
-          htmlFor={htmlFor}
           onChange={onChange}
+          htmlFor={htmlFor}
           value={value}
           name={name}
           {...props}

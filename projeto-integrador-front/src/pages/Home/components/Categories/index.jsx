@@ -32,7 +32,7 @@ function Categories() {
         </Text>
         <Box
           display="grid"
-          gridTemplateColumns={isSmallerThan606 ? 'repeat(1, 1fr)' : (isSmallerThan851 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)')}
+          gridTemplateColumns={isSmallerThan606 ? 'repeat(1, 1fr)' : (isSmallerThan851 ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)')}
           gap="0.8rem"
         >
           {eachCategory.map(

@@ -146,7 +146,7 @@ function Melhorando() {
         }}
         onSubmit={values => {
           // eslint-disable-next-line no-alert
-          alert(
+          console.log(
             JSON.stringify(
               { ...values, attributes: selectedAttributes },
               false,
@@ -157,7 +157,7 @@ function Melhorando() {
       >
         {formik => (
           <Flex wrap="wrap" justify="center">
-            <ModalSuccess open={openModal} msg="Cadastro efetuado com sucesso!" />;
+            <ModalSuccess open={openModal} msg="Cadastro efetuado com sucesso!" />
             <Box
               gridTemplateColumns={{ base: '1fr', lg: 'repeat(5, 1fr)' }}
               display="grid"
@@ -233,13 +233,13 @@ function Melhorando() {
                     <GridItem>
                       <Input
                         {...formik.getFieldProps('price')}
+                        border="1px solid var(--blue)"
                         value={formik.values.price}
                         inputlabel="Preço/noite"
-                        border="1px solid var(--blue)"
                         htmlFor="price"
+                        padding="1rem"
                         name="price"
                         id="price"
-                        padding="1rem"
                       />
                     </GridItem>
                   </Grid>
