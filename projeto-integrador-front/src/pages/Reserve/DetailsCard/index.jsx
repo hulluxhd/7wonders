@@ -33,8 +33,8 @@ function DetailsCard({ product }) {
     >
       <Box h="100%" position="relative">
         <Image
-          /* src={headerImage}
-          alt={headerImage} */
+          src="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
+          alt="imagem"
           w="100%"
           h="20rem"
           fit="cover"

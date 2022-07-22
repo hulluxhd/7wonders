@@ -89,7 +89,7 @@ function Product() {
             onClick={onOpen}
           >
             <GridProductItem
-              bgImage={product?.images[1]?.links[0]}
+              bgImage="https://img.freepik.com/free-vector/night-ocean-landscape-full-moon-stars-shine_107791-7397.jpg?w=2000"
               gridArea="1 / 1 / 3 / 2"
             />
             <GridProductItem

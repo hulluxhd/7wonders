@@ -53,6 +53,8 @@ function ReservePage() {
     }
   }, []);
 
+  console.log(product);
+
   const [first, setFirst] = useState('');
   const [second, setSecond] = useState('');
   const [error, setError] = useState('');
@@ -142,6 +144,7 @@ function ReservePage() {
                   validadeData();
                   setFirst('teste');
                   setSecond('teste');
+                  setOpenModal('true');
                 }}
                 type="submit"
                 description="Reservar"
